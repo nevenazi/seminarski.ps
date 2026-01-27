@@ -87,7 +87,7 @@ public class MarketingMenadzer implements ApstraktniDomenskiObjekat{
     }
 
     @Override
-    public String vratiTabelu() {
+    public String vratiNazivTabele() {
         return "marketingmenadzer";
     }
 
@@ -95,6 +95,12 @@ public class MarketingMenadzer implements ApstraktniDomenskiObjekat{
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista= new ArrayList<>();
         while (rs.next()){
+            int idMarketingMenadzer=rs.getInt("idMarketingMenadzer");
+            String ime=rs.getString("ime");
+            String prezime=rs.getString("prezime");
+            String telefon=rs.getString("telefon");
+            String email=rs.getString("email");
+            int idKompanije=rs.getInt("kompanija");
             
         }
         
@@ -102,7 +108,7 @@ public class MarketingMenadzer implements ApstraktniDomenskiObjekat{
     }
 
     @Override
-    public String vratiKolonuZaUbacivanje() {
+    public String vratiKoloneZaUbacivanje() {
         return "ime,prezime,telefon,email,kompanija";
     }
 

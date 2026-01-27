@@ -98,7 +98,7 @@ public class Dizajner implements ApstraktniDomenskiObjekat {
     }
 
     @Override
-    public String vratiTabelu() {
+    public String vratiNazivTabele() {
         return "dizajner";
     }
 
@@ -106,14 +106,21 @@ public class Dizajner implements ApstraktniDomenskiObjekat {
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista= new ArrayList<>();
         while (rs.next()){
+            int idDizajner=rs.getInt("idDizajner");
+            String ime=rs.getString("ime");
+            String prezime=rs.getString("prezime");
+            String korisnickoIme=rs.getString("korisnickoIme");
+            String sifra=rs.getString("sifra");
             
+            Dizajner dizajner= new Dizajner(idDizajner, ime, prezime, korisnickoIme, sifra);
+            lista.add(dizajner);
         }
         
         return lista;
     }
 
     @Override
-    public String vratiKolonuZaUbacivanje() {
+    public String vratiKoloneZaUbacivanje() {
         return "ime,prezime,korisnickoIme,sifra";
     }
 

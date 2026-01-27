@@ -121,7 +121,7 @@ public class EvidencijaAngazmana implements ApstraktniDomenskiObjekat{
     }
 
     @Override
-    public String vratiTabelu() {
+    public String vratiNazivTabele() {
         return "evidencijaangazmana";
     }
 
@@ -136,7 +136,7 @@ public class EvidencijaAngazmana implements ApstraktniDomenskiObjekat{
     }
 
     @Override
-    public String vratiKolonuZaUbacivanje() {
+    public String vratiKoloneZaUbacivanje() {
         return "ukupanIznos,rok,zavrsen,dizajner,marketingMenadzer";
     }
 

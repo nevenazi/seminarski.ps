@@ -86,7 +86,7 @@ public class DizajnerSertifikat implements ApstraktniDomenskiObjekat {
     }
 
     @Override
-    public String vratiTabelu() {
+    public String vratiNazivTabele() {
         return "dizajnersertifikat";
     }
 
@@ -102,7 +102,7 @@ public class DizajnerSertifikat implements ApstraktniDomenskiObjekat {
     }
 
     @Override
-    public String vratiKolonuZaUbacivanje() {
+    public String vratiKoloneZaUbacivanje() {
         return "dizajner,sertifikat,datumIzdavanja";
     }
 

@@ -14,11 +14,11 @@ import java.sql.ResultSet;
  */
 public interface ApstraktniDomenskiObjekat extends Serializable {
     
-    public String vratiTabelu();
+    public String vratiNazivTabele();
     
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception;
     
-    public String vratiKolonuZaUbacivanje();
+    public String vratiKoloneZaUbacivanje();
     
     public String vratiVrednostZaUbacivanje();
     

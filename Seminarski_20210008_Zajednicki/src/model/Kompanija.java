@@ -57,7 +57,7 @@ public class Kompanija implements ApstraktniDomenskiObjekat{
     }
 
     @Override
-    public String vratiTabelu() {
+    public String vratiNazivTabele() {
         return "kompanija";
     }
 
@@ -77,7 +77,7 @@ public class Kompanija implements ApstraktniDomenskiObjekat{
     }
 
     @Override
-    public String vratiKolonuZaUbacivanje() {
+    public String vratiKoloneZaUbacivanje() {
         return "naziv,sajt";
     }
 

@@ -77,7 +77,7 @@ public class TipVizuala implements ApstraktniDomenskiObjekat {
     }
 
     @Override
-    public String vratiTabelu() {
+    public String vratiNazivTabele() {
         return "tipvizuala";
     }
 
@@ -99,7 +99,7 @@ public class TipVizuala implements ApstraktniDomenskiObjekat {
     }
 
     @Override
-    public String vratiKolonuZaUbacivanje() {
+    public String vratiKoloneZaUbacivanje() {
         return "naziv,dimenzije,modelBoja,osnovnaCena";
     }
 

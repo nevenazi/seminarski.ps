@@ -79,7 +79,7 @@ public class Sertifikat implements ApstraktniDomenskiObjekat{
     }
 
     @Override
-    public String vratiTabelu() {
+    public String vratiNazivTabele() {
         return "sertifikat";
     }
 
@@ -99,7 +99,7 @@ public class Sertifikat implements ApstraktniDomenskiObjekat{
     }
 
     @Override
-    public String vratiKolonuZaUbacivanje() {
+    public String vratiKoloneZaUbacivanje() {
         return "naziv,institucija";
     }
 

@@ -152,7 +152,7 @@ public class StavkaAngazmana implements ApstraktniDomenskiObjekat {
     }
 
     @Override
-    public String vratiTabelu() {
+    public String vratiNazivTabele() {
         return "stavkaangazmana";
     }
 
@@ -181,7 +181,7 @@ public class StavkaAngazmana implements ApstraktniDomenskiObjekat {
     }
 
     @Override
-    public String vratiKolonuZaUbacivanje() {
+    public String vratiKoloneZaUbacivanje() {
         return "EvidencijaAngazmana,rb,kolicina,opis,cena,nekorigovanIznos,korekcijaIznosa,korigovanIznos,zavrsena,tipVizuala";
     }
 
