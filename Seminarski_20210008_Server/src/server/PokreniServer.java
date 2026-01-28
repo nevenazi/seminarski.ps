@@ -17,14 +17,14 @@ import niti.ObradaKlijentskihZahteva;
  */
 public class PokreniServer extends Thread {
     boolean kraj=false;
-    ServerSocket serverSocket;
+    ServerSocket serverSoket;
     
     
     
     public void zaustaviServer(){
         kraj=true;
         try {
-            serverSocket.close();
+            serverSoket.close();
             System.out.println("cao");
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -35,13 +35,16 @@ public class PokreniServer extends Thread {
 
     @Override
     public void run() {
+            
             try {
-            serverSocket = new ServerSocket(9000);
+            serverSoket = new ServerSocket(9000);
+            
             while (!kraj) {
-                Socket s = serverSocket.accept();
+                System.out.println("krenuo je run u PokreniServer");
+                Socket s = serverSoket.accept();
                 System.out.println("Klijent je povezan");
-                ObradaKlijentskihZahteva okz = new ObradaKlijentskihZahteva(s);
-                okz.start();
+                //ObradaKlijentskihZahteva okz = new ObradaKlijentskihZahteva(s);
+                //okz.start();
             }
         } catch (IOException iOException) {
             Logger.getLogger(ServerSocket.class.getName()).log(Level.SEVERE, null, iOException);
