@@ -2,16 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package operacije;
+package operacije.dizajnerOperacije;
 
 import java.util.List;
 import model.Dizajner;
+import operacije.ApstraktnaGenerickaOperacija;
 
 /**
  *
  * @author N
  */
-public class LoginOperacija extends ApstraktnaGenerickaOperacija {
+public class PrijaviDizajnerSO extends ApstraktnaGenerickaOperacija {
 
     Dizajner dizajner;
 
@@ -24,14 +25,16 @@ public class LoginOperacija extends ApstraktnaGenerickaOperacija {
     }
     
     @Override
-    protected void preduslovi(Object objekat) throws Exception {
-        
+    protected void preduslovi(Object param) throws Exception {
+        if(param==null || !(param instanceof Dizajner)){
+            throw new Exception("Sistem ne može da prijavi dizajnera.");
+        }
     }
 
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         List<Dizajner> dizajneri = broker.getAll(param,null);
-        System.out.println("Lista dizajnera u loginOperacija izvrsiOperaciju() je: "+dizajneri);
+        
         
         dizajner=null;
         for(Dizajner d:dizajneri){

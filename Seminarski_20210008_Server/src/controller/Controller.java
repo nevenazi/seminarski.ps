@@ -4,8 +4,12 @@
  */
 package controller;
 
+import java.util.List;
 import model.Dizajner;
-import operacije.LoginOperacija;
+import operacije.dizajnerOperacije.KreirajDizajnerSO;
+import operacije.dizajnerOperacije.PrijaviDizajnerSO;
+import operacije.dizajnerOperacije.ObrisiDizajnerSO;
+import operacije.dizajnerOperacije.UcitajDizajnereSO;
 
 /**
  *
@@ -25,10 +29,28 @@ public class Controller {
     }
 
     public Dizajner login(Dizajner d) throws Exception {
-        LoginOperacija o =new LoginOperacija();
+        PrijaviDizajnerSO o =new PrijaviDizajnerSO();
         o.izvrsi(d,null);
         System.out.println("klasa controller:"+o.getDizajner());
         return o.getDizajner();
+    }
+
+    public List<Dizajner> ucitajDizajnere() throws Exception {
+        UcitajDizajnereSO o=new UcitajDizajnereSO();
+        o.izvrsi(new Dizajner(), null);
+        return o.getDizajneri();
+        
+    }
+
+    public void obrisiDizajner(model.Dizajner parametar) throws Exception {
+        ObrisiDizajnerSO o=new ObrisiDizajnerSO();
+        o.izvrsi(parametar, null);
+        
+    }
+
+    public void kreirajDizajner(Dizajner d) throws Exception {
+        KreirajDizajnerSO o=new KreirajDizajnerSO();
+        o.izvrsi(d, null);
     }
     
     

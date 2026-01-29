@@ -43,10 +43,11 @@ public class LoginController {
         Dizajner ulogovan=Komunikacija.getInstance().login(username,password);
         System.out.println("ulogovan dizajner "+ulogovan);
         if (ulogovan==null){
-            JOptionPane.showMessageDialog(lf, "Loše uneti kredencijal. Dizajner ne postoji u bazi. Pokušajte ponovo", "Loš unos", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(lf, "Korisničko ime i šifra nisu ispravni.", "Loš unos", JOptionPane.WARNING_MESSAGE);
         } else {
-            //glavnaforma
-            JOptionPane.showMessageDialog(lf, "Prijava je uspešna. Ulovogan je dizajner "+ulogovan.getIme()+" "+ulogovan.getPrezime()+".", "Dobro došli!", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(lf, "Korisničko ime i šifra su ispravni.", "Dobro došli!", JOptionPane.INFORMATION_MESSAGE);
+            Koordinator.getInstance().setUlogovaniKorisnik(ulogovan);
+            Koordinator.getInstance().otvoriGlavnuFormu();
             lf.dispose();
         }
     }

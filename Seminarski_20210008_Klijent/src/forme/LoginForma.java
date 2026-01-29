@@ -127,7 +127,6 @@ public class LoginForma extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void loginAddActionListener(ActionListener actionListener) {
-        System.out.println("kkkk");
         jButtonUslogujSe.addActionListener(actionListener);
     }
 }

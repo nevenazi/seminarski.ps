@@ -6,8 +6,11 @@ package komunikacija;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Dizajner;
 
 /**
@@ -60,6 +63,36 @@ public class Komunikacija {
         dizajner=(Dizajner) odg.getOdgovor();
         return dizajner;
         
+    }
+
+    public List<Dizajner> ucitajDizajnere() {
+        List <Dizajner> dizajneri=new ArrayList<>();
+        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.UCITAJDIZAJNERE, null);
+        posiljalac.posalji(zahtev);
+        ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
+        dizajneri=(List<Dizajner>) odg.getOdgovor();
+        return dizajneri;     
+    }
+
+    public void obrisiDizajnera(Dizajner d) throws Exception {
+        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.OBRISIDIZAJNER, d);
+        posiljalac.posalji(zahtev);
+        
+        ServerskiOdgovor odg=(ServerskiOdgovor)primalac.primi();
+        if (odg.getOdgovor()!=null){
+            ((Exception)odg.getOdgovor()).printStackTrace();
+            throw new Exception("Greska u brisanju");
+        }
+    }
+
+    public void kreirajDizajner(Dizajner d) throws Exception {
+        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.KREIRAJDIZAJNER, d);
+        posiljalac.posalji(zahtev);
+        ServerskiOdgovor odg=(ServerskiOdgovor)primalac.primi();
+        if (odg.getOdgovor()!=null){
+            ((Exception)odg.getOdgovor()).printStackTrace();
+            throw new Exception("Greska u brisanju");
+        }
     }
     
 }

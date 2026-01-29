@@ -33,7 +33,7 @@ public abstract class ApstraktnaGenerickaOperacija {
         }
     }
 
-    protected abstract void preduslovi(Object objekat) throws Exception;
+    protected abstract void preduslovi(Object param) throws Exception;
     
     protected abstract void izvrsiOperaciju(Object param, String kljuc) throws Exception;
     

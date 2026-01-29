@@ -12,4 +12,7 @@ import java.io.Serializable;
  */
 public enum Operacija implements Serializable {
     LOGIN, 
+    UCITAJDIZAJNERE,
+    OBRISIDIZAJNER,
+    KREIRAJDIZAJNER
 }

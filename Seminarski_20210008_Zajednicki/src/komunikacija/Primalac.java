@@ -24,12 +24,24 @@ public class Primalac {
     
     public Object primi(){
         try {
-            ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
-            System.out.println("zahtev je primljen u klasi primalac");
-            return in.readObject();
-        } catch (Exception ex) {
-            Logger.getLogger(Primalac.class.getName()).log(Level.SEVERE, null, ex);
-        }
+                if (socket == null || socket.isClosed()) {
+                    System.out.println("Socket je zatvoren.");
+                    return null;
+                }
+                ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+                return in.readObject();
+            } catch (java.net.SocketException e) {
+                System.out.println("Klijent više nije povezan.");
+                try {
+                        if (!socket.isClosed()) {
+                        socket.close();
+                        }
+                    } catch (IOException ex) {
+                        Logger.getLogger(Primalac.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+            } catch (Exception ex) {
+                Logger.getLogger(Primalac.class.getName()).log(Level.SEVERE, null, ex);
+            }
         return null;
     }
 }
