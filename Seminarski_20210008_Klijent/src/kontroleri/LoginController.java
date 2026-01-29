@@ -41,6 +41,7 @@ public class LoginController {
         
         Komunikacija.getInstance().konekcija();
         Dizajner ulogovan=Komunikacija.getInstance().login(username,password);
+        System.out.println("ulogovan dizajner "+ulogovan);
         if (ulogovan==null){
             JOptionPane.showMessageDialog(lf, "Loše uneti kredencijal. Dizajner ne postoji u bazi. Pokušajte ponovo", "Loš unos", JOptionPane.WARNING_MESSAGE);
         } else {

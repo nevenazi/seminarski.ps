@@ -38,13 +38,13 @@ public class PokreniServer extends Thread {
             
             try {
             serverSoket = new ServerSocket(9000);
-            
+                System.out.println(serverSoket);
             while (!kraj) {
                 System.out.println("krenuo je run u PokreniServer");
                 Socket s = serverSoket.accept();
                 System.out.println("Klijent je povezan");
-                //ObradaKlijentskihZahteva okz = new ObradaKlijentskihZahteva(s);
-                //okz.start();
+                ObradaKlijentskihZahteva okz = new ObradaKlijentskihZahteva(s);
+                okz.start();
             }
         } catch (IOException iOException) {
             Logger.getLogger(ServerSocket.class.getName()).log(Level.SEVERE, null, iOException);

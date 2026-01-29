@@ -37,6 +37,10 @@ public class KlijentskiZahtev implements Serializable {
     public void setParametar(Object parametar) {
         this.parametar = parametar;
     }
-    
+
+    @Override
+    public String toString() {
+        return "KlijentskiZahtev{" + "operacija=" + operacija + ", parametar=" + parametar + '}';
+    }
     
 }

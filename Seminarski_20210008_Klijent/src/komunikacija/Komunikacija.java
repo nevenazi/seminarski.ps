@@ -34,13 +34,15 @@ public class Komunikacija {
     
     public void konekcija(){
         try {
+            
             socket=new Socket("localhost",9000);
+            
         } catch (IOException ex) {
             Logger.getLogger(Komunikacija.class.getName()).log(Level.SEVERE, null, ex);
         }
         posiljalac=new Posiljalac(socket);
         primalac= new Primalac(socket);
-        
+        System.out.println(socket);
     }
 
     public Dizajner login(String username, String password) {
@@ -55,9 +57,9 @@ public class Komunikacija {
         posiljalac.posalji(zahtev);
         System.out.println(zahtev);
         ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
-        //dizajner=(Dizajner) odg.getOdgovor();
-        //return dizajner;
-        return null;
+        dizajner=(Dizajner) odg.getOdgovor();
+        return dizajner;
+        
     }
     
 }

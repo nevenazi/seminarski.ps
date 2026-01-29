@@ -30,8 +30,8 @@ public class LoginOperacija extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
-        List<Dizajner> dizajneri = broker.getAll();
-        System.out.println("loginoperacija.java, izvrsiOperaciju: "+dizajneri);
+        List<Dizajner> dizajneri = broker.getAll(param,null);
+        System.out.println("Lista dizajnera u loginOperacija izvrsiOperaciju() je: "+dizajneri);
         
         dizajner=null;
         for(Dizajner d:dizajneri){

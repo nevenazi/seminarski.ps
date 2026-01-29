@@ -7,6 +7,7 @@ package model;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -94,8 +95,14 @@ public class Dizajner implements ApstraktniDomenskiObjekat {
             return false;
         }
         final Dizajner other = (Dizajner) obj;
-        return this.idDizajner == other.idDizajner;
+        if (!Objects.equals(this.korisnickoIme, other.korisnickoIme)) {
+            return false;
+        }
+        return Objects.equals(this.sifra, other.sifra);
     }
+
+    
+    
 
     @Override
     public String vratiNazivTabele() {

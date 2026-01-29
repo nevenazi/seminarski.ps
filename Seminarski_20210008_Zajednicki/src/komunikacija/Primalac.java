@@ -25,6 +25,7 @@ public class Primalac {
     public Object primi(){
         try {
             ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
+            System.out.println("zahtev je primljen u klasi primalac");
             return in.readObject();
         } catch (Exception ex) {
             Logger.getLogger(Primalac.class.getName()).log(Level.SEVERE, null, ex);
