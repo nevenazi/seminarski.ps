@@ -26,7 +26,8 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jButtonSacuvaj" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonPromeni" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonKreiraj" min="-2" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel1" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
@@ -71,8 +72,10 @@
                   <Component id="jPasswordField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-              <Component id="jButtonSacuvaj" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="52" max="32767" attributes="0"/>
+              <Component id="jButtonKreiraj" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jButtonPromeni" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="23" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -113,18 +116,26 @@
         <Property name="text" type="java.lang.String" value="stefankoc"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButtonSacuvaj">
+    <Component class="javax.swing.JButton" name="jButtonKreiraj">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Sa&#x10d;uvaj"/>
+        <Property name="text" type="java.lang.String" value="Kreiraj"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSacuvajActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonKreirajActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="jPasswordField">
       <Properties>
         <Property name="text" type="java.lang.String" value="stefankoc"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonPromeni">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Promeni"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPromeniActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

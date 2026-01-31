@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import kontroleri.Koordinator;
 import model.Dizajner;
 
 /**
@@ -88,6 +89,17 @@ public class Komunikacija {
     public void kreirajDizajner(Dizajner d) throws Exception {
         KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.KREIRAJDIZAJNER, d);
         posiljalac.posalji(zahtev);
+        ServerskiOdgovor odg=(ServerskiOdgovor)primalac.primi();
+        if (odg.getOdgovor()!=null){
+            ((Exception)odg.getOdgovor()).printStackTrace();
+            throw new Exception("Greska u brisanju");
+        }
+    }
+
+    public void promeniDizajner(Dizajner d) throws Exception {
+        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.PROMENIDIZAJNER, d);
+        posiljalac.posalji(zahtev);
+        
         ServerskiOdgovor odg=(ServerskiOdgovor)primalac.primi();
         if (odg.getOdgovor()!=null){
             ((Exception)odg.getOdgovor()).printStackTrace();

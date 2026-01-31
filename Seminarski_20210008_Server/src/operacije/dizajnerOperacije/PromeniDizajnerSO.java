@@ -11,7 +11,7 @@ import operacije.ApstraktnaGenerickaOperacija;
  *
  * @author N
  */
-public class KreirajDizajnerSO extends ApstraktnaGenerickaOperacija {
+public class PromeniDizajnerSO extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void preduslovi(Object param) throws Exception {
@@ -22,12 +22,11 @@ public class KreirajDizajnerSO extends ApstraktnaGenerickaOperacija {
         
         if (d.getIme()==null || d.getIme().isEmpty() || d.getPrezime()==null || d.getPrezime().isEmpty() || d.getKorisnickoIme()==null || d.getKorisnickoIme().isEmpty()|| d.getSifra()==null || d.getSifra().isEmpty()|| d.getSifra().length()<8){
             throw new Exception("Greška u unosu podataka dizajnera.");
-        }
-    }
+        }    }
 
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
-        broker.add((Dizajner)param);
+        broker.edit((Dizajner)param);
     }
     
 }

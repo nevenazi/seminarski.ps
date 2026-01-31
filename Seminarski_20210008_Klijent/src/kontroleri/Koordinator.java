@@ -8,6 +8,9 @@ import forme.DizajnerForma;
 import forme.GlavnaForma;
 import forme.KreirajDizajnerForma;
 import forme.LoginForma;
+import forme.VrstaForme;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 import model.Dizajner;
 
@@ -22,7 +25,8 @@ public class Koordinator {
     private GlavnaFormaController glavnaFormaController;
     private DizajnerFormaController dizajnerFormaController;
     private KreirajDizajnerFormaController kreirajDizajnerFormaController;
-
+    private Map<String, Object> parametri;
+    
     public LoginController getLoginController() {
         return loginController;
     }
@@ -47,7 +51,7 @@ public class Koordinator {
     
 
     private Koordinator() {
-        
+        parametri=new HashMap<>();
     }
     
     public static Koordinator getInstance(){
@@ -81,10 +85,20 @@ public class Koordinator {
     
     public void otvoriKreirajDizajnerFormu(){
         kreirajDizajnerFormaController=new KreirajDizajnerFormaController(new KreirajDizajnerForma());
-        kreirajDizajnerFormaController.otvoriFormu();
+        kreirajDizajnerFormaController.otvoriFormu(VrstaForme.KREIRAJ);
     }
 
-    
+    public void dodajParametar(String s, Object o){
+        parametri.put(s,o);
+    }
+    public Object vratiParametar(String s){
+        return parametri.get(s);
+    }
+
+    void otvoriPromeniDizajnerFormu() {
+        kreirajDizajnerFormaController=new KreirajDizajnerFormaController(new KreirajDizajnerForma());
+        kreirajDizajnerFormaController.otvoriFormu(VrstaForme.PROMENI);
+    }
 
     
     

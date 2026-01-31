@@ -9,6 +9,7 @@ import model.Dizajner;
 import operacije.dizajnerOperacije.KreirajDizajnerSO;
 import operacije.dizajnerOperacije.PrijaviDizajnerSO;
 import operacije.dizajnerOperacije.ObrisiDizajnerSO;
+import operacije.dizajnerOperacije.PromeniDizajnerSO;
 import operacije.dizajnerOperacije.UcitajDizajnereSO;
 
 /**
@@ -50,6 +51,11 @@ public class Controller {
 
     public void kreirajDizajner(Dizajner d) throws Exception {
         KreirajDizajnerSO o=new KreirajDizajnerSO();
+        o.izvrsi(d, null);
+    }
+
+    public void promeniDizajner(Dizajner d) throws Exception {
+        PromeniDizajnerSO o=new PromeniDizajnerSO();
         o.izvrsi(d, null);
     }
     

@@ -72,9 +72,15 @@ public class ObradaKlijentskihZahteva extends Thread {
                         } catch (Exception exception) {
                             odgovor.setOdgovor(exception);
                         }
-                        
-                     
                         break;
+                    case PROMENIDIZAJNER:
+                        try {
+                            d = (Dizajner) zahtev.getParametar();
+                            Controller.getInstance().promeniDizajner(d);
+                            odgovor.setOdgovor(null);
+                        } catch (Exception exception) {
+                            odgovor.setOdgovor(exception);
+                        }
 
                     default:System.out.println("Greška! Nepostojeća operacija je izabrana.");
                 }

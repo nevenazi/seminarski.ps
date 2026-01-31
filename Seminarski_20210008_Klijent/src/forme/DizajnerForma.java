@@ -7,6 +7,7 @@ package forme;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -34,8 +35,18 @@ public class DizajnerForma extends javax.swing.JFrame {
         jTableDizajner = new javax.swing.JTable();
         jButtonObrisi = new javax.swing.JButton();
         jButtonKreiraj = new javax.swing.JButton();
+        jButtonPromeni = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jTextFieldIme = new javax.swing.JTextField();
+        jTextFieldImePrezime = new javax.swing.JTextField();
+        jTextFieldKorisnickoIme = new javax.swing.JTextField();
+        jButtonPretrazi = new javax.swing.JButton();
+        jButtonResetuj = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Dizajner");
 
         jTableDizajner.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -59,30 +70,84 @@ public class DizajnerForma extends javax.swing.JFrame {
 
         jButtonKreiraj.setText("Kreiraj dizajnera");
 
+        jButtonPromeni.setText("Promeni dizajnera");
+        jButtonPromeni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPromeniActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("ime:");
+
+        jLabel2.setText("prezime:");
+
+        jLabel3.setText("korisničko ime:");
+
+        jButtonPretrazi.setText("Pretraži");
+
+        jButtonResetuj.setText("Resetuj");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(65, 65, 65)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jButtonKreiraj)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonPromeni)
+                            .addGap(47, 47, 47)
+                            .addComponent(jButtonObrisi)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonKreiraj)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonObrisi)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldImePrezime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldKorisnickoIme, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(75, 75, 75)
+                                .addComponent(jTextFieldIme, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(69, 69, 69)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonPretrazi)
+                            .addComponent(jButtonResetuj))))
                 .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(58, 58, 58)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextFieldIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextFieldImePrezime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonPretrazi))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextFieldKorisnickoIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonResetuj))
+                .addGap(51, 51, 51)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonKreiraj)
-                    .addComponent(jButtonObrisi))
-                .addContainerGap(122, Short.MAX_VALUE))
+                    .addComponent(jButtonObrisi)
+                    .addComponent(jButtonPromeni))
+                .addGap(40, 40, 40))
         );
 
         pack();
@@ -95,6 +160,10 @@ public class DizajnerForma extends javax.swing.JFrame {
     private void jButtonObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonObrisiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonObrisiActionPerformed
+
+    private void jButtonPromeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPromeniActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonPromeniActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,11 +204,34 @@ public class DizajnerForma extends javax.swing.JFrame {
         return jTableDizajner;
     }
 
+    public JTextField getjTextFieldIme() {
+        return jTextFieldIme;
+    }
+
+    public JTextField getjTextFieldKorisnickoIme() {
+        return jTextFieldKorisnickoIme;
+    }
+
+    public JTextField getjTextFieldImePrezime() {
+        return jTextFieldImePrezime;
+    }
+    
+    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonKreiraj;
     private javax.swing.JButton jButtonObrisi;
+    private javax.swing.JButton jButtonPretrazi;
+    private javax.swing.JButton jButtonPromeni;
+    private javax.swing.JButton jButtonResetuj;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableDizajner;
+    private javax.swing.JTextField jTextFieldIme;
+    private javax.swing.JTextField jTextFieldImePrezime;
+    private javax.swing.JTextField jTextFieldKorisnickoIme;
     // End of variables declaration//GEN-END:variables
 
     public void addButtonObrisiActionListener(ActionListener actionListener) {
@@ -148,5 +240,17 @@ public class DizajnerForma extends javax.swing.JFrame {
     
     public void addButtonKreirajActionListener(ActionListener actionListener) {
         jButtonKreiraj.addActionListener(actionListener);
+    }
+    
+    public void addButtonPromeniActionListener(ActionListener actionListener) {
+        jButtonPromeni.addActionListener(actionListener);
+    }
+    
+    public void addButtonPretraziActionListener(ActionListener actionListener) {
+        jButtonPretrazi.addActionListener(actionListener);
+    }
+    
+    public void addButtonResetujActionListener(ActionListener actionListener) {
+        jButtonResetuj.addActionListener(actionListener);
     }
 }
