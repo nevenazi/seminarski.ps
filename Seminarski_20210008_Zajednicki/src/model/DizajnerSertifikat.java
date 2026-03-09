@@ -94,7 +94,7 @@ public class DizajnerSertifikat implements ApstraktniDomenskiObjekat {
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista= new ArrayList<>();
         while (rs.next()){
-            
+            //TODO
         }
         
         return lista;

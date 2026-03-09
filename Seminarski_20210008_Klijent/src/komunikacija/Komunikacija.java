@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import kontroleri.Koordinator;
 import model.Dizajner;
+import model.Kompanija;
 
 /**
  *
@@ -49,16 +50,21 @@ public class Komunikacija {
         System.out.println(socket);
     }
 
-    public Dizajner login(String username, String password) {
+    public Dizajner login(String username, String password){
         
         
         Dizajner dizajner=new Dizajner();
         dizajner.setKorisnickoIme(username);
         dizajner.setSifra(password);
         System.out.println(dizajner);
-        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.LOGIN,dizajner);
+        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.PRIJAVI_DIZAJNER,dizajner);
         
-        posiljalac.posalji(zahtev);
+        try {
+            posiljalac.posalji(zahtev);
+        } catch (IOException ex) {
+            System.out.println("Zahtev za prijavu ne može da se pošalje");
+            Logger.getLogger(Komunikacija.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println(zahtev);
         ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
         dizajner=(Dizajner) odg.getOdgovor();
@@ -66,9 +72,9 @@ public class Komunikacija {
         
     }
 
-    public List<Dizajner> ucitajDizajnere() {
+    public List<Dizajner> ucitajDizajnere() throws IOException {
         List <Dizajner> dizajneri=new ArrayList<>();
-        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.UCITAJDIZAJNERE, null);
+        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.VRATI_LISTU_SVI_DIZAJNER, null);
         posiljalac.posalji(zahtev);
         ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
         dizajneri=(List<Dizajner>) odg.getOdgovor();
@@ -76,35 +82,79 @@ public class Komunikacija {
     }
 
     public void obrisiDizajnera(Dizajner d) throws Exception {
-        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.OBRISIDIZAJNER, d);
+        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.OBRISI_DIZAJNER, d);
         posiljalac.posalji(zahtev);
         
         ServerskiOdgovor odg=(ServerskiOdgovor)primalac.primi();
         if (odg.getOdgovor()!=null){
             ((Exception)odg.getOdgovor()).printStackTrace();
-            throw new Exception("Greska u brisanju");
+            throw new Exception("Greška u brisanju");
         }
     }
 
     public void kreirajDizajner(Dizajner d) throws Exception {
-        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.KREIRAJDIZAJNER, d);
-        posiljalac.posalji(zahtev);
+        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.KREIRAJ_DIZAJNER, d);
+        posiljalac.posalji(zahtev);//TODO
         ServerskiOdgovor odg=(ServerskiOdgovor)primalac.primi();
         if (odg.getOdgovor()!=null){
             ((Exception)odg.getOdgovor()).printStackTrace();
-            throw new Exception("Greska u brisanju");
+            throw new Exception("Greška u kreiranju dizajnera");
         }
     }
 
     public void promeniDizajner(Dizajner d) throws Exception {
-        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.PROMENIDIZAJNER, d);
+        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.PROMENI_DIZAJNER, d);
         posiljalac.posalji(zahtev);
         
         ServerskiOdgovor odg=(ServerskiOdgovor)primalac.primi();
         if (odg.getOdgovor()!=null){
             ((Exception)odg.getOdgovor()).printStackTrace();
-            throw new Exception("Greska u brisanju");
+            throw new Exception("Greška u izmeni dizajnera");
         }
     }
+
+    public List<Kompanija> ucitajKompanije() throws IOException {
+        List <Kompanija> kompanije=new ArrayList<>();
+        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.VRATI_LISTU_SVI_KOMPANIJA, null);
+        posiljalac.posalji(zahtev);
+        
+        ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
+        kompanije=(List<Kompanija>) odg.getOdgovor();
+        return kompanije; 
+    }
+
+    public void kreirajKompanija(Kompanija k) throws Exception {
+        KlijentskiZahtev kz=new KlijentskiZahtev(Operacija.KREIRAJ_KOMPANIJA, k);
+        posiljalac.posalji(kz);
+        
+        ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
+        if (so.getOdgovor()!=null){
+            ((Exception)so.getOdgovor()).printStackTrace();
+            throw new Exception("Greška u kreiranju kompanije");
+        }
+    }
+
+    public void promeniKompanija(Kompanija k) throws Exception {
+        KlijentskiZahtev kz=new KlijentskiZahtev(Operacija.PROMENI_KOMPANIJA, k);
+        posiljalac.posalji(kz);
+        
+        ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
+        if(so.getOdgovor()!=null){
+            ((Exception)so.getOdgovor()).printStackTrace();
+            throw new Exception("Greška u promeni kompanije");
+        }
+    }
+
+    public void obrisiKompanija(Kompanija k) throws Exception {
+        KlijentskiZahtev kz=new KlijentskiZahtev(Operacija.OBRISI_KOMPANIJA, k);
+        posiljalac.posalji(kz);
+        
+        ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
+        if (so.getOdgovor()!=null){
+            ((Exception)so.getOdgovor()).printStackTrace();
+            throw new Exception("Greška u brisanju kompanije");
+        }
+    }
+
     
 }

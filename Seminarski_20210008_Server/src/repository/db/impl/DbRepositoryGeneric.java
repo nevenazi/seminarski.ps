@@ -26,7 +26,6 @@ public class DbRepositoryGeneric implements DbRepository<ApstraktniDomenskiObjek
         if (uslov!=null){//!!!!!!!!!!!!!!!!!!!!!!!
             upit+=uslov;
         }
-        System.out.println("uslov");
         Statement st=DbConnectionFactory.getInstance().getConnection().createStatement();
         ResultSet rs=st.executeQuery(upit);
         lista= param.vratiListu(rs);

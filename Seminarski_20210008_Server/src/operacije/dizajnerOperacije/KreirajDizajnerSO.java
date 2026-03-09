@@ -12,7 +12,7 @@ import operacije.ApstraktnaGenerickaOperacija;
  * @author N
  */
 public class KreirajDizajnerSO extends ApstraktnaGenerickaOperacija {
-
+        
     @Override
     protected void preduslovi(Object param) throws Exception {
         Dizajner d=(Dizajner)param;

@@ -10,5 +10,6 @@ package forme;
  */
 public enum VrstaForme {
     KREIRAJ,
-    PROMENI
+    PROMENI,
+    PRIKAZI
 }

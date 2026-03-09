@@ -6,6 +6,7 @@ package kontroleri;
 
 import forme.KreirajDizajnerForma;
 import forme.VrstaForme;
+import static forme.VrstaForme.PROMENI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
@@ -43,6 +44,13 @@ public class KreirajDizajnerFormaController {
                 kdf.getjButtonPromeni().setEnabled(true);
                 popuniFormu((Dizajner)Koordinator.getInstance().vratiParametar("dizajner"));
                 break;
+            case PRIKAZI:
+                kdf.setTitle("Prikaži dizajnera");
+                kdf.getjButtonKreiraj().setVisible(false);
+                kdf.getjButtonPromeni().setVisible(false);
+                popuniFormu((Dizajner)Koordinator.getInstance().vratiParametar("dizajner"));
+                onemoguciPoljaForme();
+                break;
             default:
                 JOptionPane.showMessageDialog(kdf, "Nije izabrana vrsta forme", "Greška", JOptionPane.ERROR_MESSAGE);
                 kdf.dispose();
@@ -52,7 +60,7 @@ public class KreirajDizajnerFormaController {
         addActionListeners();
     }
     public void addActionListeners(){
-        kdf.addButtonSacuvajActionListener(new ActionListener() {
+        kdf.addButtonKreirajActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
@@ -60,7 +68,8 @@ public class KreirajDizajnerFormaController {
                 
                 try {
                     Komunikacija.getInstance().kreirajDizajner(d);
-                    JOptionPane.showMessageDialog(kdf, "Sistem je zapamtio dizajnera.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+                    String ispis="Sistem je zapamtio dizajnera:\n"+"ime: "+d.getIme()+"\nprezime: "+d.getPrezime()+"\nkorisničko ime: "+d.getKorisnickoIme();
+                    JOptionPane.showMessageDialog(kdf, ispis, "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                     Koordinator.getInstance().getDizajnerFormaController().pripremiFormu();
                     kdf.dispose();
                 } catch (Exception ex) {
@@ -78,7 +87,8 @@ public class KreirajDizajnerFormaController {
                     d.setIdDizajner(id);
                 try {    
                     Komunikacija.getInstance().promeniDizajner(d);
-                    JOptionPane.showMessageDialog(kdf, "Sistem je zapamtio dizajnera.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+                    String ispis="Sistem je zapamtio dizajnera:\n"+"ime: "+d.getIme()+"\nprezime: "+d.getPrezime()+"\nkorisničko ime: "+d.getKorisnickoIme();
+                    JOptionPane.showMessageDialog(kdf, ispis, "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                     Koordinator.getInstance().getDizajnerFormaController().pripremiFormu();
                     kdf.dispose();
                 } catch (Exception ex) {
@@ -87,6 +97,14 @@ public class KreirajDizajnerFormaController {
                 
             }
         });
+        
+        kdf.addButtonZatvoriActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                kdf.dispose();
+            }
+        });
+        
     }
     
     public Dizajner pokupiDizajnera(){
@@ -111,6 +129,13 @@ public class KreirajDizajnerFormaController {
         kdf.getjTextFieldPrezime().setText(dizajner.getPrezime());
         kdf.getjTextFieldKorisnickoIme().setText(dizajner.getKorisnickoIme());
         kdf.getjPasswordField().setText(dizajner.getSifra());
+    }
+
+    private void onemoguciPoljaForme() {
+        kdf.getjTextFieldIme().setEditable(false);
+        kdf.getjTextFieldPrezime().setEditable(false);
+        kdf.getjTextFieldKorisnickoIme().setEditable(false);
+        kdf.getjPasswordField().setVisible(false);
     }
 
 

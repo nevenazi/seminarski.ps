@@ -8,7 +8,11 @@ import forme.DizajnerForma;
 import forme.model.ModelTabeleDizajner;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import komunikacija.Komunikacija;
@@ -28,7 +32,7 @@ public class DizajnerFormaController {
     
     public void otvoriFormu(){
         pripremiFormu();
-        df.setVisible(true);
+        //df.setVisible(true);
     }
 
     private void addActionListeners() {
@@ -37,11 +41,12 @@ public class DizajnerFormaController {
             public void actionPerformed(ActionEvent e) {
                 int red=df.getjTableDizajner().getSelectedRow();
                 if (red==-1) {
-                    JOptionPane.showMessageDialog(df, "Nije odabran dizajner za brisanje. Pokušajte ponovo.", "Greška", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(df, "Sistem ne može da nađe dizajnera.", "Greška", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 ModelTabeleDizajner mtd= (ModelTabeleDizajner) df.getjTableDizajner().getModel();
                 Dizajner d=mtd.getLista().get(red);
+                JOptionPane.showMessageDialog(df, "Sistem je našao dizajnera.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                 try {
                     Komunikacija.getInstance().obrisiDizajnera(d);
                     JOptionPane.showMessageDialog(df, "Sistem je obrisao dizajnera.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
@@ -63,11 +68,12 @@ public class DizajnerFormaController {
             public void actionPerformed(ActionEvent e) {
                 int red=df.getjTableDizajner().getSelectedRow();
                 if (red==-1) {
-                    JOptionPane.showMessageDialog(df, "Nije odabran dizajner za izmenu.", "Greška", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(df, "Sistem ne može da nađe dizajnera.", "Greška", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 ModelTabeleDizajner mtd= (ModelTabeleDizajner) df.getjTableDizajner().getModel();
                 Dizajner d=mtd.getLista().get(red);
+                JOptionPane.showMessageDialog(df, "Sistem je našao dizajnera.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                 
                 Koordinator.getInstance().dodajParametar("dizajner", d);
                 Koordinator.getInstance().otvoriPromeniDizajnerFormu();
@@ -81,9 +87,19 @@ public class DizajnerFormaController {
                 String prezime=df.getjTextFieldImePrezime().getText().trim();
                 String korisnickoIme=df.getjTextFieldKorisnickoIme().getText().trim();
                 
-                List<Dizajner> dizajneri=filtriraj(Komunikacija.getInstance().ucitajDizajnere(),ime,prezime,korisnickoIme);
+                List<Dizajner> dizajneri=new ArrayList<>();
+                        
+                try {
+                    dizajneri=filtriraj(Komunikacija.getInstance().ucitajDizajnere(),ime,prezime,korisnickoIme);
+                    if (dizajneri.isEmpty())JOptionPane.showMessageDialog(df, "Sistem ne može da nađe dizajnere po zadatim kriterijumima","Rezultat pretrage je prazan", JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(df, "Sistem ne može da nađe dizajnere po zadatim kriterijumima","Greška", JOptionPane.ERROR_MESSAGE);
+                    Logger.getLogger(DizajnerFormaController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
                 ModelTabeleDizajner mtd=new ModelTabeleDizajner(dizajneri);
                 df.getjTableDizajner().setModel(mtd);
+                JOptionPane.showMessageDialog(df, "Sistem je našao dizajnere po zadatim kriterijumima","Uspeh", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         
@@ -91,6 +107,30 @@ public class DizajnerFormaController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pripremiFormu();
+            }
+        });
+        
+        df.addButtonGFActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Koordinator.getInstance().otvoriGlavnuFormu();
+                df.dispose();
+            }
+        });
+        
+        df.addButtonPrikaziActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int red=df.getjTableDizajner().getSelectedRow();
+                if (red==-1) {
+                    JOptionPane.showMessageDialog(df, "Sistem ne može da nađe dizajnera.", "Greška", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                ModelTabeleDizajner mtd= (ModelTabeleDizajner) df.getjTableDizajner().getModel();
+                Dizajner d=mtd.getLista().get(red);
+                JOptionPane.showMessageDialog(df, "Sistem je našao dizajnera.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+                Koordinator.getInstance().dodajParametar("dizajner", d);
+                Koordinator.getInstance().otvoriPrikaziDizajnerFormu();
             }
         });
     }
@@ -112,9 +152,20 @@ public class DizajnerFormaController {
         df.getjTextFieldIme().setText("");
         df.getjTextFieldImePrezime().setText("");
         df.getjTextFieldKorisnickoIme().setText("");
-        List<Dizajner> dizajneri=Komunikacija.getInstance().ucitajDizajnere();
+        List<Dizajner> dizajneri=new ArrayList<>();
+        try {
+            dizajneri = Komunikacija.getInstance().ucitajDizajnere();
+            if (dizajneri.isEmpty())JOptionPane.showMessageDialog(df, "Sistem ne može da nađe dizajnere.","Rezultat pretrage je prazan", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(df, "Sistem ne može da nađe dizajnere.","Greška", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(DizajnerFormaController.class.getName()).log(Level.SEVERE, null, ex);
+            return;
+        }
         ModelTabeleDizajner mtd=new ModelTabeleDizajner(dizajneri);
         df.getjTableDizajner().setModel(mtd);
+        JOptionPane.showMessageDialog(df, "Sistem je našao dizajnere","Uspeh", JOptionPane.INFORMATION_MESSAGE);
+        Koordinator.getInstance().zatvoriGlavnaFormu();
+        df.setVisible(true);
     }
 
     public DizajnerForma getDf() {

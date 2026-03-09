@@ -18,7 +18,7 @@ public class ServerskaForma extends javax.swing.JFrame {
      */
     public ServerskaForma() {
         initComponents();
-        server=new PokreniServer();
+        
         jLabelPrikazStatusa.setText("nije pokrenut");
         jButtonZaustaviServer.setEnabled(false);
     }
@@ -124,7 +124,7 @@ public class ServerskaForma extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPokreniServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPokreniServerActionPerformed
- 
+        server=new PokreniServer();
         server.start();
         
         jLabelPrikazStatusa.setText("POKRENUT");

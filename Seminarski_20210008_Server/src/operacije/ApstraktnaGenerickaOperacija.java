@@ -4,6 +4,7 @@
  */
 package operacije;
 
+import operacije.dizajnerOperacije.KreirajDizajnerSO;
 import repository.Repository;
 import repository.db.DbRepository;
 import repository.db.impl.DbRepositoryGeneric;

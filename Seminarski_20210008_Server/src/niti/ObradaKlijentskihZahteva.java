@@ -5,6 +5,7 @@
 package niti;
 
 import controller.Controller;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
 import java.util.logging.Level;
@@ -14,6 +15,7 @@ import komunikacija.Posiljalac;
 import komunikacija.Primalac;
 import komunikacija.ServerskiOdgovor;
 import model.Dizajner;
+import model.Kompanija;
 
 /**
  *
@@ -23,18 +25,20 @@ public class ObradaKlijentskihZahteva extends Thread {
     Socket socket;
     Posiljalac posiljalac;
     Primalac primalac;
+    boolean kraj;
 
     public ObradaKlijentskihZahteva(Socket socket) {
         this.socket = socket;
         posiljalac=new Posiljalac(socket);
         primalac=new Primalac(socket);
+        kraj=false;
     }
 
     
     
     @Override
     public void run() {
-        while(true){
+        while(!kraj){
             try {
                 System.out.println("run obrada klijentskih zahteva");
                 KlijentskiZahtev zahtev = (KlijentskiZahtev)primalac.primi();
@@ -43,19 +47,20 @@ public class ObradaKlijentskihZahteva extends Thread {
                 }
                 ServerskiOdgovor odgovor=new ServerskiOdgovor();
                 Dizajner d;
+                Kompanija k;
                 switch(zahtev.getOperacija()){
-                    case LOGIN:
+                    case PRIJAVI_DIZAJNER:
                         d=(Dizajner)zahtev.getParametar();
 
-                            d=Controller.getInstance().login(d);
+                            d=Controller.getInstance().prijaviDizajner(d);
                             odgovor.setOdgovor(d);
 
                         break;
-                    case UCITAJDIZAJNERE:
-                        List <Dizajner> dizajneri=Controller.getInstance().ucitajDizajnere();
+                    case VRATI_LISTU_SVI_DIZAJNER:
+                        List <Dizajner> dizajneri=Controller.getInstance().vratiListuSviDizajner();
                         odgovor.setOdgovor(dizajneri);
                         break;
-                    case OBRISIDIZAJNER:
+                    case OBRISI_DIZAJNER:
                         try{
                         d=(Dizajner) zahtev.getParametar();
                         Controller.getInstance().obrisiDizajner(d);
@@ -64,7 +69,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                             odgovor.setOdgovor(e);
                         }
                         break;
-                    case KREIRAJDIZAJNER:
+                    case KREIRAJ_DIZAJNER:
                         try {
                             d = (Dizajner) zahtev.getParametar();
                             Controller.getInstance().kreirajDizajner(d);
@@ -73,14 +78,44 @@ public class ObradaKlijentskihZahteva extends Thread {
                             odgovor.setOdgovor(exception);
                         }
                         break;
-                    case PROMENIDIZAJNER:
+                    case PROMENI_DIZAJNER:
                         try {
                             d = (Dizajner) zahtev.getParametar();
                             Controller.getInstance().promeniDizajner(d);
                             odgovor.setOdgovor(null);
                         } catch (Exception exception) {
                             odgovor.setOdgovor(exception);
+                        }break;
+                    case VRATI_LISTU_SVI_KOMPANIJA:
+                        List<Kompanija> kompanije=Controller.getInstance().vratiListuSviKompanije();
+                        odgovor.setOdgovor(kompanije);
+                        break;
+                    case KREIRAJ_KOMPANIJA:
+                        try {
+                            k = (Kompanija) zahtev.getParametar();
+                            Controller.getInstance().kreirajKompanija(k);
+                            odgovor.setOdgovor(null);
+                        } catch (Exception exception) {
+                            odgovor.setOdgovor(exception);
+                        }break;
+                    case PROMENI_KOMPANIJA:
+                        try {
+                            k = (Kompanija) zahtev.getParametar();
+                            Controller.getInstance().promeniKompanija(k);
+                            odgovor.setOdgovor(null);
+                        } catch (Exception e) {
+                            odgovor.setOdgovor(e);
                         }
+                        break;
+                    case OBRISI_KOMPANIJA:
+                        try {
+                            k = (Kompanija) zahtev.getParametar();
+                            Controller.getInstance().obrisiKompanija(k);
+                            odgovor.setOdgovor(null);
+                        } catch (Exception e) {
+                            odgovor.setOdgovor(e);
+                        }
+                        break;
 
                     default:System.out.println("Greška! Nepostojeća operacija je izabrana.");
                 }
@@ -90,6 +125,17 @@ public class ObradaKlijentskihZahteva extends Thread {
                         Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
                     }
         }
+    }
+
+    public void prekini() {
+        kraj=true;
+        if (socket!=null && !socket.isClosed()) try {
+            socket.close();
+            interrupt();
+        } catch (IOException ex) {
+            Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
     

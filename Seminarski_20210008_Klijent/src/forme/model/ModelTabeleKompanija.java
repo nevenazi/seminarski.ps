@@ -6,19 +6,19 @@ package forme.model;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import model.Dizajner;
+import model.Kompanija;
 
 /**
  *
  * @author N
  */
-public class ModelTabeleDizajner extends AbstractTableModel {
+public class ModelTabeleKompanija extends AbstractTableModel {
 
-    List<Dizajner> lista;
-    String[] kolone={"idDizajner","ime","prezime","korisnickoIme"};
+    List<Kompanija> lista;
+    String[] kolone={"idKompanija","naziv","sajt"};
     
-    public ModelTabeleDizajner(List<Dizajner> dizajneri){
-        lista=dizajneri;
+    public ModelTabeleKompanija(List<Kompanija> kompanije){
+        lista=kompanije;
     }
     
     @Override
@@ -40,12 +40,11 @@ public class ModelTabeleDizajner extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Dizajner d=lista.get(rowIndex);
+        Kompanija k=lista.get(rowIndex);
         switch (columnIndex){
-            case 0: return d.getIdDizajner();
-            case 1: return d.getIme();
-            case 2: return d.getPrezime();
-            case 3: return d.getKorisnickoIme();
+            case 0: return k.getIdKompanija();
+            case 1: return k.getNaziv();
+            case 2: return k.getSajt();
             default:return "N/A";
         }
         
@@ -53,7 +52,7 @@ public class ModelTabeleDizajner extends AbstractTableModel {
         
     }
 
-    public List<Dizajner> getLista() {
+    public List<Kompanija> getLista() {
         return lista;
     }
     

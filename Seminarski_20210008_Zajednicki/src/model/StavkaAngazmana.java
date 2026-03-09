@@ -174,7 +174,7 @@ public class StavkaAngazmana implements ApstraktniDomenskiObjekat {
             
             ////tip vizuala
             
-            
+            //TODO
         }
         
         return lista;

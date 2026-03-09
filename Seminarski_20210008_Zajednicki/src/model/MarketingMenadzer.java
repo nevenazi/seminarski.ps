@@ -102,6 +102,7 @@ public class MarketingMenadzer implements ApstraktniDomenskiObjekat{
             String email=rs.getString("email");
             int idKompanije=rs.getInt("kompanija");
             
+            //TODO MarketingMenadzer mm=new MarketingMenadzer(idMarketingMenadzer, ime, prezime, telefon, email, kompanija)
         }
         
         return lista;

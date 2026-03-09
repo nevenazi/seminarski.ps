@@ -2,32 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package operacije.dizajnerOperacije;
+package operacije.kompanijaOperacije;
 
-import java.util.List;
-import model.Dizajner;
+import model.Kompanija;
 import operacije.ApstraktnaGenerickaOperacija;
 
 /**
  *
  * @author N
  */
-public class UcitajDizajnereSO extends ApstraktnaGenerickaOperacija {
+public class ObrisiKompanijaSO extends ApstraktnaGenerickaOperacija {
 
-    List<Dizajner> dizajneri;
-
-    public List<Dizajner> getDizajneri() {
-        return dizajneri;
-    }
-    
     @Override
     protected void preduslovi(Object param) throws Exception {
-        //TODO
+        Kompanija k=(Kompanija) param;
+        if(k==null || !(k instanceof Kompanija)){
+            throw new Exception("Sistem ne može da obriše kompaniju");
+        }
     }
 
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
-        dizajneri=broker.getAll(param, null);
+        broker.delete((Kompanija)param);
     }
     
 }

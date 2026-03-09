@@ -25,11 +25,14 @@ public class GlavnaFormaController {
         gf.setVisible(true);
         String ulogovani=Koordinator.getInstance().getUlogovaniKorisnik().getIme()+" "+Koordinator.getInstance().getUlogovaniKorisnik().getPrezime();
         gf.getjLabelUlogovan().setText(ulogovani);
-        //(Koordinator.getInstance().getUlogovaniKorisnik());
     }
 
     private void addActionListeners() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    void zatvoriFormu() {
+        gf.dispose();
     }
     
 }

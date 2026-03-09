@@ -6,6 +6,7 @@ package kontroleri;
 
 import forme.DizajnerForma;
 import forme.GlavnaForma;
+import forme.KompanijaForma;
 import forme.KreirajDizajnerForma;
 import forme.LoginForma;
 import forme.VrstaForme;
@@ -26,6 +27,8 @@ public class Koordinator {
     private DizajnerFormaController dizajnerFormaController;
     private KreirajDizajnerFormaController kreirajDizajnerFormaController;
     private Map<String, Object> parametri;
+    private KompanijaFormaController kompanijaFormaController;
+    private KreirajKompanijaFormaController kreirajKompanijaFormaController;
     
     public LoginController getLoginController() {
         return loginController;
@@ -41,6 +44,22 @@ public class Koordinator {
 
     public KreirajDizajnerFormaController getKreirajDizajnerFormaController() {
         return kreirajDizajnerFormaController;
+    }
+
+    public KompanijaFormaController getKompanijaFormaController() {
+        return kompanijaFormaController;
+    }
+
+    public void setKompanijaFormaController(KompanijaFormaController kompanijaFormaController) {
+        this.kompanijaFormaController = kompanijaFormaController;
+    }
+
+    public KreirajKompanijaFormaController getKreirajKompanijaFormaController() {
+        return kreirajKompanijaFormaController;
+    }
+
+    public void setKreirajKompanijaFormaController(KreirajKompanijaFormaController kreirajKompanijaFormaController) {
+        this.kreirajKompanijaFormaController = kreirajKompanijaFormaController;
     }
     
     
@@ -99,6 +118,37 @@ public class Koordinator {
         kreirajDizajnerFormaController=new KreirajDizajnerFormaController(new KreirajDizajnerForma());
         kreirajDizajnerFormaController.otvoriFormu(VrstaForme.PROMENI);
     }
+
+    public void otvoriKompanijaFormu() {
+        kompanijaFormaController=new KompanijaFormaController(new KompanijaForma());
+        kompanijaFormaController.otvoriFormu();
+    }
+
+    void otvoriKreirajKompanijaFormu() {
+        kreirajKompanijaFormaController=new KreirajKompanijaFormaController();
+        kreirajKompanijaFormaController.otvoriFormu(VrstaForme.KREIRAJ);
+    }
+
+    void otvoriPromeniKompanijaFormu() {
+        kreirajKompanijaFormaController=new KreirajKompanijaFormaController();
+        kreirajKompanijaFormaController.otvoriFormu(VrstaForme.PROMENI);
+    }
+    
+    void zatvoriGlavnaFormu(){
+        glavnaFormaController.zatvoriFormu();
+    }
+
+    void otvoriPrikaziDizajnerFormu() {
+        kreirajDizajnerFormaController=new KreirajDizajnerFormaController(new KreirajDizajnerForma());
+        kreirajDizajnerFormaController.otvoriFormu(VrstaForme.PRIKAZI);
+    }
+
+    void otvoriPrikaziKompanijaFormu() {
+        kreirajKompanijaFormaController=new KreirajKompanijaFormaController();
+        kreirajKompanijaFormaController.otvoriFormu(VrstaForme.PRIKAZI);
+    }
+
+    
 
     
     
