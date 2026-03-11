@@ -15,6 +15,7 @@ import komunikacija.Posiljalac;
 import komunikacija.Primalac;
 import komunikacija.ServerskiOdgovor;
 import model.Dizajner;
+import model.EvidencijaAngazmana;
 import model.Kompanija;
 import model.MarketingMenadzer;
 import model.Sertifikat;
@@ -52,6 +53,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                 Dizajner d;
                 Kompanija k;
                 MarketingMenadzer mm;
+                EvidencijaAngazmana evidencija;
                 switch(zahtev.getOperacija()){
                     case PRIJAVI_DIZAJNER:
                         d=(Dizajner)zahtev.getParametar();
@@ -172,6 +174,24 @@ public class ObradaKlijentskihZahteva extends Thread {
                     case VRATI_LISTU_SVI_TIP_VIZUALA:
                         List<TipVizuala> vizuali=Controller.getInstance().vratiListuSviTipVizuala();
                         odgovor.setOdgovor(vizuali);
+                        break;
+                    case VRATI_LISTU_SVI_EVIDENCIJA_ANGAZMANA:
+                        List<EvidencijaAngazmana> evidencije=Controller.getInstance().vratiListuSviEvidencijaAngazmana();
+                        odgovor.setOdgovor(evidencije);
+                        break;
+                    case PRETRAZI_EVIDENCIJA_ANGAZMANA:
+                        evidencija=(EvidencijaAngazmana) zahtev.getParametar();
+                        List<EvidencijaAngazmana> filtriraneEvidencije=Controller.getInstance().pretraziEvidencijaAngazmana(evidencija);
+                        odgovor.setOdgovor(filtriraneEvidencije);
+                        break;
+                    case OBRISI_EVIDENCIJA_ANGAZMANA:
+                        try {
+                            evidencija = (EvidencijaAngazmana) zahtev.getParametar();
+                            Controller.getInstance().obrisiEvidencijaAngazmana(evidencija);
+                            odgovor.setOdgovor(null);
+                        } catch (Exception e) {
+                            odgovor.setOdgovor(e);
+                        }
                         break;
 
                     default:System.out.println("Greška! Nepostojeća operacija je izabrana.");

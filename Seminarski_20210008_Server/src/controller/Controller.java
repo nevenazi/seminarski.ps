@@ -6,6 +6,7 @@ package controller;
 
 import java.util.List;
 import model.Dizajner;
+import model.EvidencijaAngazmana;
 import model.Kompanija;
 import model.MarketingMenadzer;
 import model.Sertifikat;
@@ -15,6 +16,9 @@ import operacije.dizajnerOperacije.PrijaviDizajnerSO;
 import operacije.dizajnerOperacije.ObrisiDizajnerSO;
 import operacije.dizajnerOperacije.PromeniDizajnerSO;
 import operacije.dizajnerOperacije.VratiListuSviDizajnerSO;
+import operacije.evidencijeAngazmanaOperacije.ObrisiEvidencijaAngazmanaSO;
+import operacije.evidencijeAngazmanaOperacije.PretraziEvidencijaAngazmanaSO;
+import operacije.evidencijeAngazmanaOperacije.VratiListuSviEvidencijaAngazmanaSO;
 import operacije.kompanijaOperacije.KreirajKompanijaSO;
 import operacije.kompanijaOperacije.ObrisiKompanijaSO;
 import operacije.kompanijaOperacije.PromeniKompanijaSO;
@@ -138,6 +142,23 @@ public class Controller {
         VratiListuSviTipVizualaSO o=new VratiListuSviTipVizualaSO();
         o.izvrsi(new TipVizuala(), null);
         return o.getVizuali();
+    }
+
+    public List<EvidencijaAngazmana> vratiListuSviEvidencijaAngazmana() throws Exception {
+        VratiListuSviEvidencijaAngazmanaSO o =new VratiListuSviEvidencijaAngazmanaSO();
+        o.izvrsi(new EvidencijaAngazmana(), null);
+        return o.getEvidencije();
+    }
+    
+    public List<EvidencijaAngazmana> pretraziEvidencijaAngazmana(EvidencijaAngazmana ea) throws Exception {
+        PretraziEvidencijaAngazmanaSO o =new PretraziEvidencijaAngazmanaSO();
+        o.izvrsi(ea, ea.uslov());
+        return o.getEvidencije();
+    }
+
+    public void obrisiEvidencijaAngazmana(EvidencijaAngazmana evidencija) throws Exception {
+        ObrisiEvidencijaAngazmanaSO o= new ObrisiEvidencijaAngazmanaSO();
+        o.izvrsi(evidencija, null);
     }
     
     

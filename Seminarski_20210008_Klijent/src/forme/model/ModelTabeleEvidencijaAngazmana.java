@@ -15,7 +15,7 @@ import model.EvidencijaAngazmana;
 public class ModelTabeleEvidencijaAngazmana extends AbstractTableModel {
 
     List<EvidencijaAngazmana> lista;
-    String[] kolone={"id","ukupan iznos","rok","zavrsen","dizajner","marketing menadzer"};
+    String[] kolone={"id","ukupan iznos","rok","zavrsen","dizajner","marketing menadzer","kompanija"};
     
     public ModelTabeleEvidencijaAngazmana(List<EvidencijaAngazmana> evidencije){
         lista=evidencije;
@@ -45,9 +45,10 @@ public class ModelTabeleEvidencijaAngazmana extends AbstractTableModel {
             case 0: return e.getIdEvidencijaAngazmana();
             case 1: return e.getUkupanIznos();
             case 2: return e.getRok();
-            case 3: return e.isZavrsen();
+            case 3: return (e.isZavrsen()==true) ? "DA":"NE";
             case 4: return e.getDizajner().getIme()+" "+e.getDizajner().getPrezime();
             case 5: return e.getMarketingMenadzer().getIme()+" "+e.getMarketingMenadzer().getPrezime();
+            case 6: return e.getMarketingMenadzer().getKompanija().getNaziv();
             default:return "N/A";
         }
         

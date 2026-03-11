@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import kontroleri.Koordinator;
 import model.Dizajner;
+import model.EvidencijaAngazmana;
 import model.Kompanija;
 import model.MarketingMenadzer;
 import model.Sertifikat;
@@ -91,7 +92,7 @@ public class Komunikacija {
         ServerskiOdgovor odg=(ServerskiOdgovor)primalac.primi();
         if (odg.getOdgovor()!=null){
             ((Exception)odg.getOdgovor()).printStackTrace();
-            throw new Exception("Greška u brisanju");
+            throw new Exception("Greška u brisanju dizajnera");
         }
     }
 
@@ -176,7 +177,7 @@ public class Komunikacija {
         ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
         if (so.getOdgovor()!=null){
             ((Exception)so.getOdgovor()).printStackTrace();
-            throw new Exception("Greška u marketing menazera");
+            throw new Exception("Greška u brisanju marketing menazera");
         }
     }
 
@@ -198,7 +199,7 @@ public class Komunikacija {
         ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
         if(so.getOdgovor()!=null){
             ((Exception)so.getOdgovor()).printStackTrace();
-            throw new Exception("Greška u promeni arketing menadžera");
+            throw new Exception("Greška u promeni marketing menadžera");
         }
     }
 
@@ -241,6 +242,37 @@ public class Komunikacija {
         ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
         vizuali=(List<TipVizuala>) odg.getOdgovor();
         return vizuali;
+    }
+
+    public List<EvidencijaAngazmana> ucitajEvidencijeAngazmana() throws IOException {
+        List <EvidencijaAngazmana> evidencije=new ArrayList<>();
+        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.VRATI_LISTU_SVI_EVIDENCIJA_ANGAZMANA, null);
+        posiljalac.posalji(zahtev);
+        
+        ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
+        evidencije=(List<EvidencijaAngazmana>) odg.getOdgovor();
+        return evidencije;
+    }
+
+    public List<EvidencijaAngazmana> pretraziEvidencijaAngazmana(EvidencijaAngazmana uslovEA) throws IOException {
+        List <EvidencijaAngazmana> evidencije=new ArrayList<>();
+        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.PRETRAZI_EVIDENCIJA_ANGAZMANA, uslovEA);
+        posiljalac.posalji(zahtev);
+        
+        ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
+        evidencije=(List<EvidencijaAngazmana>) odg.getOdgovor();
+        return evidencije;
+    }
+
+    public void obrisiEvidencijaAngazmana(EvidencijaAngazmana ea) throws Exception {
+        KlijentskiZahtev kz=new KlijentskiZahtev(Operacija.OBRISI_EVIDENCIJA_ANGAZMANA, ea);
+        posiljalac.posalji(kz);
+        
+        ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
+        if (so.getOdgovor()!=null){
+            ((Exception)so.getOdgovor()).printStackTrace();
+            throw new Exception("Greška u brisanju evidencije angažmana");
+        }
     }
 
     

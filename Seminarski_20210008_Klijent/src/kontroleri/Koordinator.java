@@ -5,6 +5,7 @@
 package kontroleri;
 
 import forme.DizajnerForma;
+import forme.EvidencijaAngazmanaForma;
 import forme.GlavnaForma;
 import forme.KompanijaForma;
 import forme.KreirajDizajnerForma;
@@ -37,6 +38,7 @@ public class Koordinator {
     private SertifikatFormaController sertifikatFormaController;
     private UbaciSertifikatFormaController ubaciSertifikatFormaController;
     private TipVizualaFormaController tipVizualaFormaController;
+    private EvidencijaAngazmanaFormaController evidencijaAngazmanaFormaController;
     
     public LoginController getLoginController() {
         return loginController;
@@ -209,8 +211,10 @@ public class Koordinator {
         tipVizualaFormaController.otvoriFormu();
     }
 
-    
-    
+    public void otvoriEvidencijaAngazmanaFormu() {
+        evidencijaAngazmanaFormaController=new EvidencijaAngazmanaFormaController(new EvidencijaAngazmanaForma());
+        evidencijaAngazmanaFormaController.otvoriFormu();
+    }
 
     
     

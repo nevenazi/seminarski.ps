@@ -191,18 +191,22 @@ public class EvidencijaAngazmana implements ApstraktniDomenskiObjekat{
     public String join() {
         return "JOIN dizajner ON (evidencijaangazmana.dizajner=dizajner.idDizajner)" 
                 + "JOIN marketingmenadzer ON (evidencijaangazmana.marketingMenadzer=marketingMenadzer.idMarketingMenadzer)" 
-                + "JOIN kompanija ON (marketingMenadzer.kompanija = kompanija.idKompanija)";
+                + "JOIN kompanija ON (marketingmenadzer.kompanija = kompanija.idKompanija)";
     }
 
     @Override
     public String uslov() {
         ArrayList<String> uslovi = new ArrayList<>();
 
-        if (this!=null && this.marketingMenadzer != null && marketingMenadzer.getIdMarketingMenadzer()> 0) {
+        if (this.marketingMenadzer != null && marketingMenadzer.getIdMarketingMenadzer()> 0) {
             uslovi.add("evidencijaangazmana.marketingmenadzer = " + marketingMenadzer.getIdMarketingMenadzer());
         }
         
-        if (this!=null && this.dizajner != null && dizajner.getIdDizajner()> 0) {
+        if (this.marketingMenadzer != null && this.marketingMenadzer.getKompanija()!=null) {
+            uslovi.add("marketingmenadzer.kompanija = " + this.getMarketingMenadzer().getKompanija().getIdKompanija());
+        }
+        
+        if (this.dizajner != null && dizajner.getIdDizajner()> 0) {
             uslovi.add("evidencijaangazmana.dizajner = " + dizajner.getIdDizajner());
         }
         
