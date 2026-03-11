@@ -21,8 +21,9 @@ public abstract class ApstraktnaGenerickaOperacija {
     } 
     
     public final void izvrsi(Object objekat, String kljuc) throws Exception{
-        try{
+        
             preduslovi(objekat);
+        try{
             zapocniTransakciju();
             izvrsiOperaciju(objekat,kljuc);
             potvrdiTransakciju();
@@ -48,7 +49,6 @@ public abstract class ApstraktnaGenerickaOperacija {
     }
 
     private void ponistiTransakciju() throws Exception {
-        
         ((DbRepository)broker).rollback();
     }
 

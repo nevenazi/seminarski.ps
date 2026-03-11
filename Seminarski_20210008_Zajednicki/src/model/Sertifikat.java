@@ -113,14 +113,20 @@ public class Sertifikat implements ApstraktniDomenskiObjekat{
         return "sertifikat.idSertifikat="+idSertifikat;
     }
 
-    @Override
-    public ApstraktniDomenskiObjekat vratiObjekatIzRS(ResultSet rs) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
     public String vratiVrednostZaIzmenu() {
         return "naziv='"+naziv+"', institucija='"+institucija+"'";
+    }
+
+    @Override
+    public String join() {
+        return "";
+    }
+
+    @Override
+    public String uslov() {
+        return "";
     }
     
 

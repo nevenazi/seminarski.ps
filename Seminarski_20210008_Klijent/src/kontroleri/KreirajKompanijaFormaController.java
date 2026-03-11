@@ -21,6 +21,7 @@ import model.Kompanija;
 public class KreirajKompanijaFormaController {
     
     private final KreirajKompanijaForma kkf;
+    private Kompanija kompanijaForme;
 
     public KreirajKompanijaFormaController() {
         this.kkf = new KreirajKompanijaForma();
@@ -32,21 +33,25 @@ public class KreirajKompanijaFormaController {
         
         switch (vrstaForme){
             case KREIRAJ:
-                kkf.getjButtonKreiraj().setVisible(true);
-                kkf.getjButtonKreiraj().setEnabled(true);
+                kkf.getjButtonSacuvaj().setVisible(true);
+                kkf.getjButtonSacuvaj().setEnabled(true);
                 kkf.getjButtonPromeni().setVisible(false);
                 kkf.setTitle("Kreiraj kompaniju");
+                kompanijaForme=new Kompanija();
+                JOptionPane.showMessageDialog(kkf, "Sistem je kreirao kompaniju", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                 break;
             case PROMENI:
-                popuniFormu((Kompanija) Koordinator.getInstance().vratiParametar("kompanija"));
-                kkf.getjButtonKreiraj().setVisible(false);
+                kompanijaForme=(Kompanija) Koordinator.getInstance().vratiParametar("kompanija");
+                popuniFormu(kompanijaForme);
+                kkf.getjButtonSacuvaj().setVisible(false);
                 kkf.getjButtonPromeni().setVisible(true);
                 kkf.getjButtonPromeni().setEnabled(true);
                 kkf.setTitle("Promeni kompaniju");
                 break;
             case PRIKAZI:
-                popuniFormu((Kompanija) Koordinator.getInstance().vratiParametar("kompanija"));
-                kkf.getjButtonKreiraj().setVisible(false);
+                kompanijaForme=(Kompanija) Koordinator.getInstance().vratiParametar("kompanija");
+                popuniFormu(kompanijaForme);
+                kkf.getjButtonSacuvaj().setVisible(false);
                 kkf.getjButtonPromeni().setVisible(false);
                 kkf.getjTextFieldNaziv().setEditable(false);
                 kkf.getjTextFieldSajt().setEditable(false);
@@ -66,7 +71,7 @@ public class KreirajKompanijaFormaController {
     }
 
     private void addActionListeners() {
-        kkf.addButtonKreirajActionListener(new ActionListener() {
+        kkf.addButtonSacuvajActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String naziv=kkf.getjTextFieldNaziv().getText().trim();

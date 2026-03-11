@@ -49,6 +49,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         jMenu7.setText("jMenu7");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Softverski sistem za evidenciju angažmana dizajnera");
 
         jLabel1.setText("Ulogovani ste kao:");
 
@@ -81,6 +82,11 @@ public class GlavnaForma extends javax.swing.JFrame {
         jMenuPrimalacUsluge.setText("Primalac usluge");
 
         jMenuItemMarketingMenadzer.setText("Marketing menadzer");
+        jMenuItemMarketingMenadzer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemMarketingMenadzerActionPerformed(evt);
+            }
+        });
         jMenuPrimalacUsluge.add(jMenuItemMarketingMenadzer);
 
         jMenuBar1.add(jMenuPrimalacUsluge);
@@ -96,9 +102,19 @@ public class GlavnaForma extends javax.swing.JFrame {
         jMenuSifrarnici.add(jMenuItemKompanija);
 
         jMenuItemSertifikat.setText("Serifikat");
+        jMenuItemSertifikat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSertifikatActionPerformed(evt);
+            }
+        });
         jMenuSifrarnici.add(jMenuItemSertifikat);
 
         jMenuItemTipVizuala.setText("Tip vizuala");
+        jMenuItemTipVizuala.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemTipVizualaActionPerformed(evt);
+            }
+        });
         jMenuSifrarnici.add(jMenuItemTipVizuala);
 
         jMenuBar1.add(jMenuSifrarnici);
@@ -146,6 +162,18 @@ public class GlavnaForma extends javax.swing.JFrame {
     private void jMenuItemKompanijaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemKompanijaActionPerformed
         Koordinator.getInstance().otvoriKompanijaFormu();
     }//GEN-LAST:event_jMenuItemKompanijaActionPerformed
+
+    private void jMenuItemMarketingMenadzerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMarketingMenadzerActionPerformed
+        Koordinator.getInstance().otvoriMarketingMenadzerFormu();
+    }//GEN-LAST:event_jMenuItemMarketingMenadzerActionPerformed
+
+    private void jMenuItemSertifikatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSertifikatActionPerformed
+        Koordinator.getInstance().otvoriSertifikatFormu();
+    }//GEN-LAST:event_jMenuItemSertifikatActionPerformed
+
+    private void jMenuItemTipVizualaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTipVizualaActionPerformed
+        Koordinator.getInstance().otvoriTipVizualaFormu();
+    }//GEN-LAST:event_jMenuItemTipVizualaActionPerformed
 
     
     public JLabel getjLabelUlogovan() {

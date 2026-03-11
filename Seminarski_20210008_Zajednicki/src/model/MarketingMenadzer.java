@@ -100,9 +100,15 @@ public class MarketingMenadzer implements ApstraktniDomenskiObjekat{
             String prezime=rs.getString("prezime");
             String telefon=rs.getString("telefon");
             String email=rs.getString("email");
-            int idKompanije=rs.getInt("kompanija");
             
-            //TODO MarketingMenadzer mm=new MarketingMenadzer(idMarketingMenadzer, ime, prezime, telefon, email, kompanija)
+            int idKompanije=rs.getInt("marketingmenadzer.kompanija");
+            String nazivKompanije=rs.getString("kompanija.naziv");
+            String sajtKompanije=rs.getString("kompanija.sajt");
+            
+            Kompanija k=new Kompanija(idKompanije, nazivKompanije, sajtKompanije);
+            MarketingMenadzer mm=new MarketingMenadzer(idMarketingMenadzer, ime, prezime, telefon, email, k);
+            
+            lista.add(mm);
         }
         
         return lista;
@@ -124,13 +130,34 @@ public class MarketingMenadzer implements ApstraktniDomenskiObjekat{
     }
 
     @Override
-    public ApstraktniDomenskiObjekat vratiObjekatIzRS(ResultSet rs) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String vratiVrednostZaIzmenu() {
+        return "ime='"+ime+"', prezime='"+prezime+"', telefon='"+telefon+"', email='"+email+"', kompanija="+kompanija.getIdKompanija();
     }
 
     @Override
-    public String vratiVrednostZaIzmenu() {
-        return "ime='"+ime+"', prezime='"+prezime+"', telefon='"+telefon+"', email='"+email+"', kompanija="+kompanija.getIdKompanija();
+    public String join() {
+        return "JOIN kompanija ON marketingmenadzer.kompanija = kompanija.idKompanija ";
+    }
+
+    @Override
+    public String uslov() {
+        ArrayList<String> uslovi = new ArrayList<>();
+
+        if (this!=null && this.kompanija != null && kompanija.getIdKompanija() > 0) {
+            uslovi.add("marketingmenadzer.kompanija = " + kompanija.getIdKompanija());
+        }
+        if (this != null && this.getIme()!=null) {
+            uslovi.add("marketingmenadzer.ime = '" + this.getIme()+"'");
+        }
+        
+        if (this != null && this.getPrezime()!=null) {
+            uslovi.add("marketingmenadzer.prezime = '" + this.getPrezime()+"'");
+        }
+   
+        if (uslovi.isEmpty()) {
+            return ""; 
+        }
+        return "WHERE " + String.join(" AND ", uslovi);
     }
 
     

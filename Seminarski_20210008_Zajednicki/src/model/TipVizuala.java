@@ -114,13 +114,18 @@ public class TipVizuala implements ApstraktniDomenskiObjekat {
     }
 
     @Override
-    public ApstraktniDomenskiObjekat vratiObjekatIzRS(ResultSet rs) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String vratiVrednostZaIzmenu() {
+        return "naziv='"+naziv+"', dimenzije='"+dimenzije+"', modelBoja='"+modelBoja+"', osnovnaCena="+osnovnaCena;
     }
 
     @Override
-    public String vratiVrednostZaIzmenu() {
-        return "naziv='"+naziv+"', dimenzije='"+dimenzije+"', modelBoja='"+modelBoja+"', osnovnaCena="+osnovnaCena;
+    public String join() {
+        return "";
+    }
+
+    @Override
+    public String uslov() {
+        return "";
     }
     
     

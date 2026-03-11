@@ -8,11 +8,14 @@ import forme.DizajnerForma;
 import forme.GlavnaForma;
 import forme.KompanijaForma;
 import forme.KreirajDizajnerForma;
+import forme.KreirajMarketingMenadzerForma;
 import forme.LoginForma;
+import forme.MarketingMenadzerForma;
+import forme.SertifikatForma;
+import forme.TipVizualaForma;
 import forme.VrstaForme;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 import model.Dizajner;
 
 /**
@@ -29,6 +32,11 @@ public class Koordinator {
     private Map<String, Object> parametri;
     private KompanijaFormaController kompanijaFormaController;
     private KreirajKompanijaFormaController kreirajKompanijaFormaController;
+    private MMenadzerFormaController mmenadzerFormaController;
+    private KreirajMMenadzerFormaController kreirajMMenadzerFormaController;
+    private SertifikatFormaController sertifikatFormaController;
+    private UbaciSertifikatFormaController ubaciSertifikatFormaController;
+    private TipVizualaFormaController tipVizualaFormaController;
     
     public LoginController getLoginController() {
         return loginController;
@@ -58,6 +66,15 @@ public class Koordinator {
         return kreirajKompanijaFormaController;
     }
 
+    public MMenadzerFormaController getMmenadzerFormaController() {
+        return mmenadzerFormaController;
+    }
+
+    public KreirajMMenadzerFormaController getKreirajMMenadzerFormaController() {
+        return kreirajMMenadzerFormaController;
+    }
+
+    
     public void setKreirajKompanijaFormaController(KreirajKompanijaFormaController kreirajKompanijaFormaController) {
         this.kreirajKompanijaFormaController = kreirajKompanijaFormaController;
     }
@@ -66,6 +83,14 @@ public class Koordinator {
 
     public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
+    }
+
+    public SertifikatFormaController getSertifikatFormaController() {
+        return sertifikatFormaController;
+    }
+
+    public UbaciSertifikatFormaController getUbaciSertifikatFormaController() {
+        return ubaciSertifikatFormaController;
     }
     
 
@@ -134,7 +159,7 @@ public class Koordinator {
         kreirajKompanijaFormaController.otvoriFormu(VrstaForme.PROMENI);
     }
     
-    void zatvoriGlavnaFormu(){
+    void zatvoriGlavnuFormu(){
         glavnaFormaController.zatvoriFormu();
     }
 
@@ -148,6 +173,43 @@ public class Koordinator {
         kreirajKompanijaFormaController.otvoriFormu(VrstaForme.PRIKAZI);
     }
 
+    public void otvoriMarketingMenadzerFormu() {
+        mmenadzerFormaController=new MMenadzerFormaController(new MarketingMenadzerForma());
+        mmenadzerFormaController.otvoriFormu();
+    }
+    
+    public void otvoriKreirajMarketingMenadzerFormu() {
+        kreirajMMenadzerFormaController=new KreirajMMenadzerFormaController(new KreirajMarketingMenadzerForma());
+        kreirajMMenadzerFormaController.otvoriFormu(VrstaForme.KREIRAJ);
+    }
+    
+    public void otvoriPromeniMarketingMenadzerFormu() {
+        kreirajMMenadzerFormaController=new KreirajMMenadzerFormaController(new KreirajMarketingMenadzerForma());
+        kreirajMMenadzerFormaController.otvoriFormu(VrstaForme.PROMENI);
+    }
+    
+    public void otvoriPrikaziMarketingMenadzerFormu() {
+        kreirajMMenadzerFormaController=new KreirajMMenadzerFormaController(new KreirajMarketingMenadzerForma());
+        kreirajMMenadzerFormaController.otvoriFormu(VrstaForme.PRIKAZI);
+    }
+
+    void otvoriUbaciSertifikatFormu() {
+        ubaciSertifikatFormaController=new UbaciSertifikatFormaController();
+        ubaciSertifikatFormaController.otvoriFormu();
+        
+    }
+
+    public void otvoriSertifikatFormu() {
+        sertifikatFormaController=new SertifikatFormaController(new SertifikatForma());
+        sertifikatFormaController.otvoriFormu();
+    }
+
+    public void otvoriTipVizualaFormu() {
+        tipVizualaFormaController=new TipVizualaFormaController(new TipVizualaForma());
+        tipVizualaFormaController.otvoriFormu();
+    }
+
+    
     
 
     

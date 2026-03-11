@@ -94,7 +94,27 @@ public class DizajnerSertifikat implements ApstraktniDomenskiObjekat {
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista= new ArrayList<>();
         while (rs.next()){
-            //TODO
+            
+            int idDizajner=rs.getInt("dizajner.idDizajner");
+            String ime=rs.getString("dizajner.ime");
+            String prezime=rs.getString("dizajner.prezime");
+            String korisnickoIme=rs.getString("dizajner.korisnickoIme");
+            String sifra=rs.getString("dizajner.sifra");
+            
+            Dizajner dizajner= new Dizajner(idDizajner, ime, prezime, korisnickoIme, sifra);
+            
+            int idSertifikat=rs.getInt("sertifikat.idSertifikat");
+            String naziv=rs.getString("sertifikat.naziv");
+            String institucija=rs.getString("sertifikat.institucija");
+            
+            Sertifikat sertifikat=new Sertifikat(idSertifikat, naziv, institucija);
+            
+            java.sql.Date datumsql=rs.getDate("dizajnersertifikat.datumIzdavanja");
+            java.util.Date datumIzdavanja=new java.util.Date(datumsql.getTime());
+            
+            DizajnerSertifikat dizser=new DizajnerSertifikat(dizajner, sertifikat, datumIzdavanja);
+            lista.add(dizser);
+            
         }
         
         return lista;
@@ -118,16 +138,23 @@ public class DizajnerSertifikat implements ApstraktniDomenskiObjekat {
         return "dizajnersertifikat.dizajner="+dizajner.getIdDizajner()+" AND dizajnersertifikat.sertifikat="+sertifikat.getIdSertifikat()+" AND dizajnersertifikat.datumIzdavanja='"+sqlDatum+"'";
     }
 
-    @Override
-    public ApstraktniDomenskiObjekat vratiObjekatIzRS(ResultSet rs) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
     public String vratiVrednostZaIzmenu() {
         java.sql.Date sqlDatum = new java.sql.Date(datumIzdavanja.getTime());
         return "dizajner="+dizajner.getIdDizajner()+", sertifikat="+sertifikat.getIdSertifikat()+", datumIzdavanja='"+sqlDatum+"'";
 
+    }
+
+    @Override
+    public String join() {
+        return "JOIN dizajner ON dizajnersertifikat.dizajner = dizajner.idDizajner "
+             + "JOIN sertifikat ON dizajnersertifikat.sertifikat = sertifikat.idSertifikat";
+    }
+
+    @Override
+    public String uslov() {
+        return "";
     }
     
     

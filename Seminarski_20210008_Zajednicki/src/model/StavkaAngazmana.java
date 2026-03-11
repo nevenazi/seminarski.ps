@@ -79,6 +79,7 @@ public class StavkaAngazmana implements ApstraktniDomenskiObjekat {
     public TipVizuala getTipVizuala() {
         return tipVizuala;
     }
+    
 
     public boolean isZavrsena() {
         return zavrsena;
@@ -160,8 +161,8 @@ public class StavkaAngazmana implements ApstraktniDomenskiObjekat {
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista= new ArrayList<>();
         while (rs.next()){
-            int idEvidencijaAngazmana=rs.getInt("stavkaangazmana.evidencijaAngazmana");
-            /// evidencija
+            
+            
             int rb=rs.getInt("stavkaangazmana.rb");
             int kolicina=rs.getInt("stavkaangazmana.kolicina");
             String opis=rs.getString("stavkaangazmana.opis");
@@ -170,11 +171,51 @@ public class StavkaAngazmana implements ApstraktniDomenskiObjekat {
             double korekcijaIznosa=rs.getDouble("stavkaangazmana.korekcijaIznosa");
             double korigovanIznos=rs.getDouble("stavkaangazmana.korigovanIznos");
             boolean zavrsena=rs.getBoolean("stavkaangazmana.zavrsena");
-            int idTipVizuala=rs.getInt("stavkaangazmana.tipVizuala");
             
-            ////tip vizuala
+            //evidencija angazmana
+            int idEvidencijaAngazmana=rs.getInt("evidencijaangazmana.idEvidencijaAngazmana");
+            double ukupanIznos=rs.getDouble("evidencijaangazmana.ukupanIznos");
+            java.sql.Date roksql=rs.getDate("evidencijaangazmana.rok");
+            java.util.Date rok=new java.util.Date(roksql.getTime());
+            boolean zavrsen=rs.getBoolean("evidencijaangazmana.zavrsen");
             
-            //TODO
+            int dizajnerid=rs.getInt("dizajner.idDizajner");
+            String imed=rs.getString("dizajner.ime");
+            String prezimed=rs.getString("dizajner.prezime");
+            String korisnickoIme=rs.getString("dizajner.korisnickoIme");
+            String sifra=rs.getString("dizajner.sifra");
+            
+            Dizajner dizajner=new Dizajner(dizajnerid, imed, prezimed, korisnickoIme, sifra);
+            
+            int menadzid=rs.getInt("marketingmenadzer.idMarketingMenadzer");
+            String imem=rs.getString("marketingmenadzer.ime");
+            String prezimem=rs.getString("marketingmenadzer.prezime");
+            String telefon=rs.getString("marketingmenadzer.telefon");
+            String email=rs.getString("marketingmenadzer.email");
+            
+            int kompid=rs.getInt("kompanija.idKompanija");
+            String naziv=rs.getString("kompanija.naziv");
+            String sajt=rs.getString("kompanija.sajt");
+            Kompanija kompanija=new Kompanija(kompid, naziv, sajt);
+            
+            MarketingMenadzer marketingMenadzer=new MarketingMenadzer(menadzid, imem, prezimem, telefon, email, kompanija);
+            
+            EvidencijaAngazmana evidencija=new EvidencijaAngazmana(idEvidencijaAngazmana, ukupanIznos, rok, zavrsen, null, dizajner, marketingMenadzer);
+            
+            //tip vizuala
+            int idviz=rs.getInt("tipvizuala.idTipVizuala");
+            String nazivviz=rs.getString("tipvizuala.naziv");
+            String dimenzije=rs.getString("tipvizuala.dimenzije");
+            String modelBoja=rs.getString("tipvizuala.modelBoja");
+            double osnovnaCena=rs.getDouble("tipvizuala.osnovnaCena");
+            
+            TipVizuala tipvizuala=new TipVizuala(idviz, nazivviz, dimenzije, modelBoja, osnovnaCena);
+            
+            StavkaAngazmana stavka=new StavkaAngazmana(evidencija, rb, kolicina, opis, cena, nekorigovanIznos, korekcijaIznosa, korigovanIznos, zavrsena, tipvizuala);
+            
+            lista.add(stavka);
+            
+            
         }
         
         return lista;
@@ -195,14 +236,34 @@ public class StavkaAngazmana implements ApstraktniDomenskiObjekat {
         return "stavkaangazmana.evidencijaAngazmana="+evidencijaAngazmana.getIdEvidencijaAngazmana()+" AND stavkaangazmana.rb="+rb;
     }
 
-    @Override
-    public ApstraktniDomenskiObjekat vratiObjekatIzRS(ResultSet rs) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
     public String vratiVrednostZaIzmenu() {
         return "evidencijaAngazmana="+evidencijaAngazmana.getIdEvidencijaAngazmana()+", rb="+rb+", kolicina="+kolicina+", opis='"+opis+"', cena="+cena+", nekorigovanIznos="+nekorigovanIznos+", korekcijaIznosa="+korekcijaIznosa+", korigovanIznos="+korigovanIznos+", zavrsena="+zavrsena+", tipVizuala="+tipVizuala.getIdTipVizuala();
+    }
+
+    @Override
+    public String join() {
+        return " JOIN tipvizuala ON (stavkaangazmana.tipVizuala=tipvizuala.idTipVizuala)"
+                + "JOIN evidencijaangazmana ON (stavkaangazmana.evidencijaAngazmana=evidencijaangazmana.idEvidencijaAngazmana)"
+                + "JOIN dizajner ON (evidencijaangazmana.dizajner=dizajner.idDizajner)" 
+                + "JOIN marketingmenadzer ON (evidencijaangazmana.marketingMenadzer=marketingMenadzer.idMarketingMenadzer)" 
+                + "JOIN kompanija ON (marketingMenadzer.kompanija = kompanija.idKompanija)";
+    }
+
+    @Override
+    public String uslov() {
+        ArrayList<String> uslovi = new ArrayList<>();
+
+        if (this!=null && this.evidencijaAngazmana != null && evidencijaAngazmana.getIdEvidencijaAngazmana()> 0) {
+            uslovi.add("stavkaangazmana.evidencijaAngazmana = " + evidencijaAngazmana.getIdEvidencijaAngazmana());
+        }
+        
+   
+        if (uslovi.isEmpty()) {
+            return ""; 
+        }
+        return "WHERE " + String.join(" AND ", uslovi);
     }
 
     

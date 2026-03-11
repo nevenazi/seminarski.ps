@@ -7,6 +7,9 @@ package controller;
 import java.util.List;
 import model.Dizajner;
 import model.Kompanija;
+import model.MarketingMenadzer;
+import model.Sertifikat;
+import model.TipVizuala;
 import operacije.dizajnerOperacije.KreirajDizajnerSO;
 import operacije.dizajnerOperacije.PrijaviDizajnerSO;
 import operacije.dizajnerOperacije.ObrisiDizajnerSO;
@@ -16,6 +19,14 @@ import operacije.kompanijaOperacije.KreirajKompanijaSO;
 import operacije.kompanijaOperacije.ObrisiKompanijaSO;
 import operacije.kompanijaOperacije.PromeniKompanijaSO;
 import operacije.kompanijaOperacije.VratiListuSviKompanijaSO;
+import operacije.marketingMenadzerOperacije.KreirajMarketingMenadzerSO;
+import operacije.marketingMenadzerOperacije.ObrisiMarketingMenadzerSO;
+import operacije.marketingMenadzerOperacije.PretraziMarketingMenadzerSO;
+import operacije.marketingMenadzerOperacije.PromeniMarketingMenadzerSO;
+import operacije.marketingMenadzerOperacije.VratiListuSviMarketingMenadzerSO;
+import operacije.sertifikatOperacije.UbaciSertifikatSO;
+import operacije.sertifikatOperacije.VratiListuSviSertifikatSO;
+import operacije.tipVizualaOperacije.VratiListuSviTipVizualaSO;
 
 /**
  *
@@ -60,6 +71,7 @@ public class Controller {
 
     public void promeniDizajner(Dizajner d) throws Exception {
         PromeniDizajnerSO o=new PromeniDizajnerSO();
+        System.out.println(d.toString()+"controller");
         o.izvrsi(d, null);
     }
 
@@ -82,6 +94,50 @@ public class Controller {
     public void obrisiKompanija(Kompanija k) throws Exception {
         ObrisiKompanijaSO o=new ObrisiKompanijaSO();
         o.izvrsi(k, null);
+    }
+
+    public List<MarketingMenadzer> vratiListuSviMarketingMenadzer() throws Exception {
+        VratiListuSviMarketingMenadzerSO o=new VratiListuSviMarketingMenadzerSO();
+        o.izvrsi(new MarketingMenadzer(), null);
+        return o.getMenadzeri();
+    }
+
+    public void obrisiMarketingMenadzer(MarketingMenadzer mm) throws Exception {
+        ObrisiMarketingMenadzerSO o= new ObrisiMarketingMenadzerSO();
+        o.izvrsi(mm, null);
+    }
+
+    public void kreirajMarketingMenadzer(MarketingMenadzer mm) throws Exception {
+        KreirajMarketingMenadzerSO o=new KreirajMarketingMenadzerSO();
+        o.izvrsi(mm, null);
+    }
+
+    public void promeniMarketingMenadzer(MarketingMenadzer mm) throws Exception {
+        PromeniMarketingMenadzerSO o=new PromeniMarketingMenadzerSO();
+        o.izvrsi(mm, null);
+    }
+
+    public List<MarketingMenadzer> pretraziMarketingMenadzer(MarketingMenadzer mm) throws Exception {
+        PretraziMarketingMenadzerSO o=new PretraziMarketingMenadzerSO();
+        o.izvrsi(mm, mm.uslov());
+        return o.getMenadzeri();
+    }
+
+    public List<Sertifikat> vratiListuSviSertifikat() throws Exception {
+        VratiListuSviSertifikatSO o=new VratiListuSviSertifikatSO();
+        o.izvrsi(new Sertifikat(),null);
+        return o.getSertifikati();
+    }
+
+    public void ubaciSertifikat(Sertifikat s) throws Exception {
+        UbaciSertifikatSO o=new UbaciSertifikatSO();
+        o.izvrsi(s, null);
+    }
+
+    public List<TipVizuala> vratiListuSviTipVizuala() throws Exception {
+        VratiListuSviTipVizualaSO o=new VratiListuSviTipVizualaSO();
+        o.izvrsi(new TipVizuala(), null);
+        return o.getVizuali();
     }
     
     

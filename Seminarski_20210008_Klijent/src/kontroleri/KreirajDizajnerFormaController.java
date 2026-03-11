@@ -22,6 +22,7 @@ import model.Dizajner;
 public class KreirajDizajnerFormaController {
     
     public final KreirajDizajnerForma kdf;
+    private Dizajner dizajnerForme;
 
     public KreirajDizajnerFormaController(KreirajDizajnerForma kdf) {
         this.kdf = kdf;
@@ -33,22 +34,25 @@ public class KreirajDizajnerFormaController {
             case KREIRAJ:
                 kdf.setTitle("Kreiraj dizajnera");
                 kdf.getjButtonPromeni().setVisible(false);
-                kdf.getjButtonKreiraj().setVisible(true);
-                kdf.getjButtonKreiraj().setEnabled(true);
-
+                kdf.getjButtonSacuvaj().setVisible(true);
+                kdf.getjButtonSacuvaj().setEnabled(true);
+                dizajnerForme=new Dizajner();
+                JOptionPane.showMessageDialog(kdf, "Sistem je kreirao dizajnera", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                 break;
             case PROMENI:
                 kdf.setTitle("Promeni dizajnera");
-                kdf.getjButtonKreiraj().setVisible(false);
+                kdf.getjButtonSacuvaj().setVisible(false);
                 kdf.getjButtonPromeni().setVisible(true);
                 kdf.getjButtonPromeni().setEnabled(true);
-                popuniFormu((Dizajner)Koordinator.getInstance().vratiParametar("dizajner"));
+                dizajnerForme=(Dizajner)Koordinator.getInstance().vratiParametar("dizajner");
+                popuniFormu(dizajnerForme);
                 break;
             case PRIKAZI:
                 kdf.setTitle("Prikaži dizajnera");
-                kdf.getjButtonKreiraj().setVisible(false);
+                kdf.getjButtonSacuvaj().setVisible(false);
                 kdf.getjButtonPromeni().setVisible(false);
-                popuniFormu((Dizajner)Koordinator.getInstance().vratiParametar("dizajner"));
+                dizajnerForme=(Dizajner)Koordinator.getInstance().vratiParametar("dizajner");
+                popuniFormu(dizajnerForme);
                 onemoguciPoljaForme();
                 break;
             default:
@@ -60,7 +64,7 @@ public class KreirajDizajnerFormaController {
         addActionListeners();
     }
     public void addActionListeners(){
-        kdf.addButtonKreirajActionListener(new ActionListener() {
+        kdf.addButtonSacuvajActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
@@ -82,9 +86,9 @@ public class KreirajDizajnerFormaController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                    int id=((Dizajner)Koordinator.getInstance().vratiParametar("dizajner")).getIdDizajner();
                     Dizajner d=pokupiDizajnera();
-                    d.setIdDizajner(id);
+                    d.setIdDizajner(dizajnerForme.getIdDizajner());
+                    
                 try {    
                     Komunikacija.getInstance().promeniDizajner(d);
                     String ispis="Sistem je zapamtio dizajnera:\n"+"ime: "+d.getIme()+"\nprezime: "+d.getPrezime()+"\nkorisničko ime: "+d.getKorisnickoIme();
@@ -92,7 +96,7 @@ public class KreirajDizajnerFormaController {
                     Koordinator.getInstance().getDizajnerFormaController().pripremiFormu();
                     kdf.dispose();
                 } catch (Exception ex) {
-                    Logger.getLogger(KreirajDizajnerFormaController.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(kdf, "Sistem ne može da zapamti dizajnera.", "Greška", JOptionPane.ERROR_MESSAGE);
                 }
                 
             }
@@ -129,6 +133,13 @@ public class KreirajDizajnerFormaController {
         kdf.getjTextFieldPrezime().setText(dizajner.getPrezime());
         kdf.getjTextFieldKorisnickoIme().setText(dizajner.getKorisnickoIme());
         kdf.getjPasswordField().setText(dizajner.getSifra());
+        if (Koordinator.getInstance().getUlogovaniKorisnik().equals(dizajner)){
+            kdf.getjPasswordField().setVisible(true);
+            kdf.getjLabelSifra().setVisible(true);
+        }else {
+            kdf.getjPasswordField().setVisible(false);
+            kdf.getjLabelSifra().setVisible(false);
+        }
     }
 
     private void onemoguciPoljaForme() {
@@ -136,6 +147,7 @@ public class KreirajDizajnerFormaController {
         kdf.getjTextFieldPrezime().setEditable(false);
         kdf.getjTextFieldKorisnickoIme().setEditable(false);
         kdf.getjPasswordField().setVisible(false);
+        kdf.getjLabelSifra().setVisible(false);
     }
 
 

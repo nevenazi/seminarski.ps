@@ -165,7 +165,7 @@ public class KompanijaFormaController {
         ModelTabeleKompanija mtd=new ModelTabeleKompanija(kompanije);
         kf.getjTableKompanija().setModel(mtd);
         kf.setVisible(true);
-        Koordinator.getInstance().zatvoriGlavnaFormu();
+        Koordinator.getInstance().zatvoriGlavnuFormu();
     }
     
     

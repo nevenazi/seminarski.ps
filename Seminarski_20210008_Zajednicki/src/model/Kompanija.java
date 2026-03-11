@@ -57,6 +57,28 @@ public class Kompanija implements ApstraktniDomenskiObjekat{
     }
 
     @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Kompanija other = (Kompanija) obj;
+        return this.idKompanija == other.idKompanija;
+    }
+    
+
+    @Override
     public String vratiNazivTabele() {
         return "kompanija";
     }
@@ -92,13 +114,18 @@ public class Kompanija implements ApstraktniDomenskiObjekat{
     }
 
     @Override
-    public ApstraktniDomenskiObjekat vratiObjekatIzRS(ResultSet rs) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String vratiVrednostZaIzmenu() {
+        return "naziv='"+naziv+"', sajt='"+sajt+"'";
     }
 
     @Override
-    public String vratiVrednostZaIzmenu() {
-        return "naziv='"+naziv+"', sajt='"+sajt+"'";
+    public String join() {
+        return "";
+    }
+
+    @Override
+    public String uslov() {
+        return "";
     }
     
     

@@ -31,16 +31,16 @@
                       <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jButtonKreiraj" min="-2" pref="129" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jButtonPrikazi" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                   <Component id="jButtonPromeni" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jButtonPrikazi" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jButtonObrisi" min="-2" pref="132" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jButtonGF" min="-2" pref="132" max="-2" attributes="0"/>
                       </Group>
@@ -102,8 +102,8 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButtonKreiraj" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonObrisi" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonPrikazi" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonPromeni" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonPrikazi" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="56" max="32767" attributes="0"/>
               <Component id="jButtonGF" min="-2" pref="37" max="-2" attributes="0"/>

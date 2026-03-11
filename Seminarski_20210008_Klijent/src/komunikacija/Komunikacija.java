@@ -14,6 +14,9 @@ import javax.swing.JOptionPane;
 import kontroleri.Koordinator;
 import model.Dizajner;
 import model.Kompanija;
+import model.MarketingMenadzer;
+import model.Sertifikat;
+import model.TipVizuala;
 
 /**
  *
@@ -154,6 +157,90 @@ public class Komunikacija {
             ((Exception)so.getOdgovor()).printStackTrace();
             throw new Exception("Greška u brisanju kompanije");
         }
+    }
+
+    public List<MarketingMenadzer> ucitajMarketingMenadzere() throws IOException {
+        List <MarketingMenadzer> menadzeri=new ArrayList<>();
+        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.VRATI_LISTU_SVI_MARKETING_MENADZER, null);
+        posiljalac.posalji(zahtev);
+        
+        ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
+        menadzeri=(List<MarketingMenadzer>) odg.getOdgovor();
+        return menadzeri; 
+    }
+
+    public void obrisiMarketingMenadzera(MarketingMenadzer mm)throws Exception {
+        KlijentskiZahtev kz=new KlijentskiZahtev(Operacija.OBRISI_MARKETING_MENADZER, mm);
+        posiljalac.posalji(kz);
+        
+        ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
+        if (so.getOdgovor()!=null){
+            ((Exception)so.getOdgovor()).printStackTrace();
+            throw new Exception("Greška u marketing menazera");
+        }
+    }
+
+    public void kreirajMarketingMenadzer(MarketingMenadzer mm) throws Exception{
+        KlijentskiZahtev kz=new KlijentskiZahtev(Operacija.KREIRAJ_MARKETING_MENADZER, mm);
+        posiljalac.posalji(kz);
+        
+        ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
+        if (so.getOdgovor()!=null){
+            ((Exception)so.getOdgovor()).printStackTrace();
+            throw new Exception("Greška u kreiranju marketing menadžera");
+        }
+    }
+
+    public void promeniMarketingMenadzer(MarketingMenadzer mm) throws Exception{
+        KlijentskiZahtev kz=new KlijentskiZahtev(Operacija.PROMENI_MARKETING_MENADZER, mm);
+        posiljalac.posalji(kz);
+        
+        ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
+        if(so.getOdgovor()!=null){
+            ((Exception)so.getOdgovor()).printStackTrace();
+            throw new Exception("Greška u promeni arketing menadžera");
+        }
+    }
+
+    public List<MarketingMenadzer> pretraziMarketingMenadzer(MarketingMenadzer uslovMM) throws IOException {
+        List <MarketingMenadzer> menadzeri=new ArrayList<>();
+        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.PRETRAZI_MARKETING_MENADZER, uslovMM);
+        posiljalac.posalji(zahtev);
+        
+        ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
+        menadzeri=(List<MarketingMenadzer>) odg.getOdgovor();
+        return menadzeri; 
+    }
+
+    public List<Sertifikat> ucitajSertifikate() throws IOException {
+        List <Sertifikat> sertifikati=new ArrayList<>();
+        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.VRATI_LISTU_SVI_SERTIFIKAT, null);
+        posiljalac.posalji(zahtev);
+        
+        ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
+        sertifikati=(List<Sertifikat>) odg.getOdgovor();
+        return sertifikati;
+    }
+
+    public void ubaciSertifikat(Sertifikat s) throws Exception {
+        KlijentskiZahtev kz=new KlijentskiZahtev(Operacija.UBACI_SERTIFIKAT, s);
+        posiljalac.posalji(kz);
+        
+        ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
+        if (so.getOdgovor()!=null){
+            ((Exception)so.getOdgovor()).printStackTrace();
+            throw new Exception("Greška u ubacivanju sertifikata");
+        }
+    }
+
+    public List<TipVizuala> ucitajVizuale() throws IOException {
+        List <TipVizuala> vizuali=new ArrayList<>();
+        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.VRATI_LISTU_SVI_TIP_VIZUALA, null);
+        posiljalac.posalji(zahtev);
+        
+        ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
+        vizuali=(List<TipVizuala>) odg.getOdgovor();
+        return vizuali;
     }
 
     

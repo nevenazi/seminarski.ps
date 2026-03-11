@@ -164,7 +164,7 @@ public class DizajnerFormaController {
         ModelTabeleDizajner mtd=new ModelTabeleDizajner(dizajneri);
         df.getjTableDizajner().setModel(mtd);
         JOptionPane.showMessageDialog(df, "Sistem je našao dizajnere","Uspeh", JOptionPane.INFORMATION_MESSAGE);
-        Koordinator.getInstance().zatvoriGlavnaFormu();
+        Koordinator.getInstance().zatvoriGlavnuFormu();
         df.setVisible(true);
     }
 

@@ -6,6 +6,7 @@ package forme;
 
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -34,11 +35,11 @@ public class KreirajDizajnerForma extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabelSifra = new javax.swing.JLabel();
         jTextFieldIme = new javax.swing.JTextField();
         jTextFieldPrezime = new javax.swing.JTextField();
         jTextFieldKorisnickoIme = new javax.swing.JTextField();
-        jButtonKreiraj = new javax.swing.JButton();
+        jButtonSacuvaj = new javax.swing.JButton();
         jPasswordField = new javax.swing.JPasswordField();
         jButtonPromeni = new javax.swing.JButton();
         Zatvori = new javax.swing.JButton();
@@ -51,7 +52,7 @@ public class KreirajDizajnerForma extends javax.swing.JFrame {
 
         jLabel3.setText("korisničko ime:");
 
-        jLabel4.setText("šifra:");
+        jLabelSifra.setText("šifra:");
 
         jTextFieldIme.setText("Stefan");
 
@@ -59,10 +60,10 @@ public class KreirajDizajnerForma extends javax.swing.JFrame {
 
         jTextFieldKorisnickoIme.setText("stefankoc");
 
-        jButtonKreiraj.setText("Kreiraj");
-        jButtonKreiraj.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSacuvaj.setText("Sačuvaj");
+        jButtonSacuvaj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonKreirajActionPerformed(evt);
+                jButtonSacuvajActionPerformed(evt);
             }
         });
 
@@ -86,13 +87,13 @@ public class KreirajDizajnerForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(Zatvori)
                     .addComponent(jButtonPromeni)
-                    .addComponent(jButtonKreiraj)
+                    .addComponent(jButtonSacuvaj)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabelSifra))
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextFieldKorisnickoIme, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
@@ -118,10 +119,10 @@ public class KreirajDizajnerForma extends javax.swing.JFrame {
                     .addComponent(jTextFieldKorisnickoIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(jLabelSifra)
                     .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
-                .addComponent(jButtonKreiraj)
+                .addComponent(jButtonSacuvaj)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonPromeni)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
@@ -132,9 +133,9 @@ public class KreirajDizajnerForma extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonKreirajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKreirajActionPerformed
+    private void jButtonSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSacuvajActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonKreirajActionPerformed
+    }//GEN-LAST:event_jButtonSacuvajActionPerformed
 
     private void jButtonPromeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPromeniActionPerformed
         // TODO add your handling code here:
@@ -163,26 +164,32 @@ public class KreirajDizajnerForma extends javax.swing.JFrame {
         return jButtonPromeni;
     }
 
-    public JButton getjButtonKreiraj() {
-        return jButtonKreiraj;
+    public JButton getjButtonSacuvaj() {
+        return jButtonSacuvaj;
     }
+
+    public JLabel getjLabelSifra() {
+        return jLabelSifra;
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Zatvori;
-    private javax.swing.JButton jButtonKreiraj;
     private javax.swing.JButton jButtonPromeni;
+    private javax.swing.JButton jButtonSacuvaj;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelSifra;
     private javax.swing.JPasswordField jPasswordField;
     private javax.swing.JTextField jTextFieldIme;
     private javax.swing.JTextField jTextFieldKorisnickoIme;
     private javax.swing.JTextField jTextFieldPrezime;
     // End of variables declaration//GEN-END:variables
 
-    public void addButtonKreirajActionListener(ActionListener actionListener) {
-        jButtonKreiraj.addActionListener(actionListener);
+    public void addButtonSacuvajActionListener(ActionListener actionListener) {
+        jButtonSacuvaj.addActionListener(actionListener);
     }
     
     public void addButtonPromeniActionListener(ActionListener actionListener) {

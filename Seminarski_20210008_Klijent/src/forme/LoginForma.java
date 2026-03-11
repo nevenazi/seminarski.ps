@@ -38,6 +38,7 @@ public class LoginForma extends javax.swing.JFrame {
         jButtonUslogujSe = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Prijava dizajnera");
 
         jLabel1.setText("username:");
 

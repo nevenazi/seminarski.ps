@@ -4,6 +4,11 @@
  */
 package forme;
 
+import forme.model.ModelTabeleStavkaAngazmana;
+import java.util.ArrayList;
+import java.util.List;
+import model.StavkaAngazmana;
+
 /**
  *
  * @author N
@@ -15,6 +20,9 @@ public class EvidencijaAngazmanaForma extends javax.swing.JFrame {
      */
     public EvidencijaAngazmanaForma() {
         initComponents();
+        List<StavkaAngazmana> lista=new ArrayList<>();
+        ModelTabeleStavkaAngazmana mts=new ModelTabeleStavkaAngazmana(lista);
+        jTable1.setModel(mts);
     }
 
     /**
@@ -31,6 +39,7 @@ public class EvidencijaAngazmanaForma extends javax.swing.JFrame {
         jButtonGlavnaForma = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Evidencija angažmana");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -57,11 +66,14 @@ public class EvidencijaAngazmanaForma extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonGlavnaForma)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(67, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jButtonGlavnaForma))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -141,15 +141,20 @@ public class Dizajner implements ApstraktniDomenskiObjekat {
         return "dizajner.idDizajner="+idDizajner;
     }
 
-    @Override
-    public ApstraktniDomenskiObjekat vratiObjekatIzRS(ResultSet rs) throws Exception {
-
-        return this;
-    }
 
     @Override
     public String vratiVrednostZaIzmenu() {
         return "ime='"+ime+"', prezime='"+prezime+"', korisnickoIme='"+korisnickoIme+"', sifra='"+sifra+"'";
+    }
+
+    @Override
+    public String join() {
+        return "";
+    }
+
+    @Override
+    public String uslov() {
+        return "";
     }
     
     

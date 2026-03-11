@@ -16,6 +16,9 @@ import komunikacija.Primalac;
 import komunikacija.ServerskiOdgovor;
 import model.Dizajner;
 import model.Kompanija;
+import model.MarketingMenadzer;
+import model.Sertifikat;
+import model.TipVizuala;
 
 /**
  *
@@ -48,6 +51,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                 ServerskiOdgovor odgovor=new ServerskiOdgovor();
                 Dizajner d;
                 Kompanija k;
+                MarketingMenadzer mm;
                 switch(zahtev.getOperacija()){
                     case PRIJAVI_DIZAJNER:
                         d=(Dizajner)zahtev.getParametar();
@@ -82,8 +86,10 @@ public class ObradaKlijentskihZahteva extends Thread {
                         try {
                             d = (Dizajner) zahtev.getParametar();
                             Controller.getInstance().promeniDizajner(d);
+                            System.out.println(d.toString()+"okz");
                             odgovor.setOdgovor(null);
                         } catch (Exception exception) {
+                            exception.printStackTrace();
                             odgovor.setOdgovor(exception);
                         }break;
                     case VRATI_LISTU_SVI_KOMPANIJA:
@@ -115,6 +121,57 @@ public class ObradaKlijentskihZahteva extends Thread {
                         } catch (Exception e) {
                             odgovor.setOdgovor(e);
                         }
+                        break;
+                    case VRATI_LISTU_SVI_MARKETING_MENADZER:
+                        List<MarketingMenadzer> menadzeri=Controller.getInstance().vratiListuSviMarketingMenadzer();
+                        odgovor.setOdgovor(menadzeri);
+                        break;
+                    case OBRISI_MARKETING_MENADZER:
+                        try {
+                            mm = (MarketingMenadzer) zahtev.getParametar();
+                            Controller.getInstance().obrisiMarketingMenadzer(mm);
+                            odgovor.setOdgovor(null);
+                        } catch (Exception e) {
+                            odgovor.setOdgovor(e);
+                        }
+                        break;
+                    case KREIRAJ_MARKETING_MENADZER:
+                        try {
+                            mm = (MarketingMenadzer) zahtev.getParametar();
+                            Controller.getInstance().kreirajMarketingMenadzer(mm);
+                            odgovor.setOdgovor(null);
+                        } catch (Exception exception) {
+                            odgovor.setOdgovor(exception);
+                        }break;
+                    case PROMENI_MARKETING_MENADZER:
+                        try {
+                            mm = (MarketingMenadzer) zahtev.getParametar();
+                            Controller.getInstance().promeniMarketingMenadzer(mm);
+                            odgovor.setOdgovor(null);
+                        } catch (Exception e) {
+                            odgovor.setOdgovor(e);
+                        }
+                        break;
+                    case PRETRAZI_MARKETING_MENADZER:
+                        mm=(MarketingMenadzer) zahtev.getParametar();
+                        List<MarketingMenadzer> filtriraniMenadzeri=Controller.getInstance().pretraziMarketingMenadzer(mm);
+                        odgovor.setOdgovor(filtriraniMenadzeri);
+                        break;
+                    case VRATI_LISTU_SVI_SERTIFIKAT:
+                        List<Sertifikat> sertifikati=Controller.getInstance().vratiListuSviSertifikat();
+                        odgovor.setOdgovor(sertifikati);
+                        break;
+                    case UBACI_SERTIFIKAT:
+                        try {
+                            Sertifikat s = (Sertifikat) zahtev.getParametar();
+                            Controller.getInstance().ubaciSertifikat(s);
+                            odgovor.setOdgovor(null);
+                        } catch (Exception exception) {
+                            odgovor.setOdgovor(exception);
+                        }break;
+                    case VRATI_LISTU_SVI_TIP_VIZUALA:
+                        List<TipVizuala> vizuali=Controller.getInstance().vratiListuSviTipVizuala();
+                        odgovor.setOdgovor(vizuali);
                         break;
 
                     default:System.out.println("Greška! Nepostojeća operacija je izabrana.");

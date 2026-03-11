@@ -35,7 +35,7 @@ public class KreirajKompanijaForma extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextFieldNaziv = new javax.swing.JTextField();
         jTextFieldSajt = new javax.swing.JTextField();
-        jButtonKreiraj = new javax.swing.JButton();
+        jButtonSacuvaj = new javax.swing.JButton();
         jButtonPromeni = new javax.swing.JButton();
         Zatvori = new javax.swing.JButton();
 
@@ -49,10 +49,10 @@ public class KreirajKompanijaForma extends javax.swing.JFrame {
 
         jTextFieldSajt.setText("https://www.univerexport.rs/");
 
-        jButtonKreiraj.setText("Kreiraj");
-        jButtonKreiraj.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSacuvaj.setText("Sačuvaj");
+        jButtonSacuvaj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonKreirajActionPerformed(evt);
+                jButtonSacuvajActionPerformed(evt);
             }
         });
 
@@ -74,7 +74,7 @@ public class KreirajKompanijaForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(Zatvori)
                     .addComponent(jButtonPromeni)
-                    .addComponent(jButtonKreiraj)
+                    .addComponent(jButtonSacuvaj)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -97,7 +97,7 @@ public class KreirajKompanijaForma extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jTextFieldSajt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
-                .addComponent(jButtonKreiraj)
+                .addComponent(jButtonSacuvaj)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonPromeni)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
@@ -108,9 +108,9 @@ public class KreirajKompanijaForma extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonKreirajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKreirajActionPerformed
+    private void jButtonSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSacuvajActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonKreirajActionPerformed
+    }//GEN-LAST:event_jButtonSacuvajActionPerformed
 
     private void jButtonPromeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPromeniActionPerformed
         // TODO add your handling code here:
@@ -133,22 +133,22 @@ public class KreirajKompanijaForma extends javax.swing.JFrame {
         return jButtonPromeni;
     }
 
-    public JButton getjButtonKreiraj() {
-        return jButtonKreiraj;
+    public JButton getjButtonSacuvaj() {
+        return jButtonSacuvaj;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Zatvori;
-    private javax.swing.JButton jButtonKreiraj;
     private javax.swing.JButton jButtonPromeni;
+    private javax.swing.JButton jButtonSacuvaj;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField jTextFieldNaziv;
     private javax.swing.JTextField jTextFieldSajt;
     // End of variables declaration//GEN-END:variables
 
-    public void addButtonKreirajActionListener(ActionListener actionListener) {
-        jButtonKreiraj.addActionListener(actionListener);
+    public void addButtonSacuvajActionListener(ActionListener actionListener) {
+        jButtonSacuvaj.addActionListener(actionListener);
     }
     public void addButtonPromeniActionListener(ActionListener actionListener) {
         jButtonPromeni.addActionListener(actionListener);
