@@ -72,6 +72,27 @@ public class TipVizuala implements ApstraktniDomenskiObjekat {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TipVizuala other = (TipVizuala) obj;
+        return this.idTipVizuala == other.idTipVizuala;
+    }
+
+    @Override
     public String toString() {
         return "id=" + idTipVizuala + ", naziv=" + naziv + ", dimenzije=" + dimenzije;
     }

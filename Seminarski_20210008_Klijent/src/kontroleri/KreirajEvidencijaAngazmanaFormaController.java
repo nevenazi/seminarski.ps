@@ -8,8 +8,10 @@ import forme.KreirajEvidencijaAngazmanaForma;
 import forme.VrstaForme;
 import static forme.VrstaForme.PROMENI;
 import forme.model.ModelTabeleStavkaAngazmana;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,6 +20,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import komunikacija.Komunikacija;
 import model.Dizajner;
 import model.EvidencijaAngazmana;
@@ -219,7 +222,6 @@ public class KreirajEvidencijaAngazmanaFormaController {
         keaf.getjButtonIzbaciStavku().setVisible(false);
         keaf.getjButtonIzracunaj().setVisible(false);
         keaf.getjComboBoxDizajner1().setEnabled(false);
-        keaf.getjComboBoxTipVizuala().removeAllItems();
         keaf.getjComboBoxTVizuala().setEnabled(false);
         keaf.getjComboBoxMarketingMenadzer1().setEnabled(false);
         keaf.getjTextAreaOpis().setEnabled(false);
@@ -347,6 +349,23 @@ public class KreirajEvidencijaAngazmanaFormaController {
         }
         ModelTabeleStavkaAngazmana mtsa=new ModelTabeleStavkaAngazmana(stavke);
         keaf.getjTableStavkeAngazmana().setModel(mtsa);
+    }
+
+    public void prikaziStavku(MouseEvent evt) {
+        JTable table=(JTable) evt.getSource();
+        Point point=evt.getPoint();
+        int red=table.rowAtPoint(point);
+        
+        StavkaAngazmana stavka=((ModelTabeleStavkaAngazmana)keaf.getjTableStavkeAngazmana().getModel()).getLista().get(red);
+        String ispis="Sistem je našao stavku angažmana."+stavka.getTipVizuala().toString();
+        JOptionPane.showMessageDialog(keaf, ispis, "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+        
+        keaf.getjComboBoxTipVizuala().setSelectedItem(stavka.getTipVizuala());
+        keaf.getjTextAreaOpis().setText(stavka.getOpis());
+        keaf.getjTextFieldKolicina().setText(stavka.getKolicina()+"");
+        keaf.getjTextFieldKorekcijaIznosa().setText(stavka.getKorekcijaIznosa()+"");
+        keaf.getjCheckBoxZavrsena().setSelected(stavka.isZavrsena());
+        izracunaj();
     }
 
 

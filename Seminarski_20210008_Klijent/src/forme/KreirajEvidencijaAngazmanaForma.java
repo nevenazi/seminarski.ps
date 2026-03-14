@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import kontroleri.Koordinator;
 import model.Dizajner;
 import model.Kompanija;
 import model.MarketingMenadzer;
@@ -153,6 +154,11 @@ public class KreirajEvidencijaAngazmanaForma extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableStavkeAngazmana.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableStavkeAngazmanaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableStavkeAngazmana);
 
         jLabel16.setText("opis:");
@@ -329,6 +335,10 @@ public class KreirajEvidencijaAngazmanaForma extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxDizajner1ActionPerformed
 
+    private void jTableStavkeAngazmanaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableStavkeAngazmanaMouseClicked
+        Koordinator.getInstance().getKreirajEvidencijaAngazmanaFormaController().prikaziStavku(evt);
+    }//GEN-LAST:event_jTableStavkeAngazmanaMouseClicked
+
     public JCheckBox getjCheckBoxZavrsena() {
         return jCheckBoxZavrsena;
     }
@@ -400,19 +410,6 @@ public class KreirajEvidencijaAngazmanaForma extends javax.swing.JFrame {
     }
 
    
-    
-    
-
-    
-
-
-    
-
-
-    
-    
-    
-
     public JButton getjButtonPromeni() {
         return jButtonPromeni;
     }
