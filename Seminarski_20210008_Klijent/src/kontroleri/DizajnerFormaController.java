@@ -52,7 +52,7 @@ public class DizajnerFormaController {
                     JOptionPane.showMessageDialog(df, "Sistem je obrisao dizajnera.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                     pripremiFormu();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(df, "Sistem ne može da obriše dizajnera.", "Greška", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(df, "Sistem ne može da obriše dizajnera.", "Greška", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -91,7 +91,7 @@ public class DizajnerFormaController {
                         
                 try {
                     dizajneri=filtriraj(Komunikacija.getInstance().ucitajDizajnere(),ime,prezime,korisnickoIme);
-                    if (dizajneri.isEmpty())JOptionPane.showMessageDialog(df, "Sistem ne može da nađe dizajnere po zadatim kriterijumima","Rezultat pretrage je prazan", JOptionPane.INFORMATION_MESSAGE);
+                    if (dizajneri.isEmpty())JOptionPane.showMessageDialog(df, "Rezultat pretrage je prazan","", JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(df, "Sistem ne može da nađe dizajnere po zadatim kriterijumima","Greška", JOptionPane.ERROR_MESSAGE);
                     Logger.getLogger(DizajnerFormaController.class.getName()).log(Level.SEVERE, null, ex);

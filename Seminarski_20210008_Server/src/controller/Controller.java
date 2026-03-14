@@ -10,14 +10,16 @@ import model.EvidencijaAngazmana;
 import model.Kompanija;
 import model.MarketingMenadzer;
 import model.Sertifikat;
+import model.StavkaAngazmana;
 import model.TipVizuala;
 import operacije.dizajnerOperacije.KreirajDizajnerSO;
 import operacije.dizajnerOperacije.PrijaviDizajnerSO;
 import operacije.dizajnerOperacije.ObrisiDizajnerSO;
 import operacije.dizajnerOperacije.PromeniDizajnerSO;
 import operacije.dizajnerOperacije.VratiListuSviDizajnerSO;
-import operacije.evidencijeAngazmanaOperacije.ObrisiEvidencijaAngazmanaSO;
+import operacije.evidencijeAngazmanaOperacije.KreirajEvidencijaAngazmanaSO;
 import operacije.evidencijeAngazmanaOperacije.PretraziEvidencijaAngazmanaSO;
+import operacije.evidencijeAngazmanaOperacije.PromeniEvidencijaAngazmanaSO;
 import operacije.evidencijeAngazmanaOperacije.VratiListuSviEvidencijaAngazmanaSO;
 import operacije.kompanijaOperacije.KreirajKompanijaSO;
 import operacije.kompanijaOperacije.ObrisiKompanijaSO;
@@ -30,6 +32,7 @@ import operacije.marketingMenadzerOperacije.PromeniMarketingMenadzerSO;
 import operacije.marketingMenadzerOperacije.VratiListuSviMarketingMenadzerSO;
 import operacije.sertifikatOperacije.UbaciSertifikatSO;
 import operacije.sertifikatOperacije.VratiListuSviSertifikatSO;
+import operacije.stavkaAngazmanaOperacije.PretraziStavkaAngazmanaSO;
 import operacije.tipVizualaOperacije.VratiListuSviTipVizualaSO;
 
 /**
@@ -156,8 +159,21 @@ public class Controller {
         return o.getEvidencije();
     }
 
-    public void obrisiEvidencijaAngazmana(EvidencijaAngazmana evidencija) throws Exception {
-        ObrisiEvidencijaAngazmanaSO o= new ObrisiEvidencijaAngazmanaSO();
+    
+
+    public List<StavkaAngazmana> pretraziStavkaAngazmana(StavkaAngazmana stavka) throws Exception {
+        PretraziStavkaAngazmanaSO o=new PretraziStavkaAngazmanaSO();
+        o.izvrsi(stavka, stavka.uslov());
+        return o.getStavke();
+    }
+
+    public void kreirajEvidencijaAngazmana(EvidencijaAngazmana evidencija) throws Exception {
+        KreirajEvidencijaAngazmanaSO o=new KreirajEvidencijaAngazmanaSO();
+        o.izvrsi(evidencija, null);
+    }
+
+    public void promeniEvidencijaAngazmana(EvidencijaAngazmana evidencija) throws Exception {
+        PromeniEvidencijaAngazmanaSO o=new PromeniEvidencijaAngazmanaSO();
         o.izvrsi(evidencija, null);
     }
     

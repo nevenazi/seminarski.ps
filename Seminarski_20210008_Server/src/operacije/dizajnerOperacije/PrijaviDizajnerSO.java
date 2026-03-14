@@ -26,7 +26,8 @@ public class PrijaviDizajnerSO extends ApstraktnaGenerickaOperacija {
     
     @Override
     protected void preduslovi(Object param) throws Exception {
-        if(param==null || !(param instanceof Dizajner)){
+        if(param==null || !(param instanceof Dizajner) || ((Dizajner)param).getKorisnickoIme()==null|| ((Dizajner)param).getKorisnickoIme().isEmpty()
+                || ((Dizajner)param).getSifra()==null ||((Dizajner)param).getSifra().isEmpty()||((Dizajner)param).getSifra().length()<6){
             throw new Exception("Sistem ne može da prijavi dizajnera.");
         }
     }

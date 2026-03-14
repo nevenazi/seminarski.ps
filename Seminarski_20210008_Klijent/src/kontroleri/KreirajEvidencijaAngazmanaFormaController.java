@@ -1,0 +1,353 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package kontroleri;
+
+import forme.KreirajEvidencijaAngazmanaForma;
+import forme.VrstaForme;
+import static forme.VrstaForme.PROMENI;
+import forme.model.ModelTabeleStavkaAngazmana;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import komunikacija.Komunikacija;
+import model.Dizajner;
+import model.EvidencijaAngazmana;
+import model.Kompanija;
+import model.MarketingMenadzer;
+import model.StavkaAngazmana;
+import model.TipVizuala;
+
+/**
+ *
+ * @author N
+ */
+public class KreirajEvidencijaAngazmanaFormaController {
+    
+    public final KreirajEvidencijaAngazmanaForma keaf;
+    private EvidencijaAngazmana evidencijaForme;
+    private final SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd.MM.yyyy");
+
+    public KreirajEvidencijaAngazmanaFormaController(KreirajEvidencijaAngazmanaForma keaf) {
+        this.keaf = keaf;
+    }
+    public void otvoriFormu(VrstaForme vrstaForme){
+        keaf.setVisible(true);
+        popuniSveComboBox();
+        
+        switch (vrstaForme){
+            case KREIRAJ:
+                keaf.setTitle("Kreiraj evidenciju angažmana");
+                keaf.getjButtonPromeni().setVisible(false);
+                keaf.getjButtonSacuvaj().setVisible(true);
+                keaf.getjButtonSacuvaj().setEnabled(true);
+                evidencijaForme=new EvidencijaAngazmana();
+                JOptionPane.showMessageDialog(keaf, "Sistem je kreirao evidenciju angažmana", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            case PROMENI:
+                keaf.setTitle("Promeni evidenciju angažmana");
+                keaf.getjButtonSacuvaj().setVisible(false);
+                keaf.getjButtonPromeni().setVisible(true);
+                keaf.getjButtonPromeni().setEnabled(true);
+                evidencijaForme=(EvidencijaAngazmana)Koordinator.getInstance().vratiParametar("evidencija angažmana");
+                popuniFormu(evidencijaForme);
+                break;
+            case PRIKAZI:
+                keaf.setTitle("Prikaži evidenciju angažmana");
+                keaf.getjButtonSacuvaj().setVisible(false);
+                keaf.getjButtonPromeni().setVisible(false);
+                evidencijaForme=(EvidencijaAngazmana)Koordinator.getInstance().vratiParametar("evidencija angažmana");
+                popuniFormu(evidencijaForme);
+                onemoguciFormu();
+                break;
+            default:
+                JOptionPane.showMessageDialog(keaf, "Nije izabrana vrsta forme", "Greška", JOptionPane.ERROR_MESSAGE);
+                keaf.dispose();
+                
+        }
+        popuniTabeluStavki();
+        addActionListeners();
+    }
+    public void addActionListeners(){
+        
+        keaf.addButtonDodajStavkuActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                izracunaj();
+                TipVizuala tipVizuala=(TipVizuala) keaf.getjComboBoxTipVizuala().getSelectedItem();
+                double cena=tipVizuala.getOsnovnaCena();
+                int kolicina = 0;
+                try {
+                    kolicina = Integer.parseInt(keaf.getjTextFieldKolicina().getText().trim());
+                } catch (NumberFormatException numberFormatException) {
+                }
+                double nekorigovan=(double)cena*kolicina;
+                double korekcija;
+                if (keaf.getjTextFieldKorekcijaIznosa().getText().trim().equals("")){
+                    korekcija=0;
+                }else{
+                    try {
+                        korekcija = Double.parseDouble(keaf.getjTextFieldKorekcijaIznosa().getText().trim());
+                        } catch (NumberFormatException numberFormatException) {
+                            JOptionPane.showMessageDialog(keaf, "Korekcija nije uneta kao broj", "", JOptionPane.WARNING_MESSAGE);
+                            return;
+                        }
+                }
+                
+                double korigovan=Math.max(0,nekorigovan+korekcija);
+                boolean zavrsena=keaf.getjCheckBoxZavrsena().isSelected();
+                String opis=keaf.getjTextAreaOpis().getText().trim();
+                
+                if (kolicina>0 && opis!=null && !opis.isEmpty()){
+                    List<StavkaAngazmana> stavke=((ModelTabeleStavkaAngazmana)keaf.getjTableStavkeAngazmana().getModel()).getLista();
+                    StavkaAngazmana stavka=new StavkaAngazmana(evidencijaForme, stavke.size()+1, kolicina, opis, cena, nekorigovan, korekcija, korigovan, zavrsena, tipVizuala);
+                    stavke.add(stavka);
+                    double zbir=0;
+                    for(int i=0;i<stavke.size();i++){
+                        zbir=zbir+stavke.get(i).getKorigovanIznos();
+                    }
+                    ModelTabeleStavkaAngazmana msa=new ModelTabeleStavkaAngazmana(stavke);
+                    keaf.getjTableStavkeAngazmana().setModel(msa);
+                    keaf.getjTextFieldUkupanIznos().setText(zbir+"");
+                }
+            }
+        });
+        
+        keaf.addButtonIzbaciStavkuActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                int red=keaf.getjTableStavkeAngazmana().getSelectedRow();
+                if (red==-1) {
+                    JOptionPane.showMessageDialog(keaf, "Sistem ne može da nađe stavku angažmana.", "Greška", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                JOptionPane.showMessageDialog(keaf, "Sistem je pronašao stavku angažmana za brisanje.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+                List<StavkaAngazmana> stavke=((ModelTabeleStavkaAngazmana)keaf.getjTableStavkeAngazmana().getModel()).getLista();
+                
+                double ukupaniznos=Double.parseDouble(keaf.getjTextFieldUkupanIznos().getText());
+                ukupaniznos-=stavke.get(red).getKorigovanIznos();
+                keaf.getjTextFieldUkupanIznos().setText(ukupaniznos+"");
+                
+                stavke.remove(red);
+                for (int i=1;i<stavke.size()+1;i++){
+                    stavke.get(i-1).setRb(i);
+                }
+                ModelTabeleStavkaAngazmana msa=new ModelTabeleStavkaAngazmana(stavke);
+                keaf.getjTableStavkeAngazmana().setModel(msa);
+            }
+        });
+        
+        keaf.addButtonIzracunajActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                izracunaj();
+            }
+        });
+        
+        
+        keaf.addButtonSacuvajActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                EvidencijaAngazmana ea=pokupiEvidencijaAngazmana();
+                if (ea.getStavkeAngazmana().isEmpty()){
+                    JOptionPane.showMessageDialog(keaf, "Sistem ne može da zapamti evidenciju angažmana.", "Greška", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                try {
+                    Komunikacija.getInstance().kreirajEvidencijuAngazmana(ea);
+                    String ispis="Sistem je zapamtio evidenciju angažmana:\n"+"dizajner: "+ea.getDizajner().toString()
+                            +"\nmarketing menadžer: "+ea.getMarketingMenadzer().toString()+"\nrok: "+simpleDateFormat.format(ea.getRok())
+                            +"\nukupan iznos: "+ea.getUkupanIznos()+"\nzavršen: "+ea.isZavrsen()+"\nbroj stavki:"+ea.getStavkeAngazmana().size();
+                    JOptionPane.showMessageDialog(keaf, ispis, "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+                    keaf.dispose();
+                    Koordinator.getInstance().getEvidencijaAngazmanaFormaController().pripremiFormu();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(keaf, "Sistem ne može da zapamti evidenciju angažmana.", "Greška", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        
+        keaf.addButtonPromeniActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                
+                EvidencijaAngazmana ea=pokupiEvidencijaAngazmana();
+                
+                ea.setIdEvidencijaAngazmana(evidencijaForme.getIdEvidencijaAngazmana());
+                try {    
+                    Komunikacija.getInstance().promeniEvidencijaAngazmana(ea);
+                    String ispis="Sistem je zapamtio evidenciju angažmana:\n"+"dizajner: "+ea.getDizajner().toString()
+                            +"\nmarketing menadžer: "+ea.getMarketingMenadzer().toString()+"\nrok: "+simpleDateFormat.format(ea.getRok())
+                            +"\nukupan iznos: "+ea.getUkupanIznos()+"\nzavršen: "+ea.isZavrsen()+"\nbroj stavki:"+ea.getStavkeAngazmana().size();
+                    JOptionPane.showMessageDialog(keaf, ispis, "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+                    
+                    keaf.dispose();
+                    Koordinator.getInstance().getEvidencijaAngazmanaFormaController().pripremiFormu();
+                    
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(keaf, "Sistem ne može da zapamti evidenciju angažmana.", "Greška", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            }
+
+            
+        });
+        
+        keaf.addButtonZatvoriActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                keaf.dispose();
+            }
+        });
+        
+    }
+    
+    private void onemoguciFormu(){
+        keaf.getjButtonDodajStavku().setVisible(false);
+        keaf.getjButtonIzbaciStavku().setVisible(false);
+        keaf.getjButtonIzracunaj().setVisible(false);
+        keaf.getjComboBoxDizajner1().setEnabled(false);
+        keaf.getjComboBoxTipVizuala().removeAllItems();
+        keaf.getjComboBoxTVizuala().setEnabled(false);
+        keaf.getjComboBoxMarketingMenadzer1().setEnabled(false);
+        keaf.getjTextAreaOpis().setEnabled(false);
+        keaf.getjTextFieldCena().setEnabled(false);
+        keaf.getjTextFieldKolicina().setEnabled(false);
+        keaf.getjTextFieldKorekcijaIznosa().setEnabled(false);
+        keaf.getjTextFieldKorigovaniIznos().setEnabled(false);
+        keaf.getjTextFieldNekorigovaniIznos().setEnabled(false);
+        keaf.getjTextFieldRok().setEnabled(false);
+        keaf.getjTextFieldUkupanIznos().setEnabled(false);
+        keaf.getjCheckBoxZavrsena().setEnabled(false);
+    }
+    
+    private EvidencijaAngazmana pokupiEvidencijaAngazmana() {
+        
+        Dizajner dizajner=(Dizajner) keaf.getjComboBoxDizajner1().getSelectedItem();
+        MarketingMenadzer men=(MarketingMenadzer) keaf.getjComboBoxMarketingMenadzer1().getSelectedItem();
+        java.util.Date rok=null;
+        try {
+            rok = simpleDateFormat.parse(keaf.getjTextFieldRok().getText());
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(keaf, "Sistem ne može da zapamti evidenciju angažmana.", "Greška", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(KreirajEvidencijaAngazmanaFormaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        java.sql.Date sqlrok=new java.sql.Date(rok.getTime());
+        double ukupanIznos=Double.parseDouble(keaf.getjTextFieldUkupanIznos().getText());
+        List<StavkaAngazmana> stavke=((ModelTabeleStavkaAngazmana)keaf.getjTableStavkeAngazmana().getModel()).getLista();
+        boolean zavrsen=true;
+        if (!stavke.isEmpty()){
+            for (int i=0;i<stavke.size();i++){
+                zavrsen=zavrsen&&stavke.get(i).isZavrsena();
+            }
+        }
+
+        EvidencijaAngazmana evidencija=new EvidencijaAngazmana(-1, ukupanIznos, sqlrok, zavrsen, stavke, dizajner, men);
+        return evidencija;
+            
+    
+                
+    }
+
+    private void izracunaj(){
+        double cena=((TipVizuala)keaf.getjComboBoxTipVizuala().getSelectedItem()).getOsnovnaCena();
+        int kolicina = 0;
+        try {
+            kolicina = Integer.parseInt(keaf.getjTextFieldKolicina().getText().trim());
+        } catch (NumberFormatException numberFormatException) {
+        }
+        double nekorigovan=(double)cena*kolicina;
+        double korekcija = 0;
+        try {
+            korekcija = Double.parseDouble(keaf.getjTextFieldKorekcijaIznosa().getText().trim());
+        } catch (NumberFormatException numberFormatException) {
+        }
+        double korigovan=Math.max(0,nekorigovan+korekcija);
+
+        keaf.getjTextFieldCena().setText(cena+"");
+        keaf.getjTextFieldNekorigovaniIznos().setText(nekorigovan+"");
+        keaf.getjTextFieldKorigovaniIznos().setText(korigovan+"");
+    }
+    
+    private void popuniFormu(EvidencijaAngazmana evidencija) {
+        keaf.getjComboBoxDizajner1().setSelectedItem(evidencija.getDizajner());
+        keaf.getjComboBoxMarketingMenadzer1().setSelectedItem(evidencija.getMarketingMenadzer());
+        keaf.getjTextFieldRok().setText(simpleDateFormat.format(evidencija.getRok()));
+        keaf.getjTextFieldUkupanIznos().setText(evidencija.getUkupanIznos()+"");
+        
+        
+    }
+
+    
+
+    private void popuniSveComboBox() {
+        List<TipVizuala> vizuali=new ArrayList<>();
+        try {
+            vizuali=Komunikacija.getInstance().ucitajVizuale();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(keaf, "Sistem ne može da nađe tipove vizuala.","Greška", JOptionPane.ERROR_MESSAGE);
+            Koordinator.getInstance().otvoriEvidencijaAngazmanaFormu();
+            keaf.dispose();
+        }
+        keaf.getjComboBoxTipVizuala().removeAllItems();
+        for (TipVizuala vizual : vizuali) {
+            System.out.println(vizual.toString());
+            keaf.getjComboBoxTVizuala().addItem(vizual);
+        }
+        
+        
+        List<Dizajner> dizajneri=new ArrayList<>();
+        try {
+            dizajneri=Komunikacija.getInstance().ucitajDizajnere();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(keaf, "Sistem ne može da nađe dizajnere.","Greška", JOptionPane.ERROR_MESSAGE);
+            Koordinator.getInstance().otvoriEvidencijaAngazmanaFormu();
+            keaf.dispose();
+        }
+        keaf.getjComboBoxDizajner1().removeAllItems();
+        for (Dizajner dizajner : dizajneri) {
+            keaf.getjComboBoxDizajner1().addItem(dizajner);
+        }
+        
+        List<MarketingMenadzer> menadzeri=new ArrayList<>();
+        try {
+            menadzeri=Komunikacija.getInstance().ucitajMarketingMenadzere();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(keaf, "Sistem ne može da nađe marketing menadžere.","Greška", JOptionPane.ERROR_MESSAGE);
+            Koordinator.getInstance().otvoriEvidencijaAngazmanaFormu();
+            keaf.dispose();
+        }
+        keaf.getjComboBoxMarketingMenadzer1().removeAllItems();
+        for (MarketingMenadzer menadzer : menadzeri) {
+            keaf.getjComboBoxMarketingMenadzer1().addItem(menadzer);
+        }
+    }
+
+    private void popuniTabeluStavki() {
+        List<StavkaAngazmana> stavke=new ArrayList<>();
+        try {
+            if (evidencijaForme.getIdEvidencijaAngazmana()>0)
+                stavke=Komunikacija.getInstance().ucitajStavke(evidencijaForme);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(keaf, "Sistem ne može da nađe stavke angažmana.","Greška", JOptionPane.ERROR_MESSAGE);
+            Koordinator.getInstance().otvoriEvidencijaAngazmanaFormu();
+            keaf.dispose();
+        }
+        ModelTabeleStavkaAngazmana mtsa=new ModelTabeleStavkaAngazmana(stavke);
+        keaf.getjTableStavkeAngazmana().setModel(mtsa);
+    }
+
+
+}

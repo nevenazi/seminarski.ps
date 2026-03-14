@@ -185,6 +185,7 @@ public class MarketingMenadzerForma extends javax.swing.JFrame {
         getAccessibleContext().setAccessibleName("Marketing menadžer");
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     public JButton getjButtonObrisi() {

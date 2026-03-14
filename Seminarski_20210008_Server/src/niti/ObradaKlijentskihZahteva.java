@@ -19,6 +19,7 @@ import model.EvidencijaAngazmana;
 import model.Kompanija;
 import model.MarketingMenadzer;
 import model.Sertifikat;
+import model.StavkaAngazmana;
 import model.TipVizuala;
 
 /**
@@ -184,15 +185,28 @@ public class ObradaKlijentskihZahteva extends Thread {
                         List<EvidencijaAngazmana> filtriraneEvidencije=Controller.getInstance().pretraziEvidencijaAngazmana(evidencija);
                         odgovor.setOdgovor(filtriraneEvidencije);
                         break;
-                    case OBRISI_EVIDENCIJA_ANGAZMANA:
+                    case PRETRAZI_STAVKA_ANGAZMANA:
+                        StavkaAngazmana stavka=(StavkaAngazmana) zahtev.getParametar();
+                        List<StavkaAngazmana> filtriraneStavke=Controller.getInstance().pretraziStavkaAngazmana(stavka);
+                        odgovor.setOdgovor(filtriraneStavke);
+                        break;
+                    case KREIRAJ_EVIDENCIJA_ANGAZMANA:
                         try {
                             evidencija = (EvidencijaAngazmana) zahtev.getParametar();
-                            Controller.getInstance().obrisiEvidencijaAngazmana(evidencija);
+                            Controller.getInstance().kreirajEvidencijaAngazmana(evidencija);
                             odgovor.setOdgovor(null);
-                        } catch (Exception e) {
-                            odgovor.setOdgovor(e);
-                        }
-                        break;
+                        } catch (Exception exception) {
+                            odgovor.setOdgovor(exception);
+                        }break;
+                    case PROMENI_EVIDENCIJA_ANGAZMANA:
+                        try {
+                            evidencija = (EvidencijaAngazmana) zahtev.getParametar();
+                            Controller.getInstance().promeniEvidencijaAngazmana(evidencija);
+                            odgovor.setOdgovor(null);
+                        } catch (Exception exception) {
+                            odgovor.setOdgovor(exception);
+                        }break;
+                    
 
                     default:System.out.println("Greška! Nepostojeća operacija je izabrana.");
                 }

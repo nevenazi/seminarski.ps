@@ -4,16 +4,11 @@
  */
 package kontroleri;
 
-import forme.KreirajKompanijaForma;
 import forme.UbaciSertifikatForma;
-import forme.VrstaForme;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import komunikacija.Komunikacija;
-import model.Kompanija;
 import model.Sertifikat;
 
 /**

@@ -6,7 +6,6 @@ package forme;
 
 import java.awt.event.ActionListener;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 
 /**
  *
@@ -91,15 +90,14 @@ public class SertifikatForma extends javax.swing.JFrame {
         getAccessibleContext().setAccessibleName("Sertifikat");
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonUbaciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUbaciActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonUbaciActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    
     
 
     public JTable getjTableSertifikat() {

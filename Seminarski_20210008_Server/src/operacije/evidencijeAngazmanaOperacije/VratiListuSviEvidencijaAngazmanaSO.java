@@ -27,7 +27,7 @@ public class VratiListuSviEvidencijaAngazmanaSO extends ApstraktnaGenerickaOpera
     
     @Override
     protected void preduslovi(Object param) throws Exception {
-        if (!(param instanceof EvidencijaAngazmana)){
+        if (param==null || !(param instanceof EvidencijaAngazmana)){
             throw new Exception("Sistem ne može da nađe evidencije angažmana po zadatim kriterijumima");
         }
     }

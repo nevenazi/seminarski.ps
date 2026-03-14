@@ -51,7 +51,7 @@ public class LoginController {
                 Koordinator.getInstance().setUlogovaniKorisnik(ulogovan);
                 Koordinator.getInstance().otvoriGlavnuFormu();
             } catch (Exception exc) {
-                JOptionPane.showMessageDialog(lf, "Ne može da se otvori glavna forma i meni.", "Neuspeh", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(lf, "Ne može da se otvori glavna forma i meni.", "Neuspeh", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             lf.dispose();

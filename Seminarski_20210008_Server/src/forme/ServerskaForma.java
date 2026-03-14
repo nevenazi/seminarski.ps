@@ -43,6 +43,7 @@ public class ServerskaForma extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Serverska forma");
 
         jButtonPokreniServer.setText("Pokreni server");
         jButtonPokreniServer.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +122,7 @@ public class ServerskaForma extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPokreniServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPokreniServerActionPerformed

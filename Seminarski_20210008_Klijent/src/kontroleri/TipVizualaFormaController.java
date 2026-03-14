@@ -5,9 +5,7 @@
 package kontroleri;
 
 
-import forme.SertifikatForma;
 import forme.TipVizualaForma;
-import forme.model.ModelTabeleSertifikat;
 import forme.model.ModelTabeleTipVizuala;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import komunikacija.Komunikacija;
-import model.Sertifikat;
 import model.TipVizuala;
 
 /**

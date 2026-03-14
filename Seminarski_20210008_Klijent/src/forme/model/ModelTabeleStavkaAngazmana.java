@@ -15,7 +15,7 @@ import model.StavkaAngazmana;
 public class ModelTabeleStavkaAngazmana extends AbstractTableModel {
 
     List<StavkaAngazmana> lista;
-    String[] kolone={"ev. ang.","rb","količina","opis","cena","nekorigovan iznos","korekcija iznosa","korigovan iznos","završena","tip vizuala"};
+    String[] kolone={"ev. ang.","rb","količina","opis","cena","nekorigovan izn.","korekcija iznosa","korigovan iznos","završena","tip vizuala"};
     
     public ModelTabeleStavkaAngazmana(List<StavkaAngazmana> stavke){
         lista=stavke;

@@ -10,13 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import kontroleri.Koordinator;
 import model.Dizajner;
 import model.EvidencijaAngazmana;
 import model.Kompanija;
 import model.MarketingMenadzer;
 import model.Sertifikat;
+import model.StavkaAngazmana;
 import model.TipVizuala;
 
 /**
@@ -264,14 +263,39 @@ public class Komunikacija {
         return evidencije;
     }
 
-    public void obrisiEvidencijaAngazmana(EvidencijaAngazmana ea) throws Exception {
-        KlijentskiZahtev kz=new KlijentskiZahtev(Operacija.OBRISI_EVIDENCIJA_ANGAZMANA, ea);
+    
+
+    public List<StavkaAngazmana> ucitajStavke(EvidencijaAngazmana evidencijaForme) throws IOException {
+        List <StavkaAngazmana> stavke=new ArrayList<>();
+        StavkaAngazmana uslovStavka=new StavkaAngazmana();
+        uslovStavka.setEvidencijaAngazmana(evidencijaForme);
+        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.PRETRAZI_STAVKA_ANGAZMANA, uslovStavka);
+        posiljalac.posalji(zahtev);
+        
+        ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
+        stavke=(List<StavkaAngazmana>) odg.getOdgovor();
+        return stavke;
+    }
+
+    public void kreirajEvidencijuAngazmana(EvidencijaAngazmana ea) throws Exception {
+        KlijentskiZahtev kz=new KlijentskiZahtev(Operacija.KREIRAJ_EVIDENCIJA_ANGAZMANA, ea);
         posiljalac.posalji(kz);
         
         ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
         if (so.getOdgovor()!=null){
             ((Exception)so.getOdgovor()).printStackTrace();
-            throw new Exception("Greška u brisanju evidencije angažmana");
+            throw new Exception("Greška u kreiranju evidencije angažmana.");
+        }
+    }
+
+    public void promeniEvidencijaAngazmana(EvidencijaAngazmana ea) throws Exception {
+        KlijentskiZahtev kz=new KlijentskiZahtev(Operacija.PROMENI_EVIDENCIJA_ANGAZMANA, ea);
+        posiljalac.posalji(kz);
+        
+        ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
+        if (so.getOdgovor()!=null){
+            ((Exception)so.getOdgovor()).printStackTrace();
+            throw new Exception("Greška u promeni evidencije angažmana.");
         }
     }
 

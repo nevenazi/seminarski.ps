@@ -42,6 +42,7 @@ public class FormaKonfiguracijaBaze extends javax.swing.JDialog {
         jPasswordField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Konfiguracija baze");
 
         jLabel1.setText("url:");
 
@@ -100,6 +101,7 @@ public class FormaKonfiguracijaBaze extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSacuvajActionPerformed

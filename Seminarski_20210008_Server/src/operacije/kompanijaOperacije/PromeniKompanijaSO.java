@@ -19,7 +19,8 @@ public class PromeniKompanijaSO extends ApstraktnaGenerickaOperacija {
         if(k==null || !(k instanceof Kompanija)){
             throw new Exception("Sistem ne može da zapamti kompaniju.");
         }
-        if(k.getNaziv() == null || k.getNaziv().isEmpty() || (k.getSajt() == null) || k.getSajt().isEmpty()){
+        if(k.getNaziv()==null || k.getNaziv().isEmpty()
+                ||(k.getSajt()!=null && !(k.getSajt().matches("^(https?:\\/\\/)?[a-zA-Z0-9-]+\\.[a-zA-Z]{2,}$")))){
             throw new Exception("Greška u unosu podataka o kompaniji.");
         }
     }

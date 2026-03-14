@@ -6,7 +6,6 @@ package forme;
 
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**
@@ -106,6 +105,7 @@ public class KreirajKompanijaForma extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSacuvajActionPerformed

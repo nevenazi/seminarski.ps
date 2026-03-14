@@ -23,7 +23,7 @@ public class VratiListuSviTipVizualaSO extends ApstraktnaGenerickaOperacija {
     
     @Override
     protected void preduslovi(Object param) throws Exception {
-        if (!(param instanceof TipVizuala)){
+        if (param==null || !(param instanceof TipVizuala)){
             throw new Exception("Sistem ne može da nađe tipove vizuala po zadatim kriterijumima");
         }
     }

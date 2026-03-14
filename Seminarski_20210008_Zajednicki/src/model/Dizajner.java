@@ -74,7 +74,7 @@ public class Dizajner implements ApstraktniDomenskiObjekat {
 
     @Override
     public String toString() {
-        return "Dizajner{" + "id=" + idDizajner + ", ime=" + ime + ", prezime=" + prezime + ", korisnickoIme=" + korisnickoIme + '}';
+        return ime + " " + prezime + " (korisnickoIme=" + korisnickoIme + ')';
     }
 
     @Override

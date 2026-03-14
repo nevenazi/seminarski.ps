@@ -9,6 +9,7 @@ import forme.EvidencijaAngazmanaForma;
 import forme.GlavnaForma;
 import forme.KompanijaForma;
 import forme.KreirajDizajnerForma;
+import forme.KreirajEvidencijaAngazmanaForma;
 import forme.KreirajMarketingMenadzerForma;
 import forme.LoginForma;
 import forme.MarketingMenadzerForma;
@@ -39,6 +40,7 @@ public class Koordinator {
     private UbaciSertifikatFormaController ubaciSertifikatFormaController;
     private TipVizualaFormaController tipVizualaFormaController;
     private EvidencijaAngazmanaFormaController evidencijaAngazmanaFormaController;
+    private KreirajEvidencijaAngazmanaFormaController kreirajEvidencijaAngazmanaFormaController;
     
     public LoginController getLoginController() {
         return loginController;
@@ -74,6 +76,18 @@ public class Koordinator {
 
     public KreirajMMenadzerFormaController getKreirajMMenadzerFormaController() {
         return kreirajMMenadzerFormaController;
+    }
+
+    public TipVizualaFormaController getTipVizualaFormaController() {
+        return tipVizualaFormaController;
+    }
+
+    public EvidencijaAngazmanaFormaController getEvidencijaAngazmanaFormaController() {
+        return evidencijaAngazmanaFormaController;
+    }
+
+    public KreirajEvidencijaAngazmanaFormaController getKreirajEvidencijaAngazmanaFormaController() {
+        return kreirajEvidencijaAngazmanaFormaController;
     }
 
     
@@ -214,6 +228,21 @@ public class Koordinator {
     public void otvoriEvidencijaAngazmanaFormu() {
         evidencijaAngazmanaFormaController=new EvidencijaAngazmanaFormaController(new EvidencijaAngazmanaForma());
         evidencijaAngazmanaFormaController.otvoriFormu();
+    }
+
+    void otvoriKreirajEvidencijaAngazmanaFormu() {
+        kreirajEvidencijaAngazmanaFormaController=new KreirajEvidencijaAngazmanaFormaController(new KreirajEvidencijaAngazmanaForma());
+        kreirajEvidencijaAngazmanaFormaController.otvoriFormu(VrstaForme.KREIRAJ);
+    }
+    
+    void otvoriPromeniEvidencijaAngazmanaFormu() {
+        kreirajEvidencijaAngazmanaFormaController=new KreirajEvidencijaAngazmanaFormaController(new KreirajEvidencijaAngazmanaForma());
+        kreirajEvidencijaAngazmanaFormaController.otvoriFormu(VrstaForme.PROMENI);
+    }
+
+    void otvoriPrikaziEvidencijaAngazmanaFormu() {
+        kreirajEvidencijaAngazmanaFormaController=new KreirajEvidencijaAngazmanaFormaController(new KreirajEvidencijaAngazmanaForma());
+        kreirajEvidencijaAngazmanaFormaController.otvoriFormu(VrstaForme.PRIKAZI);
     }
 
     

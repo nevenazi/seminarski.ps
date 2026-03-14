@@ -20,7 +20,8 @@ public class KreirajDizajnerSO extends ApstraktnaGenerickaOperacija {
             throw new Exception("Sistem ne može da zapamti dizajnera.");
         }
         
-        if (d.getIme()==null || d.getIme().isEmpty() || d.getPrezime()==null || d.getPrezime().isEmpty() || d.getKorisnickoIme()==null || d.getKorisnickoIme().isEmpty()|| d.getSifra()==null || d.getSifra().isEmpty()|| d.getSifra().length()<8){
+        if (d.getIme()==null || d.getIme().isEmpty() || d.getPrezime()==null || d.getPrezime().isEmpty() || d.getKorisnickoIme()==null || d.getKorisnickoIme().isEmpty()
+                || d.getSifra()==null || d.getSifra().isEmpty()|| d.getSifra().length()<6){
             throw new Exception("Greška u unosu podataka dizajnera.");
         }
     }

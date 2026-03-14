@@ -29,7 +29,8 @@ public class StavkaAngazmana implements ApstraktniDomenskiObjekat {
     public StavkaAngazmana() {
     }
 
-    public StavkaAngazmana(EvidencijaAngazmana evidencijaAngazmana, int rb, int kolicina, String opis, double cena, double nekorigovanIznos, double korekcijaIznosa, double korigovanIznos, boolean zavrsena, TipVizuala tipVizuala) {
+    public StavkaAngazmana(EvidencijaAngazmana evidencijaAngazmana, int rb, int kolicina, String opis, double cena, 
+            double nekorigovanIznos, double korekcijaIznosa, double korigovanIznos, boolean zavrsena, TipVizuala tipVizuala) {
         this.evidencijaAngazmana = evidencijaAngazmana;
         this.rb = rb;
         this.kolicina = kolicina;

@@ -6,7 +6,6 @@ package forme;
 
 import java.awt.event.ActionListener;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 
 /**
  *
@@ -79,11 +78,9 @@ public class TipVizualaForma extends javax.swing.JFrame {
         getAccessibleContext().setAccessibleName("Tip Vizuala");
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
     
 
     public JTable getjTableTipVizuala() {

@@ -53,7 +53,7 @@ public class Kompanija implements ApstraktniDomenskiObjekat{
 
     @Override
     public String toString() {
-        return "Kompanija{" + "idKompanija=" + idKompanija + ", naziv=" + naziv + ", sajt=" + sajt + '}';
+        return "id=" + idKompanija + ", naziv=" + naziv + ", sajt=" + sajt;
     }
 
     @Override

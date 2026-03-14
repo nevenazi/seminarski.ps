@@ -16,12 +16,12 @@ public class PromeniDizajnerSO extends ApstraktnaGenerickaOperacija {
     @Override
     protected void preduslovi(Object param) throws Exception {
         Dizajner d=(Dizajner)param;
-        System.out.println(param.toString()+"SOpredusl");
         if(param==null || !(param instanceof Dizajner)){
             throw new Exception("Sistem ne može da zapamti dizajnera.");
         }
         
-        if (d.getIme()==null || d.getIme().isEmpty() || d.getPrezime()==null || d.getPrezime().isEmpty() || d.getKorisnickoIme()==null || d.getKorisnickoIme().isEmpty()|| d.getSifra()==null || d.getSifra().isEmpty()|| d.getSifra().length()<6){
+        if (d.getIme()==null || d.getIme().isEmpty() || d.getPrezime()==null || d.getPrezime().isEmpty() || d.getKorisnickoIme()==null || d.getKorisnickoIme().isEmpty()
+                || d.getSifra()==null || d.getSifra().isEmpty()|| d.getSifra().length()<6){
             throw new Exception("Greška u unosu podataka dizajnera.");
         }  
         System.out.println(param.toString()+"SOpredusl222");

@@ -20,7 +20,10 @@ public class PromeniMarketingMenadzerSO extends ApstraktnaGenerickaOperacija {
         if(mm==null || !(mm instanceof MarketingMenadzer)){
             throw new Exception("Sistem ne može da zapamti marketing menadžera.");
         }
-        if(mm.getIme()==null || mm.getIme().isEmpty() || mm.getPrezime()==null || mm.getPrezime().isEmpty()|| mm.getEmail()==null || mm.getEmail().isEmpty()|| mm.getTelefon()==null || mm.getTelefon().isEmpty()|| mm.getKompanija()==null && (mm.getKompanija() instanceof Kompanija)){
+        if(mm.getIme()==null || mm.getIme().isEmpty() || mm.getPrezime()==null || mm.getPrezime().isEmpty()
+                || mm.getEmail()==null || mm.getEmail().isEmpty() || !(mm.getEmail().matches("^[a-z0-9._]+@[a-z0-9.]+\\.[a-z]{2,}$"))
+                || mm.getTelefon()==null || mm.getTelefon().isEmpty() || !(mm.getTelefon().matches("^\\+3816\\d{7,8}$"))
+                || mm.getKompanija()==null || !(mm.getKompanija() instanceof Kompanija)){
             throw new Exception("Greška u unosu podataka o marketing menadžeru.");
         }
     }

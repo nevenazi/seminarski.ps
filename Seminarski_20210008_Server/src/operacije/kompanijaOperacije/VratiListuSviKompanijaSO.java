@@ -23,7 +23,7 @@ public class VratiListuSviKompanijaSO extends ApstraktnaGenerickaOperacija {
     
     @Override
     protected void preduslovi(Object param) throws Exception {
-        if (!(param instanceof Kompanija)){
+        if (param==null || !(param instanceof Kompanija)){
             throw new Exception("Sistem ne može da nađe kompanije po zadatim kriterijumima");
         }
     }

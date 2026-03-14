@@ -10,6 +10,7 @@ import model.ApstraktniDomenskiObjekat;
 import repository.db.DbConnectionFactory;
 import repository.db.DbRepository;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
@@ -35,14 +36,14 @@ public class DbRepositoryGeneric implements DbRepository<ApstraktniDomenskiObjek
     }
 
     @Override
-    public void add(ApstraktniDomenskiObjekat param) throws Exception {
+    public PreparedStatement add(ApstraktniDomenskiObjekat param) throws Exception {
         String upit="INSERT INTO "+ param.vratiNazivTabele()+" ("
                 +param.vratiKoloneZaUbacivanje()+") VALUES ("
                 +param.vratiVrednostZaUbacivanje()+")";
         System.out.println(upit);
-        Statement st=DbConnectionFactory.getInstance().getConnection().createStatement();
-        st.executeUpdate(upit);
-        st.close();
+        PreparedStatement ps=DbConnectionFactory.getInstance().getConnection().prepareStatement(upit, Statement.RETURN_GENERATED_KEYS);
+        ps.executeUpdate();
+        return ps;
     }
 
     @Override
@@ -64,11 +65,6 @@ public class DbRepositoryGeneric implements DbRepository<ApstraktniDomenskiObjek
         st.close();
     }
 
-    @Override
-    public List<ApstraktniDomenskiObjekat> getAll() {
-        //TO DO
-        return null;
-    }
 
     
 

@@ -19,14 +19,15 @@ public class EvidencijaAngazmana implements ApstraktniDomenskiObjekat{
     private double ukupanIznos;
     private Date rok;
     private boolean zavrsen;
-    private List<StavkaAngazmana> stavkeAngazmana;
+    private List<StavkaAngazmana> stavkeAngazmana=new ArrayList<>();
     private Dizajner dizajner;
     private MarketingMenadzer marketingMenadzer;
 
     public EvidencijaAngazmana() {
     }
 
-    public EvidencijaAngazmana(int idEvidencijaAngazmana, double ukupanIznos, Date rok, boolean zavrsen, List<StavkaAngazmana> stavkeAngazmana, Dizajner dizajner, MarketingMenadzer marketingMenadzer) {
+    public EvidencijaAngazmana(int idEvidencijaAngazmana, double ukupanIznos, Date rok, boolean zavrsen, 
+            List<StavkaAngazmana> stavkeAngazmana, Dizajner dizajner, MarketingMenadzer marketingMenadzer) {
         this.idEvidencijaAngazmana = idEvidencijaAngazmana;
         this.ukupanIznos = ukupanIznos;
         this.rok = rok;
@@ -172,7 +173,8 @@ public class EvidencijaAngazmana implements ApstraktniDomenskiObjekat{
     @Override
     public String vratiVrednostZaUbacivanje() {
         java.sql.Date sqlRok= new java.sql.Date(rok.getTime());
-        return ukupanIznos+"'"+sqlRok+"'"+zavrsen+"'"+dizajner.getIdDizajner()+"'"+marketingMenadzer.getIdMarketingMenadzer();
+        int zavr=zavrsen?1:0;
+        return ukupanIznos+",'"+sqlRok+"',"+zavrsen+","+dizajner.getIdDizajner()+","+marketingMenadzer.getIdMarketingMenadzer();
     }
 
     @Override
@@ -184,6 +186,7 @@ public class EvidencijaAngazmana implements ApstraktniDomenskiObjekat{
     @Override
     public String vratiVrednostZaIzmenu() {
         java.sql.Date sqlRok= new java.sql.Date(rok.getTime());
+        int zavr=zavrsen?1:0;
         return "ukupanIznos="+ukupanIznos+", rok='"+sqlRok+"', zavrsen="+zavrsen+", dizajner="+dizajner.getIdDizajner()+", marketingMenadzer="+marketingMenadzer.getIdMarketingMenadzer();
     }
 

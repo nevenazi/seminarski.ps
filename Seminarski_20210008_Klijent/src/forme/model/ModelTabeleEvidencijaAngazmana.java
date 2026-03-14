@@ -4,6 +4,7 @@
  */
 package forme.model;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.EvidencijaAngazmana;
@@ -41,10 +42,11 @@ public class ModelTabeleEvidencijaAngazmana extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         EvidencijaAngazmana e=lista.get(rowIndex);
+        SimpleDateFormat sdf=new SimpleDateFormat("dd.MM.yyyy");
         switch (columnIndex){
             case 0: return e.getIdEvidencijaAngazmana();
             case 1: return e.getUkupanIznos();
-            case 2: return e.getRok();
+            case 2: return sdf.format(e.getRok());
             case 3: return (e.isZavrsen()==true) ? "DA":"NE";
             case 4: return e.getDizajner().getIme()+" "+e.getDizajner().getPrezime();
             case 5: return e.getMarketingMenadzer().getIme()+" "+e.getMarketingMenadzer().getPrezime();

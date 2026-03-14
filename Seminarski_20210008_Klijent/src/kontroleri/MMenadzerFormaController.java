@@ -42,7 +42,7 @@ public class MMenadzerFormaController {
             public void actionPerformed(ActionEvent e) {
                 int red=mmf.getjTableMarketingMenadzer().getSelectedRow();
                 if (red==-1) {
-                    JOptionPane.showMessageDialog(mmf, "Sistem ne može da nađe marketing menažera.", "Greška", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(mmf, "Sistem ne može da nađe marketing menažera.", "Greška", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 ModelTabeleMarketingMenadzer mtmm= (ModelTabeleMarketingMenadzer) mmf.getjTableMarketingMenadzer().getModel();
@@ -69,7 +69,7 @@ public class MMenadzerFormaController {
             public void actionPerformed(ActionEvent e) {
                 int red=mmf.getjTableMarketingMenadzer().getSelectedRow();
                 if (red==-1) {
-                    JOptionPane.showMessageDialog(mmf, "Sistem ne može da nađe marketing menažera.", "Greška", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(mmf, "Sistem ne može da nađe marketing menažera.", "Greška", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 ModelTabeleMarketingMenadzer mtmm= (ModelTabeleMarketingMenadzer) mmf.getjTableMarketingMenadzer().getModel();
@@ -128,7 +128,7 @@ public class MMenadzerFormaController {
             public void actionPerformed(ActionEvent e) {
                 int red=mmf.getjTableMarketingMenadzer().getSelectedRow();
                 if (red==-1) {
-                    JOptionPane.showMessageDialog(mmf, "Sistem ne može da nađe marketing menadžera.", "Greška", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(mmf, "Sistem ne može da nađe marketing menadžera.", "Greška", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 ModelTabeleMarketingMenadzer mtmm= (ModelTabeleMarketingMenadzer) mmf.getjTableMarketingMenadzer().getModel();

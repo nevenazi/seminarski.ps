@@ -22,7 +22,7 @@ public class VratiListuSviSertifikatSO extends ApstraktnaGenerickaOperacija {
     
     @Override
     protected void preduslovi(Object param) throws Exception {
-        if (!(param instanceof Sertifikat)){
+        if (param==null || !(param instanceof Sertifikat)){
             throw new Exception("Sistem ne može da nađe sertifikate po zadatim kriterijumima");
         }
     }

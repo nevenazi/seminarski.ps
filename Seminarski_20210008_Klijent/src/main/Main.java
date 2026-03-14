@@ -5,7 +5,6 @@
 package main;
 
 import kontroleri.Koordinator;
-import kontroleri.LoginController;
 
 /**
  *

@@ -85,11 +85,10 @@ public class LoginForma extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    
 
     public JButton getjButtonUslogujSe() {
         return jButtonUslogujSe;
@@ -99,9 +98,7 @@ public class LoginForma extends javax.swing.JFrame {
         return jPasswordField;
     }
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public JTextField getjTextFieldUsername() {
         return jTextFieldUsername;
     }

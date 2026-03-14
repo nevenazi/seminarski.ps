@@ -83,7 +83,7 @@ public class MarketingMenadzer implements ApstraktniDomenskiObjekat{
 
     @Override
     public String toString() {
-        return "MarketingMenadzer{" + "idMarketingMenadzer=" + idMarketingMenadzer + ", ime=" + ime + ", prezime=" + prezime + ", telefon=" + telefon + ", email=" + email + ", kompanija=" + kompanija + '}';
+        return "id=" + idMarketingMenadzer + ", ime=" + ime + " " + prezime + ", kompanija=" + kompanija.getNaziv();
     }
 
     @Override

@@ -73,7 +73,7 @@ public class TipVizuala implements ApstraktniDomenskiObjekat {
 
     @Override
     public String toString() {
-        return "TipVizuala{" + "idTipVizuala=" + idTipVizuala + ", naziv=" + naziv + ", dimenzije=" + dimenzije + ", modelBoja=" + modelBoja + ", osnovnaCena=" + osnovnaCena + '}';
+        return "id=" + idTipVizuala + ", naziv=" + naziv + ", dimenzije=" + dimenzije;
     }
 
     @Override

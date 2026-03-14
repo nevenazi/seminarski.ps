@@ -5,12 +5,12 @@
 package forme;
 
 import forme.model.ModelTabeleEvidencijaAngazmana;
-import forme.model.ModelTabeleStavkaAngazmana;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
+import kontroleri.Koordinator;
 import model.Dizajner;
 import model.EvidencijaAngazmana;
 import model.StavkaAngazmana;
@@ -54,9 +54,8 @@ public class EvidencijaAngazmanaForma extends javax.swing.JFrame {
         jComboBoxDizajner = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jButtonKreiraj = new javax.swing.JButton();
-        jButtonPrikazi = new javax.swing.JButton();
         jButtonPromeni = new javax.swing.JButton();
-        jButtonObrisi = new javax.swing.JButton();
+        jButtonPrikazi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Evidencija angažmana");
@@ -72,6 +71,11 @@ public class EvidencijaAngazmanaForma extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableEvidencijaAngazmana.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableEvidencijaAngazmanaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableEvidencijaAngazmana);
 
         jButtonGlavnaForma.setText("Vrati se na glavnu formu");
@@ -104,8 +108,6 @@ public class EvidencijaAngazmanaForma extends javax.swing.JFrame {
 
         jButtonKreiraj.setText("Kreiraj evidenciju angažmana");
 
-        jButtonPrikazi.setText("Prikaži evidenciju angažmana");
-
         jButtonPromeni.setText("Promeni evidenciju angažmana");
         jButtonPromeni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,10 +115,10 @@ public class EvidencijaAngazmanaForma extends javax.swing.JFrame {
             }
         });
 
-        jButtonObrisi.setText("Obriši evidenciju angažmana");
-        jButtonObrisi.addActionListener(new java.awt.event.ActionListener() {
+        jButtonPrikazi.setText("Prikaži evidenciju angažmana");
+        jButtonPrikazi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonObrisiActionPerformed(evt);
+                jButtonPrikaziActionPerformed(evt);
             }
         });
 
@@ -144,12 +146,11 @@ public class EvidencijaAngazmanaForma extends javax.swing.JFrame {
                 .addGap(114, 114, 114)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonKreiraj, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonPrikazi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonObrisi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonPromeni))
+                    .addComponent(jButtonPromeni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonPrikazi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonGlavnaForma)
-                .addGap(103, 103, 103))
+                .addGap(109, 109, 109))
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 972, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -181,21 +182,22 @@ public class EvidencijaAngazmanaForma extends javax.swing.JFrame {
                                 .addComponent(jComboBoxKompanija, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(jButtonKreiraj)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonPrikazi)
+                        .addGap(45, 45, 45)
+                        .addComponent(jButtonGlavnaForma, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jButtonKreiraj)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonPromeni))
-                    .addComponent(jButtonGlavnaForma, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonObrisi)
-                .addContainerGap(44, Short.MAX_VALUE))
+                        .addComponent(jButtonPrikazi)))
+                .addGap(12, 12, 12)
+                .addComponent(jButtonPromeni)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGlavnaFormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGlavnaFormaActionPerformed
@@ -210,13 +212,18 @@ public class EvidencijaAngazmanaForma extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonPromeniActionPerformed
 
-    private void jButtonObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonObrisiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonObrisiActionPerformed
-
     private void jComboBoxDizajnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxDizajnerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxDizajnerActionPerformed
+
+    private void jTableEvidencijaAngazmanaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEvidencijaAngazmanaMouseClicked
+        
+        //Koordinator.getInstance().getEvidencijaAngazmanaFormaController().prikaziEvidenciju(evt);
+    }//GEN-LAST:event_jTableEvidencijaAngazmanaMouseClicked
+
+    private void jButtonPrikaziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrikaziActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonPrikaziActionPerformed
 
     /**
      * @param args the command line arguments
@@ -244,7 +251,6 @@ public class EvidencijaAngazmanaForma extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonGlavnaForma;
     private javax.swing.JButton jButtonKreiraj;
-    private javax.swing.JButton jButtonObrisi;
     private javax.swing.JButton jButtonPretrazi;
     private javax.swing.JButton jButtonPrikazi;
     private javax.swing.JButton jButtonPromeni;
@@ -260,8 +266,8 @@ public class EvidencijaAngazmanaForma extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 
-public void addButtonObrisiActionListener(ActionListener actionListener) {
-        jButtonObrisi.addActionListener(actionListener);
+    public void addButtonPrikaziActionListener(ActionListener actionListener) {
+        jButtonPrikazi.addActionListener(actionListener);
     }
     
     public void addButtonKreirajActionListener(ActionListener actionListener) {
@@ -280,9 +286,7 @@ public void addButtonObrisiActionListener(ActionListener actionListener) {
         jButtonResetuj.addActionListener(actionListener);
     }
     
-    public void addButtonPrikaziActionListener(ActionListener actionListener) {
-        jButtonPrikazi.addActionListener(actionListener);
-    }
+    
     
     public void addButtonGlavnaFormaActionListener(ActionListener actionListener) {
         jButtonGlavnaForma.addActionListener(actionListener);

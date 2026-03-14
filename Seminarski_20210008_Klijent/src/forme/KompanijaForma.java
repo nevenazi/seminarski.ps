@@ -149,6 +149,7 @@ public class KompanijaForma extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPromeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPromeniActionPerformed
@@ -159,9 +160,7 @@ public class KompanijaForma extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonObrisiActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    
     
 
     public JTable getjTableKompanija() {

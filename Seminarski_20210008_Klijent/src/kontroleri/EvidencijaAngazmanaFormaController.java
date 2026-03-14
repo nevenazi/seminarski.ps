@@ -7,15 +7,19 @@ package kontroleri;
 import forme.EvidencijaAngazmanaForma;
 import forme.model.ModelTabeleEvidencijaAngazmana;
 import forme.model.ModelTabeleMarketingMenadzer;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import komunikacija.Komunikacija;
 import model.Dizajner;
 import model.EvidencijaAngazmana;
@@ -39,7 +43,15 @@ public class EvidencijaAngazmanaFormaController {
     }
 
     private void addActionListeners() {
-        eaf.addButtonObrisiActionListener(new ActionListener() {
+        
+        eaf.addButtonKreirajActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Koordinator.getInstance().otvoriKreirajEvidencijaAngazmanaFormu();
+            }
+        });
+        
+        eaf.addButtonPromeniActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int red=eaf.getjTableEvidencijaAngazmana().getSelectedRow();
@@ -50,38 +62,28 @@ public class EvidencijaAngazmanaFormaController {
                 ModelTabeleEvidencijaAngazmana mtea= (ModelTabeleEvidencijaAngazmana) eaf.getjTableEvidencijaAngazmana().getModel();
                 EvidencijaAngazmana ea=mtea.getLista().get(red);
                 JOptionPane.showMessageDialog(eaf, "Sistem je našao evidenciju angažmana.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-                try {
-                    Komunikacija.getInstance().obrisiEvidencijaAngazmana(ea);
-                    JOptionPane.showMessageDialog(eaf, "Sistem je obrisao evidenciju angažmana.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-                    pripremiFormu();
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(eaf, "Sistem ne može da obriše evidenciju angažmana.", "Greška", JOptionPane.ERROR_MESSAGE);
-                }
+                
+                Koordinator.getInstance().dodajParametar("evidencija angažmana", ea);
+                Koordinator.getInstance().otvoriPromeniEvidencijaAngazmanaFormu();
             }
         });
-//        eaf.addButtonKreirajActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                Koordinator.getInstance().otvoriKreirajMarketingMenadzerFormu();
-//            }
-//        });
         
-//        eaf.addButtonPromeniActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                int red=eaf.getjTableMarketingMenadzer().getSelectedRow();
-//                if (red==-1) {
-//                    JOptionPane.showMessageDialog(eaf, "Sistem ne može da nađe marketing menažera.", "Greška", JOptionPane.WARNING_MESSAGE);
-//                    return;
-//                }
-//                ModelTabeleMarketingMenadzer mtmm= (ModelTabeleMarketingMenadzer) eaf.getjTableMarketingMenadzer().getModel();
-//                MarketingMenadzer mm=mtmm.getLista().get(red);
-//                JOptionPane.showMessageDialog(eaf, "Sistem je našao marketing menažera.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-//                
-//                Koordinator.getInstance().dodajParametar("marketing menadžer", mm);
-//                Koordinator.getInstance().otvoriPromeniMarketingMenadzerFormu();
-//            }
-//        });
+        eaf.addButtonPrikaziActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int red=eaf.getjTableEvidencijaAngazmana().getSelectedRow();
+                if (red==-1) {
+                    JOptionPane.showMessageDialog(eaf, "Sistem ne može da nađe evidenciju angažmana.", "Greška", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                ModelTabeleEvidencijaAngazmana mtea= (ModelTabeleEvidencijaAngazmana) eaf.getjTableEvidencijaAngazmana().getModel();
+                EvidencijaAngazmana ea=mtea.getLista().get(red);
+                JOptionPane.showMessageDialog(eaf, "Sistem je našao evidenciju angažmana.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+                
+                Koordinator.getInstance().dodajParametar("evidencija angažmana", ea);
+                Koordinator.getInstance().otvoriPrikaziEvidencijaAngazmanaFormu();
+            }
+        });
         
         eaf.addButtonPretraziActionListener(new ActionListener() {
             @Override
@@ -131,22 +133,6 @@ public class EvidencijaAngazmanaFormaController {
             }
         });
         
-//        eaf.addButtonPrikaziActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                int red=eaf.getjTableMarketingMenadzer().getSelectedRow();
-//                if (red==-1) {
-//                    JOptionPane.showMessageDialog(eaf, "Sistem ne može da nađe marketing menadžera.", "Greška", JOptionPane.WARNING_MESSAGE);
-//                    return;
-//                }
-//                ModelTabeleMarketingMenadzer mtmm= (ModelTabeleMarketingMenadzer) eaf.getjTableMarketingMenadzer().getModel();
-//                MarketingMenadzer mm=mtmm.getLista().get(red);
-//                JOptionPane.showMessageDialog(eaf, "Sistem je našao marketing menažera.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-//                
-//                Koordinator.getInstance().dodajParametar("marketing menadžer", mm);
-//                Koordinator.getInstance().otvoriPrikaziMarketingMenadzerFormu();
-//            }
-//        });
     }
     
     
@@ -217,6 +203,18 @@ public class EvidencijaAngazmanaFormaController {
     public EvidencijaAngazmanaForma getEaf() {
         return eaf;
     }
+
+    /*public void prikaziEvidenciju(MouseEvent evt) {
+        JTable table=(JTable) evt.getSource();
+        Point point=evt.getPoint();
+        int red=table.rowAtPoint(point);
+        EvidencijaAngazmana ea=((ModelTabeleEvidencijaAngazmana)eaf.getjTableEvidencijaAngazmana().getModel()).getLista().get(red);
+        SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd.MM.yyyy");
+        String ispis="Sistem je našao evidenciju angažmana:\n"+"dizajner: "+ea.getDizajner().toString()
+                            +"\nmarketing menadžer: "+ea.getMarketingMenadzer().toString()+"\nrok: "+simpleDateFormat.format(ea.getRok())
+                            +"\nukupan iznos: "+ea.getUkupanIznos()+"\nzavršen: "+ea.isZavrsen();
+                    JOptionPane.showMessageDialog(eaf, ispis, "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+    }*/
 
     
 

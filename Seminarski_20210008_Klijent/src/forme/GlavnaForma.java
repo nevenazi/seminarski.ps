@@ -149,6 +149,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemEvidencijaAngazmanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEvidencijaAngazmanaActionPerformed
