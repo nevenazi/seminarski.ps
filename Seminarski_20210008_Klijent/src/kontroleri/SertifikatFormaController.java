@@ -4,21 +4,15 @@
  */
 package kontroleri;
 
-import forme.KompanijaForma;
 import forme.SertifikatForma;
-import forme.model.ModelTabeleKompanija;
 import forme.model.ModelTabeleSertifikat;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import komunikacija.Komunikacija;
-import model.Kompanija;
 import model.Sertifikat;
 
 /**
@@ -71,7 +65,6 @@ public class SertifikatFormaController {
             JOptionPane.showMessageDialog(sf, "Sistem ne može da nađe sertifikate.","Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        JOptionPane.showMessageDialog(sf, "Sistem je našao sertifikate.","Uspeh", JOptionPane.INFORMATION_MESSAGE);
         ModelTabeleSertifikat mts=new ModelTabeleSertifikat(sertifikati);
         sf.getjTableSertifikat().setModel(mts);
         sf.setVisible(true);

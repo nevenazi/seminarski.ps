@@ -4,9 +4,7 @@
  */
 package operacije.marketingMenadzerOperacije;
 
-import operacije.kompanijaOperacije.*;
 import java.util.List;
-import javax.swing.JOptionPane;
 import model.MarketingMenadzer;
 import operacije.ApstraktnaGenerickaOperacija;
 

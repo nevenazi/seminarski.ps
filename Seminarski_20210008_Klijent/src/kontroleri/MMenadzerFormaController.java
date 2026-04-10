@@ -47,14 +47,22 @@ public class MMenadzerFormaController {
                 }
                 ModelTabeleMarketingMenadzer mtmm= (ModelTabeleMarketingMenadzer) mmf.getjTableMarketingMenadzer().getModel();
                 MarketingMenadzer mm=mtmm.getLista().get(red);
-                JOptionPane.showMessageDialog(mmf, "Sistem je našao marketing menažera.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-                try {
-                    Komunikacija.getInstance().obrisiMarketingMenadzera(mm);
-                    JOptionPane.showMessageDialog(mmf, "Sistem je obrisao marketing menažera.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-                    pripremiFormu();
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(mmf, "Sistem ne može da obriše marketing menažera.", "Greška", JOptionPane.ERROR_MESSAGE);
+                String poruka="Sistem je našao marketing menažera:\n Ime: "+mm.getIme()+"\n Prezime: "+mm.getPrezime()
+                        +"\n Email: "+mm.getEmail()+"\n Telefon: "+mm.getTelefon()+"\n\nDa li ste sigurni da želite da izvršite brisanje?\n\n";
+                String[] opcije=new String[2];
+                opcije[0]="Obriši";
+                opcije[1]="Odustani";
+                int potvrda=JOptionPane.showOptionDialog(mmf, poruka, "Potvrda", 1, JOptionPane.WARNING_MESSAGE,null,opcije,opcije[1]);
+                if (potvrda==0){
+                    try {
+                      Komunikacija.getInstance().obrisiMarketingMenadzera(mm);
+                      JOptionPane.showMessageDialog(mmf, "Sistem je obrisao marketing menažera.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+                      pripremiFormu();
+                  } catch (Exception ex) {
+                      JOptionPane.showMessageDialog(mmf, "Sistem ne može da obriše marketing menažera.", "Greška", JOptionPane.ERROR_MESSAGE);
+                  }  
                 }
+                
             }
         });
         mmf.addButtonKreirajActionListener(new ActionListener() {
@@ -178,7 +186,6 @@ public class MMenadzerFormaController {
         }
         ModelTabeleMarketingMenadzer mtmm=new ModelTabeleMarketingMenadzer(menadzeri);
         mmf.getjTableMarketingMenadzer().setModel(mtmm);
-        JOptionPane.showMessageDialog(mmf, "Sistem je našao marketing menadžere","Uspeh", JOptionPane.INFORMATION_MESSAGE);
         Koordinator.getInstance().zatvoriGlavnuFormu();
         mmf.setVisible(true);
     }

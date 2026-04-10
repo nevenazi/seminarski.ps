@@ -34,7 +34,7 @@ public class VratiListuSviEvidencijaAngazmanaSO extends ApstraktnaGenerickaOpera
 
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
-        evidencije=broker.getAll(param,null);
+        evidencije=broker.getAll(param," ORDER BY evidencijaAngazmana.idEvidencijaAngazmana ASC , stavkaangazmana.rb ASC");
         
     }
     

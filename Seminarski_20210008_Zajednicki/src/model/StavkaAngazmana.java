@@ -131,9 +131,11 @@ public class StavkaAngazmana implements ApstraktniDomenskiObjekat {
         return "StavkaAngazmana{" + "evidencijaAngazmana=" + evidencijaAngazmana + ", rb=" + rb + ", kolicina=" + kolicina + ", opis=" + opis + ", cena=" + cena + ", korigovanIznos=" + korigovanIznos + ", zavrsena=" + zavrsena + ", tipVizuala=" + tipVizuala + '}';
     }
 
-    
-
-    
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -153,6 +155,11 @@ public class StavkaAngazmana implements ApstraktniDomenskiObjekat {
         return Objects.equals(this.evidencijaAngazmana, other.evidencijaAngazmana);
     }
 
+    
+
+    
+
+    
     @Override
     public String vratiNazivTabele() {
         return "stavkaangazmana";

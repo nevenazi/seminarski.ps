@@ -12,6 +12,7 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -53,7 +54,6 @@ public class KreirajEvidencijaAngazmanaFormaController {
                 keaf.getjButtonSacuvaj().setVisible(true);
                 keaf.getjButtonSacuvaj().setEnabled(true);
                 evidencijaForme=new EvidencijaAngazmana();
-                JOptionPane.showMessageDialog(keaf, "Sistem je kreirao evidenciju angažmana", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                 break;
             case PROMENI:
                 keaf.setTitle("Promeni evidenciju angažmana");
@@ -112,8 +112,28 @@ public class KreirajEvidencijaAngazmanaFormaController {
                 
                 if (kolicina>0 && opis!=null && !opis.isEmpty()){
                     List<StavkaAngazmana> stavke=((ModelTabeleStavkaAngazmana)keaf.getjTableStavkeAngazmana().getModel()).getLista();
-                    StavkaAngazmana stavka=new StavkaAngazmana(evidencijaForme, stavke.size()+1, kolicina, opis, cena, nekorigovan, korekcija, korigovan, zavrsena, tipVizuala);
-                    stavke.add(stavka);
+                    int najveciRB=0;
+                    for (StavkaAngazmana stavkaZaRb : stavke) {
+                        if (stavkaZaRb.getRb()>najveciRB)najveciRB=stavkaZaRb.getRb();
+                    }
+                    StavkaAngazmana stavka=new StavkaAngazmana(evidencijaForme, najveciRB+1, kolicina, opis, cena, nekorigovan, korekcija, korigovan, zavrsena, tipVizuala);
+                    boolean vecPostoji=false;
+                    for (StavkaAngazmana stavkaAngazmana : stavke) {
+                        if (stavkaAngazmana.getOpis().equals(opis)
+                                && stavkaAngazmana.getCena()==cena
+                                && stavkaAngazmana.isZavrsena()==zavrsena
+                                && stavkaAngazmana.getTipVizuala().equals(tipVizuala)           
+                                ){  //samo treba povecati kolicinu i prilagoditi iznose i korekciju iznosa
+                            stavkaAngazmana.setKolicina(stavkaAngazmana.getKolicina()+kolicina);
+                            stavkaAngazmana.setKorekcijaIznosa(stavkaAngazmana.getKorekcijaIznosa()+korekcija);
+                            stavkaAngazmana.setNekorigovanIznos(stavkaAngazmana.getCena()*stavkaAngazmana.getKolicina());
+                            stavkaAngazmana.setKorigovanIznos(stavkaAngazmana.getNekorigovanIznos()+stavkaAngazmana.getKorekcijaIznosa());
+                            vecPostoji=true;
+                        }
+                    }
+                    if (!vecPostoji){
+                        stavke.add(stavka);
+                    }
                     double zbir=0;
                     for(int i=0;i<stavke.size();i++){
                         zbir=zbir+stavke.get(i).getKorigovanIznos();
@@ -142,9 +162,7 @@ public class KreirajEvidencijaAngazmanaFormaController {
                 keaf.getjTextFieldUkupanIznos().setText(ukupaniznos+"");
                 
                 stavke.remove(red);
-                for (int i=1;i<stavke.size()+1;i++){
-                    stavke.get(i-1).setRb(i);
-                }
+                
                 ModelTabeleStavkaAngazmana msa=new ModelTabeleStavkaAngazmana(stavke);
                 keaf.getjTableStavkeAngazmana().setModel(msa);
             }
@@ -169,7 +187,7 @@ public class KreirajEvidencijaAngazmanaFormaController {
                 }
                 try {
                     Komunikacija.getInstance().kreirajEvidencijuAngazmana(ea);
-                    String ispis="Sistem je zapamtio evidenciju angažmana:\n"+"dizajner: "+ea.getDizajner().toString()
+                    String ispis="Sistem je kreirao evidenciju angažmana:\n"+"dizajner: "+ea.getDizajner().toString()
                             +"\nmarketing menadžer: "+ea.getMarketingMenadzer().toString()+"\nrok: "+simpleDateFormat.format(ea.getRok())
                             +"\nukupan iznos: "+ea.getUkupanIznos()+"\nzavršen: "+ea.isZavrsen()+"\nbroj stavki:"+ea.getStavkeAngazmana().size();
                     JOptionPane.showMessageDialog(keaf, ispis, "Uspeh", JOptionPane.INFORMATION_MESSAGE);
@@ -212,6 +230,39 @@ public class KreirajEvidencijaAngazmanaFormaController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 keaf.dispose();
+            }
+        });
+        
+        keaf.addTableStavkeMouseClickListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                JTable table=(JTable) evt.getSource();
+                Point point=evt.getPoint();
+                int red=table.rowAtPoint(point);
+
+                StavkaAngazmana stavka=((ModelTabeleStavkaAngazmana)keaf.getjTableStavkeAngazmana().getModel()).getLista().get(red);
+                String ispis="Sistem je našao stavku angažmana.";
+                JOptionPane.showMessageDialog(keaf, ispis, "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+
+                keaf.getjComboBoxTipVizuala().setSelectedItem(stavka.getTipVizuala());
+                keaf.getjTextAreaOpis().setText(stavka.getOpis());
+                keaf.getjTextFieldKolicina().setText(stavka.getKolicina()+"");
+                keaf.getjTextFieldKorekcijaIznosa().setText(stavka.getKorekcijaIznosa()+"");
+                keaf.getjCheckBoxZavrsena().setSelected(stavka.isZavrsena());
+                izracunaj();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
             }
         });
         
@@ -339,34 +390,14 @@ public class KreirajEvidencijaAngazmanaFormaController {
 
     private void popuniTabeluStavki() {
         List<StavkaAngazmana> stavke=new ArrayList<>();
-        try {
-            if (evidencijaForme.getIdEvidencijaAngazmana()>0)
-                stavke=Komunikacija.getInstance().ucitajStavke(evidencijaForme);
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(keaf, "Sistem ne može da nađe stavke angažmana.","Greška", JOptionPane.ERROR_MESSAGE);
-            Koordinator.getInstance().otvoriEvidencijaAngazmanaFormu();
-            keaf.dispose();
-        }
+        if (evidencijaForme.getIdEvidencijaAngazmana()>0)
+            stavke=evidencijaForme.getStavkeAngazmana();
+        
         ModelTabeleStavkaAngazmana mtsa=new ModelTabeleStavkaAngazmana(stavke);
         keaf.getjTableStavkeAngazmana().setModel(mtsa);
     }
 
-    public void prikaziStavku(MouseEvent evt) {
-        JTable table=(JTable) evt.getSource();
-        Point point=evt.getPoint();
-        int red=table.rowAtPoint(point);
-        
-        StavkaAngazmana stavka=((ModelTabeleStavkaAngazmana)keaf.getjTableStavkeAngazmana().getModel()).getLista().get(red);
-        String ispis="Sistem je našao stavku angažmana."+stavka.getTipVizuala().toString();
-        JOptionPane.showMessageDialog(keaf, ispis, "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-        
-        keaf.getjComboBoxTipVizuala().setSelectedItem(stavka.getTipVizuala());
-        keaf.getjTextAreaOpis().setText(stavka.getOpis());
-        keaf.getjTextFieldKolicina().setText(stavka.getKolicina()+"");
-        keaf.getjTextFieldKorekcijaIznosa().setText(stavka.getKorekcijaIznosa()+"");
-        keaf.getjCheckBoxZavrsena().setSelected(stavka.isZavrsena());
-        izracunaj();
-    }
+    
 
 
 }

@@ -5,6 +5,7 @@
 package forme;
 
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -336,7 +337,7 @@ public class KreirajEvidencijaAngazmanaForma extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxDizajner1ActionPerformed
 
     private void jTableStavkeAngazmanaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableStavkeAngazmanaMouseClicked
-        Koordinator.getInstance().getKreirajEvidencijaAngazmanaFormaController().prikaziStavku(evt);
+        //
     }//GEN-LAST:event_jTableStavkeAngazmanaMouseClicked
 
     public JCheckBox getjCheckBoxZavrsena() {
@@ -486,5 +487,9 @@ public class KreirajEvidencijaAngazmanaForma extends javax.swing.JFrame {
     
     public void addButtonZatvoriActionListener(ActionListener actionListener) {
         JButtonZatvori.addActionListener(actionListener);
+    }
+
+    public void addTableStavkeMouseClickListener(MouseListener mouseListener) {
+        jTableStavkeAngazmana.addMouseListener(mouseListener);
     }
 }

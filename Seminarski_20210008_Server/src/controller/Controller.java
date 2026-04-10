@@ -10,7 +10,6 @@ import model.EvidencijaAngazmana;
 import model.Kompanija;
 import model.MarketingMenadzer;
 import model.Sertifikat;
-import model.StavkaAngazmana;
 import model.TipVizuala;
 import operacije.dizajnerOperacije.KreirajDizajnerSO;
 import operacije.dizajnerOperacije.PrijaviDizajnerSO;
@@ -32,7 +31,6 @@ import operacije.marketingMenadzerOperacije.PromeniMarketingMenadzerSO;
 import operacije.marketingMenadzerOperacije.VratiListuSviMarketingMenadzerSO;
 import operacije.sertifikatOperacije.UbaciSertifikatSO;
 import operacije.sertifikatOperacije.VratiListuSviSertifikatSO;
-import operacije.stavkaAngazmanaOperacije.PretraziStavkaAngazmanaSO;
 import operacije.tipVizualaOperacije.VratiListuSviTipVizualaSO;
 
 /**
@@ -160,12 +158,6 @@ public class Controller {
     }
 
     
-
-    public List<StavkaAngazmana> pretraziStavkaAngazmana(StavkaAngazmana stavka) throws Exception {
-        PretraziStavkaAngazmanaSO o=new PretraziStavkaAngazmanaSO();
-        o.izvrsi(stavka, stavka.uslov());
-        return o.getStavke();
-    }
 
     public void kreirajEvidencijaAngazmana(EvidencijaAngazmana evidencija) throws Exception {
         KreirajEvidencijaAngazmanaSO o=new KreirajEvidencijaAngazmanaSO();

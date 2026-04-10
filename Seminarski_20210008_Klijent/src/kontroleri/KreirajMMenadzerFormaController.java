@@ -39,7 +39,6 @@ public class KreirajMMenadzerFormaController {
                 kmmf.getjButtonSacuvaj().setVisible(true);
                 kmmf.getjButtonSacuvaj().setEnabled(true);
                 mmenadzerForme=new MarketingMenadzer();
-                JOptionPane.showMessageDialog(kmmf, "Sistem je kreirao marketing menadžera", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                 break;
             case PROMENI:
                 kmmf.setTitle("Promeni marketing menadžera");
@@ -74,7 +73,7 @@ public class KreirajMMenadzerFormaController {
                 
                 try {
                     Komunikacija.getInstance().kreirajMarketingMenadzer(mm);
-                    String ispis="Sistem je zapamtio marketing menadžera:\n"+"ime: "+mm.getIme()+"\nprezime: "+mm.getPrezime()+"\nemail: "+mm.getEmail()+"\ntelefon: "+mm.getTelefon()+"\nkompanija: "+mm.getKompanija().getNaziv();
+                    String ispis="Sistem je kreirao marketing menadžera:\n"+"ime: "+mm.getIme()+"\nprezime: "+mm.getPrezime()+"\nemail: "+mm.getEmail()+"\ntelefon: "+mm.getTelefon()+"\nkompanija: "+mm.getKompanija().getNaziv();
                     JOptionPane.showMessageDialog(kmmf, ispis, "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                     Koordinator.getInstance().getMmenadzerFormaController().pripremiFormu();
                     kmmf.dispose();

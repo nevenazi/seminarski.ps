@@ -263,19 +263,6 @@ public class Komunikacija {
         return evidencije;
     }
 
-    
-
-    public List<StavkaAngazmana> ucitajStavke(EvidencijaAngazmana evidencijaForme) throws IOException {
-        List <StavkaAngazmana> stavke=new ArrayList<>();
-        StavkaAngazmana uslovStavka=new StavkaAngazmana();
-        uslovStavka.setEvidencijaAngazmana(evidencijaForme);
-        KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.PRETRAZI_STAVKA_ANGAZMANA, uslovStavka);
-        posiljalac.posalji(zahtev);
-        
-        ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
-        stavke=(List<StavkaAngazmana>) odg.getOdgovor();
-        return stavke;
-    }
 
     public void kreirajEvidencijuAngazmana(EvidencijaAngazmana ea) throws Exception {
         KlijentskiZahtev kz=new KlijentskiZahtev(Operacija.KREIRAJ_EVIDENCIJA_ANGAZMANA, ea);

@@ -9,8 +9,6 @@ import model.Dizajner;
 import model.EvidencijaAngazmana;
 import model.MarketingMenadzer;
 import operacije.ApstraktnaGenerickaOperacija;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.List;
 import model.StavkaAngazmana;
 
@@ -38,18 +36,31 @@ public class PromeniEvidencijaAngazmanaSO extends ApstraktnaGenerickaOperacija {
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         try {
-            EvidencijaAngazmana ea = (EvidencijaAngazmana) param;
-            StavkaAngazmana stavka=ea.getStavkeAngazmana().get(0);
-            System.out.println("stavka"+stavka.toString());
-            List<StavkaAngazmana> bivseStavke=broker.getAll(stavka, stavka.uslov());
+            EvidencijaAngazmana novaEvidencija = (EvidencijaAngazmana) param;
+            List<StavkaAngazmana> noveStavke=novaEvidencija.getStavkeAngazmana();
+            EvidencijaAngazmana bivsaEvidencija=(EvidencijaAngazmana) 
+                    broker.getAll(param, " WHERE idEvidencijaAngazmana="+novaEvidencija.getIdEvidencijaAngazmana()).get(0);
+            List<StavkaAngazmana> bivseStavke=bivsaEvidencija.getStavkeAngazmana();
             broker.edit(param);
-            for (StavkaAngazmana bivsaStavka : bivseStavke) {
+            boolean izmenjena;
+            for (StavkaAngazmana novaStavka : noveStavke) {
+                izmenjena=false;
+                for (StavkaAngazmana bivsaStavka: bivseStavke){
+                    if (novaStavka.equals(bivsaStavka)){
+                        //edit stavke ako je vec upisana
+                        broker.edit(novaStavka);
+                        izmenjena=true;
+                        bivseStavke.remove(bivsaStavka);
+                        break;
+                    }
+                }
+                if(!izmenjena)broker.add(novaStavka); //dodavanje stavke ako nije vec upisana
+            }
+            
+            for (StavkaAngazmana bivsaStavka: bivseStavke){//brisanje stavki koje ne postoje u novoj listi
                 broker.delete(bivsaStavka);
             }
             
-            for (StavkaAngazmana novaStavka : ea.getStavkeAngazmana()) {
-                broker.add(novaStavka);
-            }
         } catch (Exception e) {
             System.err.println("Greška u promeni evidencije sa stavkama: " + e.getMessage());
             throw e;

@@ -93,6 +93,7 @@ public class EvidencijaAngazmana implements ApstraktniDomenskiObjekat{
     public void setMarketingMenadzer(MarketingMenadzer marketingMenadzer) {
         this.marketingMenadzer = marketingMenadzer;
     }
+    
 
     @Override
     public String toString() {
@@ -131,35 +132,82 @@ public class EvidencijaAngazmana implements ApstraktniDomenskiObjekat{
         List<ApstraktniDomenskiObjekat> lista= new ArrayList<>();
         while (rs.next()){
             int idEvidencijaAngazmana=rs.getInt("evidencijaangazmana.idEvidencijaAngazmana");
-            double ukupanIznos=rs.getDouble("evidencijaangazmana.ukupanIznos");
-            java.sql.Date roksql=rs.getDate("evidencijaangazmana.rok");
-            java.util.Date rok=new java.util.Date(roksql.getTime());
-            boolean zavrsen=rs.getBoolean("evidencijaangazmana.zavrsen");
+            boolean vecPostojecaEvidencija=false;
             
-            int dizajnerid=rs.getInt("dizajner.idDizajner");
-            String imed=rs.getString("dizajner.ime");
-            String prezimed=rs.getString("dizajner.prezime");
-            String korisnickoIme=rs.getString("dizajner.korisnickoIme");
-            String sifra=rs.getString("dizajner.sifra");
+            //prolazimo kroz sve evidencije da bismo videli da li je ova evidencija vec uzeta
+            int IndeksPostojeceEvidencije=-1;
+            for (int i=0;i<lista.size();i++) {
+                if (((EvidencijaAngazmana)lista.get(i)).getIdEvidencijaAngazmana()==idEvidencijaAngazmana){
+                    //treba da se kasnije doda samo stavka
+                    vecPostojecaEvidencija=true;
+                    IndeksPostojeceEvidencije=i;
+                }
+            }
+            EvidencijaAngazmana evidencija;
+            if (!vecPostojecaEvidencija){
+                //citamo podatke o evidenciji
+                double ukupanIznos=rs.getDouble("evidencijaangazmana.ukupanIznos");
+                java.sql.Date roksql=rs.getDate("evidencijaangazmana.rok");
+                java.util.Date rok=new java.util.Date(roksql.getTime());
+                boolean zavrsen=rs.getBoolean("evidencijaangazmana.zavrsen");
+
+                int dizajnerid=rs.getInt("dizajner.idDizajner");
+                String imed=rs.getString("dizajner.ime");
+                String prezimed=rs.getString("dizajner.prezime");
+                String korisnickoIme=rs.getString("dizajner.korisnickoIme");
+                String sifra=rs.getString("dizajner.sifra");
+
+                Dizajner dizajner=new Dizajner(dizajnerid, imed, prezimed, korisnickoIme, sifra);
+
+                int menadzid=rs.getInt("marketingmenadzer.idMarketingMenadzer");
+                String imem=rs.getString("marketingmenadzer.ime");
+                String prezimem=rs.getString("marketingmenadzer.prezime");
+                String telefon=rs.getString("marketingmenadzer.telefon");
+                String email=rs.getString("marketingmenadzer.email");
+
+                int kompid=rs.getInt("kompanija.idKompanija");
+                String naziv=rs.getString("kompanija.naziv");
+                String sajt=rs.getString("kompanija.sajt");
+                Kompanija kompanija=new Kompanija(kompid, naziv, sajt);
+
+                MarketingMenadzer marketingMenadzer=new MarketingMenadzer(menadzid, imem, prezimem, telefon, email, kompanija);
+                List<StavkaAngazmana> stavke=new ArrayList<>();
+                evidencija=new EvidencijaAngazmana(idEvidencijaAngazmana, ukupanIznos, rok, zavrsen, stavke, dizajner, marketingMenadzer);
+                
+                lista.add(evidencija);
+                IndeksPostojeceEvidencije=lista.size()-1;
+            }
             
-            Dizajner dizajner=new Dizajner(dizajnerid, imed, prezimed, korisnickoIme, sifra);
+            //sada je evidencija vec u listi (neyavisno od toga da li je vec bila) i treba dodati samo stavku i preci u sledeci red
             
-            int menadzid=rs.getInt("marketingmenadzer.idMarketingMenadzer");
-            String imem=rs.getString("marketingmenadzer.ime");
-            String prezimem=rs.getString("marketingmenadzer.prezime");
-            String telefon=rs.getString("marketingmenadzer.telefon");
-            String email=rs.getString("marketingmenadzer.email");
+            int rb=rs.getInt("stavkaangazmana.rb");
+            int kolicina=rs.getInt("stavkaangazmana.kolicina");
+            String opis=rs.getString("stavkaangazmana.opis");
+            double cena=rs.getDouble("stavkaangazmana.cena");
+            double nekorigovanIznos=rs.getDouble("stavkaangazmana.nekorigovanIznos");
+            double korekcijaIznosa=rs.getDouble("stavkaangazmana.korekcijaIznosa");
+            double korigovanIznos=rs.getDouble("stavkaangazmana.korigovanIznos");
+            boolean zavrsena=rs.getBoolean("stavkaangazmana.zavrsena");
+                    
+            //tip vizuala
+            int idviz=rs.getInt("tipvizuala.idTipVizuala");
+            String nazivviz=rs.getString("tipvizuala.naziv");
+            String dimenzije=rs.getString("tipvizuala.dimenzije");
+            String modelBoja=rs.getString("tipvizuala.modelBoja");
+            double osnovnaCena=rs.getDouble("tipvizuala.osnovnaCena");
+
+            TipVizuala tipvizuala=new TipVizuala(idviz, nazivviz, dimenzije, modelBoja, osnovnaCena);
+
+            EvidencijaAngazmana postojecaEvidencija=(EvidencijaAngazmana)lista.get(IndeksPostojeceEvidencije);
+            StavkaAngazmana stavka=new StavkaAngazmana(postojecaEvidencija, rb, kolicina, opis, cena, nekorigovanIznos, korekcijaIznosa, korigovanIznos, zavrsena, tipvizuala);
+                    
+            List<StavkaAngazmana> postojeceStavke=(postojecaEvidencija).getStavkeAngazmana();
+            postojeceStavke.add(stavka);
             
-            int kompid=rs.getInt("kompanija.idKompanija");
-            String naziv=rs.getString("kompanija.naziv");
-            String sajt=rs.getString("kompanija.sajt");
-            Kompanija kompanija=new Kompanija(kompid, naziv, sajt);
+            ((EvidencijaAngazmana)lista.get(IndeksPostojeceEvidencije)).setStavkeAngazmana(postojeceStavke);
+
             
-            MarketingMenadzer marketingMenadzer=new MarketingMenadzer(menadzid, imem, prezimem, telefon, email, kompanija);
             
-            EvidencijaAngazmana evidencija=new EvidencijaAngazmana(idEvidencijaAngazmana, ukupanIznos, rok, zavrsen, null, dizajner, marketingMenadzer);
-            
-            lista.add(evidencija);
         }
         
         return lista;
@@ -194,7 +242,9 @@ public class EvidencijaAngazmana implements ApstraktniDomenskiObjekat{
     public String join() {
         return "JOIN dizajner ON (evidencijaangazmana.dizajner=dizajner.idDizajner)" 
                 + "JOIN marketingmenadzer ON (evidencijaangazmana.marketingMenadzer=marketingMenadzer.idMarketingMenadzer)" 
-                + "JOIN kompanija ON (marketingmenadzer.kompanija = kompanija.idKompanija)";
+                + "JOIN kompanija ON (marketingmenadzer.kompanija = kompanija.idKompanija)"
+                + "JOIN stavkaangazmana ON (evidencijaangazmana.idEvidencijaAngazmana=stavkaangazmana.evidencijaAngazmana)"
+                + "JOIN tipvizuala ON (stavkaangazmana.tipVizuala=tipvizuala.idTipVizuala)";
     }
 
     @Override

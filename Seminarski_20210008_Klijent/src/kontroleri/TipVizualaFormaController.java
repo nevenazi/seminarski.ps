@@ -60,7 +60,6 @@ public class TipVizualaFormaController {
             JOptionPane.showMessageDialog(tvf, "Sistem ne može da nađe tipove vizuala.","Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        JOptionPane.showMessageDialog(tvf, "Sistem je našao tipove vizuala.","Uspeh", JOptionPane.INFORMATION_MESSAGE);
         ModelTabeleTipVizuala mttv=new ModelTabeleTipVizuala(tipovivizuala);
         tvf.getjTableTipVizuala().setModel(mttv);
         tvf.setVisible(true);

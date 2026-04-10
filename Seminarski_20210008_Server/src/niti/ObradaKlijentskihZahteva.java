@@ -185,11 +185,6 @@ public class ObradaKlijentskihZahteva extends Thread {
                         List<EvidencijaAngazmana> filtriraneEvidencije=Controller.getInstance().pretraziEvidencijaAngazmana(evidencija);
                         odgovor.setOdgovor(filtriraneEvidencije);
                         break;
-                    case PRETRAZI_STAVKA_ANGAZMANA:
-                        StavkaAngazmana stavka=(StavkaAngazmana) zahtev.getParametar();
-                        List<StavkaAngazmana> filtriraneStavke=Controller.getInstance().pretraziStavkaAngazmana(stavka);
-                        odgovor.setOdgovor(filtriraneStavke);
-                        break;
                     case KREIRAJ_EVIDENCIJA_ANGAZMANA:
                         try {
                             evidencija = (EvidencijaAngazmana) zahtev.getParametar();

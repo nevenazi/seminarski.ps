@@ -90,13 +90,20 @@ public class KompanijaFormaController {
                 }
                 ModelTabeleKompanija mtk=(ModelTabeleKompanija) kf.getjTableKompanija().getModel();
                 Kompanija k=mtk.getLista().get(red);
-                JOptionPane.showMessageDialog(kf, "Sistem je našao kompaniju.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-                try {
-                    Komunikacija.getInstance().obrisiKompanija(k);
-                    JOptionPane.showMessageDialog(kf, "Sistem je obrisao kompaniju", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-                    pripremiFormu();
-                } catch (Exception exception) {
-                    JOptionPane.showMessageDialog(kf, "Sistem ne može da obriše kompaniju", "Greška", JOptionPane.ERROR_MESSAGE);
+                String poruka="Sistem je našao kompaniju:\nnaziv: "+k.getNaziv()+"\nsajt: "+k.getSajt()
+                        +"\n\nDa li ste sigurni da želite da izvršite brisanje?\n\n";
+                String[] opcije=new String[2];
+                opcije[0]="Obriši";
+                opcije[1]="Odustani";
+                int potvrda=JOptionPane.showOptionDialog(kf, poruka, "Potvrda", 1, JOptionPane.WARNING_MESSAGE,null,opcije,opcije[1]);
+                if (potvrda==0){
+                        try {
+                        Komunikacija.getInstance().obrisiKompanija(k);
+                        JOptionPane.showMessageDialog(kf, "Sistem je obrisao kompaniju", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+                        pripremiFormu();
+                    } catch (Exception exception) {
+                        JOptionPane.showMessageDialog(kf, "Sistem ne može da obriše kompaniju", "Greška", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         }
@@ -159,7 +166,6 @@ public class KompanijaFormaController {
             JOptionPane.showMessageDialog(kf, "Sistem ne može da nađe kompanije.","Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        JOptionPane.showMessageDialog(kf, "Sistem je našao kompanije.","Uspeh", JOptionPane.INFORMATION_MESSAGE);
         ModelTabeleKompanija mtd=new ModelTabeleKompanija(kompanije);
         kf.getjTableKompanija().setModel(mtd);
         kf.setVisible(true);

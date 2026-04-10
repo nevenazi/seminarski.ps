@@ -193,7 +193,6 @@ public class EvidencijaAngazmanaFormaController {
         }
         ModelTabeleEvidencijaAngazmana mtea=new ModelTabeleEvidencijaAngazmana(evidencije);
         eaf.getjTableEvidencijaAngazmana().setModel(mtea);
-        JOptionPane.showMessageDialog(eaf, "Sistem je našao evidencije angažmana.","Uspeh", JOptionPane.INFORMATION_MESSAGE);
         
         //otvaranje forme
         Koordinator.getInstance().zatvoriGlavnuFormu();
@@ -204,17 +203,7 @@ public class EvidencijaAngazmanaFormaController {
         return eaf;
     }
 
-    /*public void prikaziEvidenciju(MouseEvent evt) {
-        JTable table=(JTable) evt.getSource();
-        Point point=evt.getPoint();
-        int red=table.rowAtPoint(point);
-        EvidencijaAngazmana ea=((ModelTabeleEvidencijaAngazmana)eaf.getjTableEvidencijaAngazmana().getModel()).getLista().get(red);
-        SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd.MM.yyyy");
-        String ispis="Sistem je našao evidenciju angažmana:\n"+"dizajner: "+ea.getDizajner().toString()
-                            +"\nmarketing menadžer: "+ea.getMarketingMenadzer().toString()+"\nrok: "+simpleDateFormat.format(ea.getRok())
-                            +"\nukupan iznos: "+ea.getUkupanIznos()+"\nzavršen: "+ea.isZavrsen();
-                    JOptionPane.showMessageDialog(eaf, ispis, "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-    }*/
+    
 
     
 
