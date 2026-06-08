@@ -16,10 +16,11 @@ public class PromeniMarketingMenadzerSO extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void preduslovi(Object param) throws Exception {
-        MarketingMenadzer mm= (MarketingMenadzer) param;
-        if(mm==null || !(mm instanceof MarketingMenadzer)){
+        
+        if(param==null || !(param instanceof MarketingMenadzer) || ((MarketingMenadzer) param).getIdMarketingMenadzer()<=0){
             throw new Exception("Sistem ne može da zapamti marketing menadžera.");
         }
+        MarketingMenadzer mm= (MarketingMenadzer) param;
         if(mm.getIme()==null || mm.getIme().isEmpty() || mm.getPrezime()==null || mm.getPrezime().isEmpty()
                 || mm.getEmail()==null || mm.getEmail().isEmpty() || !(mm.getEmail().matches("^[a-z0-9._]+@[a-z0-9.]+\\.[a-z]{2,}$"))
                 || mm.getTelefon()==null || mm.getTelefon().isEmpty() || !(mm.getTelefon().matches("^\\+3816\\d{7,8}$"))

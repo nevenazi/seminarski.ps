@@ -16,7 +16,7 @@ public class ObrisiDizajnerSO extends ApstraktnaGenerickaOperacija {
     //private boolean uspesno;
     @Override
     protected void preduslovi(Object param) throws Exception {
-        if(param==null || !(param instanceof Dizajner)){
+        if(param==null || !(param instanceof Dizajner) || ((Dizajner)param).getIdDizajner()<=0){
             throw new Exception("Sistem ne može da obriše dizajnera.");
         }
     }

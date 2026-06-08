@@ -20,10 +20,12 @@ public class PromeniEvidencijaAngazmanaSO extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void preduslovi(Object param) throws Exception {
-        EvidencijaAngazmana ea= (EvidencijaAngazmana) param;
-        if(ea==null || !(ea instanceof EvidencijaAngazmana)){
+        
+        if(param==null || !(param instanceof EvidencijaAngazmana) || ((EvidencijaAngazmana) param).getIdEvidencijaAngazmana()<=0){
             throw new Exception("Sistem ne može da zapamti evidenciju angažmana.");
         }
+        
+        EvidencijaAngazmana ea= (EvidencijaAngazmana) param;
         if(ea.getDizajner()==null || !(ea.getDizajner() instanceof Dizajner) || ea.getMarketingMenadzer()==null 
                 || !(ea.getMarketingMenadzer() instanceof MarketingMenadzer) || ea.getRok()==null 
                 || ea.getStavkeAngazmana()==null || ea.getStavkeAngazmana().isEmpty()|| ea.getUkupanIznos()<0){

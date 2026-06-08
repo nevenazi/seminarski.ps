@@ -15,8 +15,7 @@ public class ObrisiMarketingMenadzerSO extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void preduslovi(Object param) throws Exception {
-        MarketingMenadzer mm=(MarketingMenadzer) param;
-        if(mm==null || !(mm instanceof MarketingMenadzer)){
+        if(param==null || !(param instanceof MarketingMenadzer)|| ((MarketingMenadzer) param).getIdMarketingMenadzer()<=0){
             throw new Exception("Sistem ne može da obriše marketing menadžera");
         }
     }

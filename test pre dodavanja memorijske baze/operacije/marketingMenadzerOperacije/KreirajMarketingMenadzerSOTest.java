@@ -4,18 +4,21 @@
  */
 package operacije.marketingMenadzerOperacije;
 
-import baza.TestBase;
 import model.Kompanija;
 import model.MarketingMenadzer;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
+import repository.Repository;
 
 /**
  *
  * @author N
  */
-public class KreirajMarketingMenadzerSOTest extends TestBase {
+public class KreirajMarketingMenadzerSOTest {
     private KreirajMarketingMenadzerSO so;
     private MarketingMenadzer menadzer;
     
@@ -32,6 +35,15 @@ public class KreirajMarketingMenadzerSOTest extends TestBase {
         menadzer=null;
     }
 
+    @Test
+    public void testPredusloviIspravan()throws Exception{
+        menadzer.setIme("Petar");
+        menadzer.setPrezime("Petrovic");
+        menadzer.setKompanija(new Kompanija(1, "Yettel", "https://www.yettel.rs"));
+        menadzer.setEmail("peraperic@gmail.com");
+        menadzer.setTelefon("+381617897897");
+        so.preduslovi(menadzer);
+    }
     
     @Test(expected = Exception.class)
     public void testPredusloviBezImena() throws Exception {
@@ -40,7 +52,7 @@ public class KreirajMarketingMenadzerSOTest extends TestBase {
         menadzer.setEmail("peraperic@gmail.com");
         menadzer.setTelefon("+38161234567");
 
-        so.izvrsi(menadzer,null);
+        so.preduslovi(menadzer);
     }
     @Test(expected = Exception.class)
     public void testPredusloviPraznoIme() throws Exception {
@@ -50,7 +62,7 @@ public class KreirajMarketingMenadzerSOTest extends TestBase {
         menadzer.setEmail("peraperic@gmail.com");
         menadzer.setTelefon("+38161234567");
 
-        so.izvrsi(menadzer,null);
+        so.preduslovi(menadzer);
     }
 
     @Test(expected = Exception.class)
@@ -60,7 +72,7 @@ public class KreirajMarketingMenadzerSOTest extends TestBase {
         menadzer.setKompanija(new Kompanija(1, "Yettel", "https://www.yettel.rs"));
         menadzer.setEmail("peraperic@@gmail");
         menadzer.setTelefon("+38161234567");
-        so.izvrsi(menadzer,null);
+        so.preduslovi(menadzer);
     }
 
     @Test(expected = Exception.class)
@@ -71,7 +83,7 @@ public class KreirajMarketingMenadzerSOTest extends TestBase {
         menadzer.setEmail("peraperic@gmail.com");
         menadzer.setTelefon("061234567");
 
-        so.izvrsi(menadzer,null);
+        so.preduslovi(menadzer);
     }
     
     @Test(expected = Exception.class)
@@ -82,7 +94,7 @@ public class KreirajMarketingMenadzerSOTest extends TestBase {
         menadzer.setTelefon("+38161234567");
         menadzer.setKompanija(null);
 
-        so.izvrsi(menadzer,null);
+        so.preduslovi(menadzer);
     }
 
     @Test
@@ -93,7 +105,9 @@ public class KreirajMarketingMenadzerSOTest extends TestBase {
         menadzer.setEmail("peraperic@gmail.com");
         menadzer.setTelefon("+38161234567");
 
-        so.izvrsi(menadzer, null);
+        so.izvrsiOperaciju(menadzer, null);
+
+        assertTrue(true);
     }
 
     @Test(expected = Exception.class)
@@ -104,6 +118,8 @@ public class KreirajMarketingMenadzerSOTest extends TestBase {
         menadzer.setEmail("peraperic@gmail.com");
         menadzer.setTelefon("+38161234567");
 
-        so.izvrsi(menadzer, null);
+        so.izvrsiOperaciju(menadzer, null);
+
+        assertFalse(true);
     }
 }

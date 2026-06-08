@@ -9,23 +9,18 @@
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/forme/FormaKonfiguracijaBaze.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/kompanijaOperacije/ObrisiKompanijaSO.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/marketingMenadzerOperacije/KreirajMarketingMenadzerSO.java</file>
-            <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/evidencijeAngazmanaOperacije/KreirajEvidencijaAngazmanaSO.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/forme/FormaKonfiguracijaPorta.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/repository/Repository.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/repository/db/DbConnectionFactory.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/niti/ObradaKlijentskihZahteva.java</file>
-            <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/test/operacije/marketingMenadzerOperacije/KreirajMarketingMenadzerSOTest.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/repository/db/DbRepository.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/marketingMenadzerOperacije/VratiListuSviMarketingMenadzerSO.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/dizajnerOperacije/KreirajDizajnerSO.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/test/operacije/dizajnerOperacije/PrijaviDizajnerSOTest.java</file>
-            <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/evidencijeAngazmanaOperacije/PromeniEvidencijaAngazmanaSO.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/konfiguracija/Konfiguracija.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/ApstraktnaGenerickaOperacija.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/main/Main.java</file>
-            <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/server/PokreniServer.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/forme/ServerskaForma.java</file>
-            <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/test/operacije/marketingMenadzerOperacije/ObrisiMarketingMenadzerSOTest.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/kompanijaOperacije/VratiListuSviKompanijaSO.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/sertifikatOperacije/UbaciSertifikatSO.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/dizajnerOperacije/PromeniDizajnerSO.java</file>
@@ -34,10 +29,7 @@
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/marketingMenadzerOperacije/PromeniMarketingMenadzerSO.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/marketingMenadzerOperacije/ObrisiMarketingMenadzerSO.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/sertifikatOperacije/VratiListuSviSertifikatSO.java</file>
-            <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/evidencijeAngazmanaOperacije/VratiListuSviEvidencijaAngazmanaSO.java</file>
-            <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/evidencijeAngazmanaOperacije/PretraziEvidencijaAngazmanaSO.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/repository/db/impl/DbRepositoryGeneric.java</file>
-            <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/tipVizualaOperacije/VratiListuSviTipVizualaSO.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/dizajnerOperacije/VratiListuSviDizajnerSO.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/marketingMenadzerOperacije/PretraziMarketingMenadzerSO.java</file>
         </group>

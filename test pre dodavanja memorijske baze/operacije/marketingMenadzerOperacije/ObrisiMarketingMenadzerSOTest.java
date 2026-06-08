@@ -4,17 +4,20 @@
  */
 package operacije.marketingMenadzerOperacije;
 
-import baza.TestBase;
+import model.Kompanija;
 import model.MarketingMenadzer;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
  * @author N
  */
-public class ObrisiMarketingMenadzerSOTest  extends TestBase {
+public class ObrisiMarketingMenadzerSOTest {
     
     private ObrisiMarketingMenadzerSO so;
     private MarketingMenadzer menadzer;
@@ -33,41 +36,41 @@ public class ObrisiMarketingMenadzerSOTest  extends TestBase {
     }
 
     @Test
-    public void testPredusloviIspravanAliImaEvidencije() throws Exception {
-        menadzer.setIdMarketingMenadzer(1); 
+    public void testPredusloviIspravan() throws Exception {
+        menadzer.setIdMarketingMenadzer(3);
         so.preduslovi(menadzer);
-        //ne može da se obriše marketing menadžer jer ima evidencije,
-        //ali prolazi preduslove
     }
 
     @Test(expected = Exception.class)
-    public void testPredusloviNevalidanID() throws Exception {
-        menadzer.setIdMarketingMenadzer(-1);
-        so.izvrsi(menadzer,null);
-    }
-    
-    @Test(expected = Exception.class)
     public void testPredusloviNevalidanObjekat() throws Exception {
-        so.izvrsi(new Object(), null);
+        so.preduslovi(new Object());
     }
 
     @Test(expected = Exception.class)
     public void testPredusloviNull() throws Exception {
-        so.izvrsi(null,null);
+        so.preduslovi(null);
     }
 
     @Test
     public void testIzvrsiOperacijuUspesno() throws Exception {
-        menadzer.setIdMarketingMenadzer(5); //menadzer koji nema evidencije
-        so.izvrsi(menadzer, null);
+        menadzer.setIdMarketingMenadzer(4);
+        so.izvrsiOperaciju(menadzer, null);
+        assertTrue(true);
     }
 
     @Test(expected = Exception.class)
     public void testIzvrsiOperacijuNeuspesno() throws Exception {
-        menadzer.setIdMarketingMenadzer(1); //menadzer koji ima evidencije
-        so.izvrsi(menadzer, null);
+        menadzer.setIdMarketingMenadzer(2);
+        so.izvrsiOperaciju(menadzer, null);
+        assertFalse(true);
     }
-    
+    @Test(expected = Exception.class)
+    public void testIzvrsiOperacijuDvaput() throws Exception {
+        menadzer.setIdMarketingMenadzer(3);
+        so.izvrsiOperaciju(menadzer, null);
+        so.izvrsiOperaciju(menadzer, null);
+        assertFalse(true);
+    }
           
     
 }

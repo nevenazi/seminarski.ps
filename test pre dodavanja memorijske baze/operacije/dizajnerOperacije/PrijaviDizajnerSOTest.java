@@ -4,7 +4,6 @@
  */
 package operacije.dizajnerOperacije;
 
-import baza.TestBase;
 import model.Dizajner;
 import model.MarketingMenadzer;
 import org.junit.After;
@@ -16,7 +15,7 @@ import static org.junit.Assert.*;
  *
  * @author N
  */
-public class PrijaviDizajnerSOTest extends TestBase {
+public class PrijaviDizajnerSOTest {
     
     private PrijaviDizajnerSO so;
     private Dizajner dizajner;
@@ -37,70 +36,69 @@ public class PrijaviDizajnerSOTest extends TestBase {
 
     @Test
     public void testIspravanPreduslovi() throws Exception {
-        dizajner.setKorisnickoIme("Ne postoji u bazi");
-        dizajner.setSifra("Ne postoji u bazi");
+        dizajner.setKorisnickoIme("anapet");
+        dizajner.setSifra("anapet");
         so.preduslovi(dizajner);
     }
     
     @Test(expected = Exception.class)
     public void testNullParametarPreduslovi() throws Exception {
-        so.izvrsi(null,null);
+        so.preduslovi(null);
     }
     
     @Test(expected = Exception.class)
     public void testNeispravnaKlasaPreduslovi() throws Exception {
-        so.izvrsi(new MarketingMenadzer(),null);
+        so.preduslovi(new MarketingMenadzer());
     }
 
     @Test(expected = Exception.class)
     public void testPredusloviPraznoKorisnickoIme() throws Exception {
         dizajner.setKorisnickoIme("");
         dizajner.setSifra("anapet");
-        so.izvrsi(dizajner,null);
+        so.preduslovi(dizajner);
     }
     @Test(expected = Exception.class)
     public void testPredusloviNullKorisnickoIme() throws Exception {
-        dizajner.setKorisnickoIme(null);
+        dizajner.setKorisnickoIme("");
         dizajner.setSifra("anapet");
-        so.izvrsi(dizajner,null);
+        so.preduslovi(dizajner);
     }
 
     @Test(expected = Exception.class)
     public void testPredusloviPraznaSifra() throws Exception {
         dizajner.setKorisnickoIme("anapet");
         dizajner.setSifra("");
-        so.izvrsi(dizajner,null);
+        so.preduslovi(dizajner);
     }
     @Test(expected = Exception.class)
     public void testPredusloviNullSifra() throws Exception {
         dizajner.setKorisnickoIme("anapet");
-        dizajner.setSifra(null);
-        so.izvrsi(dizajner,null);
+        dizajner.setSifra("");
+        so.preduslovi(dizajner);
     }
 
     @Test(expected = Exception.class)
     public void testPredusloviKratkaSifra() throws Exception {
         dizajner.setKorisnickoIme("anapet");
         dizajner.setSifra("12345");
-        so.izvrsi(dizajner,null);
+        so.preduslovi(dizajner);
     }
 
     @Test
     public void testIzvrsiOperacijuUspesno() throws Exception {
         dizajner.setKorisnickoIme("anapet");
         dizajner.setSifra("anapet");
-        so.izvrsi(dizajner, null);
+        so.izvrsiOperaciju(dizajner, null);
 
         assertNotNull(so.getDizajner());
         assertEquals("anapet", so.getDizajner().getKorisnickoIme());
     }
 
-    
     @Test
     public void testIzvrsiOperacijuNeuspesno() throws Exception {
         dizajner.setKorisnickoIme("anapet");
-        dizajner.setSifra("123456");
-        so.izvrsi(dizajner, null);
+        dizajner.setSifra("ana");
+        so.izvrsiOperaciju(dizajner, null);
 
         assertNull(so.getDizajner());
     }

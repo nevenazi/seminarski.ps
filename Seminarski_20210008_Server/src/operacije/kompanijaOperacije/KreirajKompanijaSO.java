@@ -4,7 +4,6 @@
  */
 package operacije.kompanijaOperacije;
 
-import javax.swing.JOptionPane;
 import model.Kompanija;
 import operacije.ApstraktnaGenerickaOperacija;
 
@@ -16,10 +15,12 @@ public class KreirajKompanijaSO extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void preduslovi(Object param) throws Exception {
-        Kompanija k=(Kompanija) param;
-        if(k==null || !(k instanceof Kompanija)){
+        
+        if(param==null || !(param instanceof Kompanija)){
             throw new Exception("Sistem ne može da zapamti kompaniju.");
         }
+        
+        Kompanija k=(Kompanija) param;
         if(k.getNaziv()==null || k.getNaziv().isEmpty()
                 ||(k.getSajt()!=null && !(k.getSajt().matches("^(https?:\\/\\/)?[a-zA-Z0-9-]+\\.[a-zA-Z]{2,}$")))){
             throw new Exception("Greška u unosu podataka o kompaniji.");

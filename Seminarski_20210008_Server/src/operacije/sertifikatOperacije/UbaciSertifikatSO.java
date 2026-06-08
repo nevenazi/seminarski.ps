@@ -4,9 +4,6 @@
  */
 package operacije.sertifikatOperacije;
 
-import operacije.kompanijaOperacije.*;
-import javax.swing.JOptionPane;
-import model.Kompanija;
 import model.Sertifikat;
 import operacije.ApstraktnaGenerickaOperacija;
 
@@ -18,10 +15,12 @@ public class UbaciSertifikatSO extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void preduslovi(Object param) throws Exception {
-        Sertifikat s=(Sertifikat) param;
-        if(s==null || !(s instanceof Sertifikat)){
+        
+        if(param==null || !(param instanceof Sertifikat)){
             throw new Exception("Sistem ne može da zapamti sertifikat.");
         }
+        
+        Sertifikat s=(Sertifikat) param;
         if(s.getNaziv()==null || s.getNaziv().isEmpty() || s.getInstitucija()==null || s.getInstitucija().isEmpty()){
             throw new Exception("Greška u unosu podataka o sertifikatu.");
         }
