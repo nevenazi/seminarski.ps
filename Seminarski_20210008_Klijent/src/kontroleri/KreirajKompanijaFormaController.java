@@ -8,6 +8,8 @@ import forme.KreirajKompanijaForma;
 import forme.VrstaForme;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import komunikacija.Komunikacija;
 import model.Kompanija;
@@ -36,7 +38,6 @@ public class KreirajKompanijaFormaController {
                 kkf.getjButtonPromeni().setVisible(false);
                 kkf.setTitle("Kreiraj kompaniju");
                 kompanijaForme=new Kompanija();
-                JOptionPane.showMessageDialog(kkf, "Sistem je kreirao kompaniju", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                 break;
             case PROMENI:
                 kompanijaForme=(Kompanija) Koordinator.getInstance().vratiParametar("kompanija");
@@ -81,12 +82,13 @@ public class KreirajKompanijaFormaController {
                 
                 try {
                     Komunikacija.getInstance().kreirajKompanija(k);
-                    String ispis="Sistem je zapamtio kompaniju:\nnaziv: "+k.getNaziv()+"\nsajt: "+k.getSajt();
+                    String ispis="Sistem je kreirao kompaniju:\nnaziv: "+k.getNaziv()+"\nsajt: "+k.getSajt();
                     JOptionPane.showMessageDialog(kkf, ispis, "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                     Koordinator.getInstance().getKompanijaFormaController().pripremiFormu();
                     kkf.dispose();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(kkf, "Sistem ne može da zapamti kompaniju.", "Greška", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(kkf, "Sistem ne može da kreira kompaniju.", "Greška", JOptionPane.ERROR_MESSAGE);
+                    Logger.getLogger(KreirajKompanijaFormaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
             }
@@ -109,6 +111,7 @@ public class KreirajKompanijaFormaController {
                     kkf.dispose();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(kkf, "Sistem ne može da zapamti kompaniju.", "Greška", JOptionPane.ERROR_MESSAGE);
+                    Logger.getLogger(KreirajKompanijaFormaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
             }

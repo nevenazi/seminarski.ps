@@ -18,7 +18,7 @@ public class PromeniMarketingMenadzerSO extends ApstraktnaGenerickaOperacija {
     protected void preduslovi(Object param) throws Exception {
         
         if(param==null || !(param instanceof MarketingMenadzer) || ((MarketingMenadzer) param).getIdMarketingMenadzer()<=0){
-            throw new Exception("Sistem ne može da zapamti marketing menadžera.");
+            throw new Exception("Prosleđeni parametar nije marketing menadžer.");
         }
         MarketingMenadzer mm= (MarketingMenadzer) param;
         if(mm.getIme()==null || mm.getIme().isEmpty() || mm.getPrezime()==null || mm.getPrezime().isEmpty()
@@ -31,7 +31,7 @@ public class PromeniMarketingMenadzerSO extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
-        broker.edit((MarketingMenadzer)param);
+            broker.edit((MarketingMenadzer)param);
+        }
+        
     }
-    
-}

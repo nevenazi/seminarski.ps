@@ -9,6 +9,8 @@ import forme.VrstaForme;
 import static forme.VrstaForme.PROMENI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import komunikacija.Komunikacija;
 import model.Dizajner;
@@ -35,7 +37,6 @@ public class KreirajDizajnerFormaController {
                 kdf.getjButtonSacuvaj().setVisible(true);
                 kdf.getjButtonSacuvaj().setEnabled(true);
                 dizajnerForme=new Dizajner();
-                JOptionPane.showMessageDialog(kdf, "Sistem je kreirao dizajnera", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                 break;
             case PROMENI:
                 kdf.setTitle("Promeni dizajnera");
@@ -75,7 +76,8 @@ public class KreirajDizajnerFormaController {
                     Koordinator.getInstance().getDizajnerFormaController().pripremiFormu();
                     kdf.dispose();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(kdf, "Sistem ne može da zapamti dizajnera.", "Greška", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(kdf, "Sistem ne može da kreira dizajnera.", "Greška", JOptionPane.ERROR_MESSAGE);
+                    Logger.getLogger(KreirajDizajnerFormaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -95,6 +97,7 @@ public class KreirajDizajnerFormaController {
                     kdf.dispose();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(kdf, "Sistem ne može da zapamti dizajnera.", "Greška", JOptionPane.ERROR_MESSAGE);
+                    Logger.getLogger(KreirajDizajnerFormaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
             }

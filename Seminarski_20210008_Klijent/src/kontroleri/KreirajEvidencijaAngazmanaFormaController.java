@@ -13,7 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,7 +24,6 @@ import javax.swing.JTable;
 import komunikacija.Komunikacija;
 import model.Dizajner;
 import model.EvidencijaAngazmana;
-import model.Kompanija;
 import model.MarketingMenadzer;
 import model.StavkaAngazmana;
 import model.TipVizuala;
@@ -92,6 +90,8 @@ public class KreirajEvidencijaAngazmanaFormaController {
                 try {
                     kolicina = Integer.parseInt(keaf.getjTextFieldKolicina().getText().trim());
                 } catch (NumberFormatException numberFormatException) {
+                    Logger.getLogger(KreirajEvidencijaAngazmanaFormaController.class.getName()).log(Level.SEVERE, "Količina nije uneta kao celi broj", numberFormatException);
+                    return;
                 }
                 double nekorigovan=(double)cena*kolicina;
                 double korekcija;
@@ -101,7 +101,7 @@ public class KreirajEvidencijaAngazmanaFormaController {
                     try {
                         korekcija = Double.parseDouble(keaf.getjTextFieldKorekcijaIznosa().getText().trim());
                         } catch (NumberFormatException numberFormatException) {
-                            JOptionPane.showMessageDialog(keaf, "Korekcija nije uneta kao broj", "", JOptionPane.WARNING_MESSAGE);
+                            Logger.getLogger(KreirajEvidencijaAngazmanaFormaController.class.getName()).log(Level.SEVERE, "Korekcija nije uneta kao broj", numberFormatException);
                             return;
                         }
                 }
@@ -186,7 +186,7 @@ public class KreirajEvidencijaAngazmanaFormaController {
                     return;
                 }
                 try {
-                    Komunikacija.getInstance().kreirajEvidencijuAngazmana(ea);
+                    Komunikacija.getInstance().kreirajEvidencijaAngazmana(ea);
                     String ispis="Sistem je kreirao evidenciju angažmana:\n"+"dizajner: "+ea.getDizajner().toString()
                             +"\nmarketing menadžer: "+ea.getMarketingMenadzer().toString()+"\nrok: "+simpleDateFormat.format(ea.getRok())
                             +"\nukupan iznos: "+ea.getUkupanIznos()+"\nzavršen: "+ea.isZavrsen()+"\nbroj stavki:"+ea.getStavkeAngazmana().size();
@@ -194,7 +194,8 @@ public class KreirajEvidencijaAngazmanaFormaController {
                     keaf.dispose();
                     Koordinator.getInstance().getEvidencijaAngazmanaFormaController().pripremiFormu();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(keaf, "Sistem ne može da zapamti evidenciju angažmana.", "Greška", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(keaf, "Sistem ne može da kreira evidenciju angažmana.", "Greška", JOptionPane.ERROR_MESSAGE);
+                    Logger.getLogger(KreirajEvidencijaAngazmanaFormaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -219,6 +220,7 @@ public class KreirajEvidencijaAngazmanaFormaController {
                     
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(keaf, "Sistem ne može da zapamti evidenciju angažmana.", "Greška", JOptionPane.ERROR_MESSAGE);
+                    Logger.getLogger(KreirajEvidencijaAngazmanaFormaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
             }
@@ -290,15 +292,23 @@ public class KreirajEvidencijaAngazmanaFormaController {
         
         Dizajner dizajner=(Dizajner) keaf.getjComboBoxDizajner1().getSelectedItem();
         MarketingMenadzer men=(MarketingMenadzer) keaf.getjComboBoxMarketingMenadzer1().getSelectedItem();
-        java.util.Date rok=null;
+        java.util.Date rok;
+        java.sql.Date sqlrok;
         try {
-            rok = simpleDateFormat.parse(keaf.getjTextFieldRok().getText());
+            rok = simpleDateFormat.parse(keaf.getjTextFieldRok().getText().trim());
+            sqlrok=new java.sql.Date(rok.getTime());
         } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(keaf, "Sistem ne može da zapamti evidenciju angažmana.", "Greška", JOptionPane.ERROR_MESSAGE);
+            sqlrok=null;
             Logger.getLogger(KreirajEvidencijaAngazmanaFormaController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        java.sql.Date sqlrok=new java.sql.Date(rok.getTime());
-        double ukupanIznos=Double.parseDouble(keaf.getjTextFieldUkupanIznos().getText());
+        double ukupanIznos;
+        try {
+            ukupanIznos=Double.parseDouble(keaf.getjTextFieldUkupanIznos().getText());
+        } catch (NumberFormatException ex) {
+            ukupanIznos=0;
+            Logger.getLogger(KreirajEvidencijaAngazmanaFormaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         List<StavkaAngazmana> stavke=((ModelTabeleStavkaAngazmana)keaf.getjTableStavkeAngazmana().getModel()).getLista();
         boolean zavrsen=true;
         if (!stavke.isEmpty()){
@@ -326,6 +336,7 @@ public class KreirajEvidencijaAngazmanaFormaController {
         try {
             korekcija = Double.parseDouble(keaf.getjTextFieldKorekcijaIznosa().getText().trim());
         } catch (NumberFormatException numberFormatException) {
+            Logger.getLogger(KreirajEvidencijaAngazmanaFormaController.class.getName()).log(Level.SEVERE, "Korekcija nije uneta kao broj.", numberFormatException);
         }
         double korigovan=Math.max(0,nekorigovan+korekcija);
 
@@ -348,9 +359,9 @@ public class KreirajEvidencijaAngazmanaFormaController {
     private void popuniSveComboBox() {
         List<TipVizuala> vizuali=new ArrayList<>();
         try {
-            vizuali=Komunikacija.getInstance().ucitajVizuale();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(keaf, "Sistem ne može da nađe tipove vizuala.","Greška", JOptionPane.ERROR_MESSAGE);
+            vizuali=Komunikacija.getInstance().vratiSveTipVizuala();
+        } catch (Exception ex) {
+            Logger.getLogger(KreirajEvidencijaAngazmanaFormaController.class.getName()).log(Level.SEVERE, "Neispunjeni preduslovi. Sistem ne može da nađe tipove vizuala.", ex);
             Koordinator.getInstance().otvoriEvidencijaAngazmanaFormu();
             keaf.dispose();
         }
@@ -363,9 +374,9 @@ public class KreirajEvidencijaAngazmanaFormaController {
         
         List<Dizajner> dizajneri=new ArrayList<>();
         try {
-            dizajneri=Komunikacija.getInstance().ucitajDizajnere();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(keaf, "Sistem ne može da nađe dizajnere.","Greška", JOptionPane.ERROR_MESSAGE);
+            dizajneri=Komunikacija.getInstance().vratiSveDizajner();
+        } catch (Exception ex) {
+            Logger.getLogger(KreirajEvidencijaAngazmanaFormaController.class.getName()).log(Level.SEVERE, "Neispunjeni preduslovi. Sistem ne može da nađe dizajnere.", ex);
             Koordinator.getInstance().otvoriEvidencijaAngazmanaFormu();
             keaf.dispose();
         }
@@ -376,9 +387,9 @@ public class KreirajEvidencijaAngazmanaFormaController {
         
         List<MarketingMenadzer> menadzeri=new ArrayList<>();
         try {
-            menadzeri=Komunikacija.getInstance().ucitajMarketingMenadzere();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(keaf, "Sistem ne može da nađe marketing menadžere.","Greška", JOptionPane.ERROR_MESSAGE);
+            menadzeri=Komunikacija.getInstance().vratiSveMarketingMenadzer();
+        } catch (Exception ex) {
+            Logger.getLogger(KreirajEvidencijaAngazmanaFormaController.class.getName()).log(Level.SEVERE, "Neispunjeni preduslovi. Sistem ne može da nađe marketing menadžere.", ex);
             Koordinator.getInstance().otvoriEvidencijaAngazmanaFormu();
             keaf.dispose();
         }

@@ -8,9 +8,10 @@ import forme.KompanijaForma;
 import forme.model.ModelTabeleKompanija;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import komunikacija.Komunikacija;
@@ -103,6 +104,7 @@ public class KompanijaFormaController {
                         pripremiFormu();
                     } catch (Exception exception) {
                         JOptionPane.showMessageDialog(kf, "Sistem ne može da obriše kompaniju", "Greška", JOptionPane.ERROR_MESSAGE);
+                        Logger.getLogger(KompanijaFormaController.class.getName()).log(Level.SEVERE, null, exception);
                     }
                 }
             }
@@ -116,9 +118,10 @@ public class KompanijaFormaController {
                 String sajt=kf.getjTextFieldSajt().getText().trim();
                 List<Kompanija> kompanije=new ArrayList<>();
                 try {
-                    kompanije=filtriraj(Komunikacija.getInstance().ucitajKompanije(),naziv,sajt);
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(kf, "Sistem ne može da nađe kompanije po zadatim kriterijumima","Greška", JOptionPane.ERROR_MESSAGE);
+                    kompanije=filtriraj(Komunikacija.getInstance().vratiSveKompanija(),naziv,sajt);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(kf,"Sistem ne može da nađe kompanije po zadatim kriterijumima","Greška", JOptionPane.ERROR_MESSAGE);
+                    Logger.getLogger(KompanijaFormaController.class.getName()).log(Level.SEVERE, null, ex);
                     return;
                 }
                 JOptionPane.showMessageDialog(kf, "Sistem je našao kompanije po zadatim kriterijumima","Uspeh", JOptionPane.INFORMATION_MESSAGE);
@@ -161,10 +164,9 @@ public class KompanijaFormaController {
         kf.getjTextFieldSajt().setText("");
         List<Kompanija> kompanije=new ArrayList<>();
         try {
-            kompanije = Komunikacija.getInstance().ucitajKompanije();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(kf, "Sistem ne može da nađe kompanije.","Greška", JOptionPane.ERROR_MESSAGE);
-            return;
+            kompanije = Komunikacija.getInstance().vratiSveKompanija();
+        } catch (Exception ex) {
+            Logger.getLogger(KompanijaFormaController.class.getName()).log(Level.SEVERE, null, ex);
         }
         ModelTabeleKompanija mtd=new ModelTabeleKompanija(kompanije);
         kf.getjTableKompanija().setModel(mtd);

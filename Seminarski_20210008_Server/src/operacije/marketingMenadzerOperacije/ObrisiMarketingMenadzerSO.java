@@ -16,13 +16,13 @@ public class ObrisiMarketingMenadzerSO extends ApstraktnaGenerickaOperacija {
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param==null || !(param instanceof MarketingMenadzer)|| ((MarketingMenadzer) param).getIdMarketingMenadzer()<=0){
-            throw new Exception("Sistem ne može da obriše marketing menadžera");
+            throw new Exception("Prosleđeni parametar nije marketing menadžer.");
         }
     }
 
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
-        broker.delete((MarketingMenadzer)param);
-    }
+            broker.delete((MarketingMenadzer)param);
+        }
     
 }

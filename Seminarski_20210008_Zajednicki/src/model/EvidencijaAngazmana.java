@@ -97,7 +97,7 @@ public class EvidencijaAngazmana implements ApstraktniDomenskiObjekat{
 
     @Override
     public String toString() {
-        return "EvidencijaAngazmana{" + "idEvidencijaAngazmana=" + idEvidencijaAngazmana + ", ukupanIznos=" + ukupanIznos + ", rok=" + rok + ", zavrsen=" + zavrsen + ", stavkeAngazmana=" + stavkeAngazmana + ", dizajner=" + dizajner + ", marketingMenadzer=" + marketingMenadzer + '}';
+        return "EvidencijaAngazmana{" + "idEvidencijaAngazmana=" + idEvidencijaAngazmana + ", ukupanIznos=" + ukupanIznos + ", rok=" + rok + ", zavrsen=" + zavrsen + ", broj stavki angažmana=" + stavkeAngazmana.size() + ", dizajner=" + dizajner + ", marketingMenadzer=" + marketingMenadzer + '}';
     }
 
 

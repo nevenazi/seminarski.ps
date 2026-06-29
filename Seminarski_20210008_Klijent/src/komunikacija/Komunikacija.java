@@ -15,7 +15,6 @@ import model.EvidencijaAngazmana;
 import model.Kompanija;
 import model.MarketingMenadzer;
 import model.Sertifikat;
-import model.StavkaAngazmana;
 import model.TipVizuala;
 
 /**
@@ -53,7 +52,7 @@ public class Komunikacija {
         System.out.println(socket);
     }
 
-    public Dizajner login(String username, String password){
+    public Dizajner prijaviDizajner(String username, String password)throws Exception{
         
         
         Dizajner dizajner=new Dizajner();
@@ -61,37 +60,36 @@ public class Komunikacija {
         dizajner.setSifra(password);
         System.out.println(dizajner);
         KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.PRIJAVI_DIZAJNER,dizajner);
+        posiljalac.posalji(zahtev);
         
-        try {
-            posiljalac.posalji(zahtev);
-        } catch (IOException ex) {
-            System.out.println("Zahtev za prijavu ne može da se pošalje");
-            Logger.getLogger(Komunikacija.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println(zahtev);
         ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
+        if (odg.getException()!=null){
+            throw odg.getException();
+        }
         dizajner=(Dizajner) odg.getOdgovor();
         return dizajner;
         
     }
 
-    public List<Dizajner> ucitajDizajnere() throws IOException {
-        List <Dizajner> dizajneri=new ArrayList<>();
+    public List<Dizajner> vratiSveDizajner() throws Exception {
+        List <Dizajner> dizajneri;
         KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.VRATI_LISTU_SVI_DIZAJNER, null);
         posiljalac.posalji(zahtev);
         ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
+        if (odg.getException()!=null){
+            throw odg.getException();
+        }
         dizajneri=(List<Dizajner>) odg.getOdgovor();
         return dizajneri;     
     }
 
-    public void obrisiDizajnera(Dizajner d) throws Exception {
+    public void obrisiDizajner(Dizajner d) throws Exception {
         KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.OBRISI_DIZAJNER, d);
         posiljalac.posalji(zahtev);
         
         ServerskiOdgovor odg=(ServerskiOdgovor)primalac.primi();
-        if (odg.getOdgovor()!=null){
-            ((Exception)odg.getOdgovor()).printStackTrace();
-            throw new Exception("Greška u brisanju dizajnera");
+        if (odg.getException()!=null){
+            throw odg.getException();
         }
     }
 
@@ -99,9 +97,8 @@ public class Komunikacija {
         KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.KREIRAJ_DIZAJNER, d);
         posiljalac.posalji(zahtev);//TODO
         ServerskiOdgovor odg=(ServerskiOdgovor)primalac.primi();
-        if (odg.getOdgovor()!=null){
-            ((Exception)odg.getOdgovor()).printStackTrace();
-            throw new Exception("Greška u kreiranju dizajnera");
+        if (odg.getException()!=null){
+            throw odg.getException();
         }
     }
 
@@ -110,18 +107,20 @@ public class Komunikacija {
         posiljalac.posalji(zahtev);
         
         ServerskiOdgovor odg=(ServerskiOdgovor)primalac.primi();
-        if (odg.getOdgovor()!=null){
-            ((Exception)odg.getOdgovor()).printStackTrace();
-            throw new Exception("Greška u izmeni dizajnera");
+        if (odg.getException()!=null){
+            throw odg.getException();
         }
     }
 
-    public List<Kompanija> ucitajKompanije() throws IOException {
-        List <Kompanija> kompanije=new ArrayList<>();
+    public List<Kompanija> vratiSveKompanija() throws Exception {
+        List <Kompanija> kompanije;
         KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.VRATI_LISTU_SVI_KOMPANIJA, null);
         posiljalac.posalji(zahtev);
         
         ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
+        if (odg.getException()!=null){
+            throw odg.getException();
+        }
         kompanije=(List<Kompanija>) odg.getOdgovor();
         return kompanije; 
     }
@@ -131,9 +130,8 @@ public class Komunikacija {
         posiljalac.posalji(kz);
         
         ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
-        if (so.getOdgovor()!=null){
-            ((Exception)so.getOdgovor()).printStackTrace();
-            throw new Exception("Greška u kreiranju kompanije");
+        if (so.getException()!=null){
+            throw so.getException();
         }
     }
 
@@ -142,9 +140,8 @@ public class Komunikacija {
         posiljalac.posalji(kz);
         
         ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
-        if(so.getOdgovor()!=null){
-            ((Exception)so.getOdgovor()).printStackTrace();
-            throw new Exception("Greška u promeni kompanije");
+        if (so.getException()!=null){
+            throw so.getException();
         }
     }
 
@@ -153,30 +150,31 @@ public class Komunikacija {
         posiljalac.posalji(kz);
         
         ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
-        if (so.getOdgovor()!=null){
-            ((Exception)so.getOdgovor()).printStackTrace();
-            throw new Exception("Greška u brisanju kompanije");
+        if (so.getException()!=null){
+            throw so.getException();
         }
     }
 
-    public List<MarketingMenadzer> ucitajMarketingMenadzere() throws IOException {
-        List <MarketingMenadzer> menadzeri=new ArrayList<>();
+    public List<MarketingMenadzer> vratiSveMarketingMenadzer() throws Exception {
+        List <MarketingMenadzer> menadzeri;
         KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.VRATI_LISTU_SVI_MARKETING_MENADZER, null);
         posiljalac.posalji(zahtev);
         
         ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
+        if (odg.getException()!=null){
+            throw odg.getException();
+        }
         menadzeri=(List<MarketingMenadzer>) odg.getOdgovor();
         return menadzeri; 
     }
 
-    public void obrisiMarketingMenadzera(MarketingMenadzer mm)throws Exception {
+    public void obrisiMarketingMenadzer(MarketingMenadzer mm)throws Exception {
         KlijentskiZahtev kz=new KlijentskiZahtev(Operacija.OBRISI_MARKETING_MENADZER, mm);
         posiljalac.posalji(kz);
         
         ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
-        if (so.getOdgovor()!=null){
-            ((Exception)so.getOdgovor()).printStackTrace();
-            throw new Exception("Greška u brisanju marketing menazera");
+        if (so.getException()!=null){
+            throw so.getException();
         }
     }
 
@@ -185,9 +183,8 @@ public class Komunikacija {
         posiljalac.posalji(kz);
         
         ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
-        if (so.getOdgovor()!=null){
-            ((Exception)so.getOdgovor()).printStackTrace();
-            throw new Exception("Greška u kreiranju marketing menadžera");
+        if (so.getException()!=null){
+            throw so.getException();
         }
     }
 
@@ -196,28 +193,33 @@ public class Komunikacija {
         posiljalac.posalji(kz);
         
         ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
-        if(so.getOdgovor()!=null){
-            ((Exception)so.getOdgovor()).printStackTrace();
-            throw new Exception("Greška u promeni marketing menadžera");
+        if (so.getException()!=null){
+            throw so.getException();
         }
     }
 
-    public List<MarketingMenadzer> pretraziMarketingMenadzer(MarketingMenadzer uslovMM) throws IOException {
-        List <MarketingMenadzer> menadzeri=new ArrayList<>();
+    public List<MarketingMenadzer> pretraziMarketingMenadzer(MarketingMenadzer uslovMM) throws Exception {
+        List <MarketingMenadzer> menadzeri;
         KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.PRETRAZI_MARKETING_MENADZER, uslovMM);
         posiljalac.posalji(zahtev);
         
         ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
+        if (odg.getException()!=null){
+            throw odg.getException();
+        }
         menadzeri=(List<MarketingMenadzer>) odg.getOdgovor();
         return menadzeri; 
     }
 
-    public List<Sertifikat> ucitajSertifikate() throws IOException {
-        List <Sertifikat> sertifikati=new ArrayList<>();
+    public List<Sertifikat> vratiSveSertifikat() throws Exception {
+        List <Sertifikat> sertifikati;
         KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.VRATI_LISTU_SVI_SERTIFIKAT, null);
         posiljalac.posalji(zahtev);
         
         ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
+        if (odg.getException()!=null){
+            throw odg.getException();
+        }
         sertifikati=(List<Sertifikat>) odg.getOdgovor();
         return sertifikati;
     }
@@ -227,51 +229,58 @@ public class Komunikacija {
         posiljalac.posalji(kz);
         
         ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
-        if (so.getOdgovor()!=null){
-            ((Exception)so.getOdgovor()).printStackTrace();
-            throw new Exception("Greška u ubacivanju sertifikata");
+        if (so.getException()!=null){
+            throw so.getException();
         }
     }
 
-    public List<TipVizuala> ucitajVizuale() throws IOException {
-        List <TipVizuala> vizuali=new ArrayList<>();
+    public List<TipVizuala> vratiSveTipVizuala() throws Exception {
+        List <TipVizuala> vizuali;
         KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.VRATI_LISTU_SVI_TIP_VIZUALA, null);
         posiljalac.posalji(zahtev);
         
         ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
+        if (odg.getException()!=null){
+            throw odg.getException();
+        }
         vizuali=(List<TipVizuala>) odg.getOdgovor();
         return vizuali;
     }
 
-    public List<EvidencijaAngazmana> ucitajEvidencijeAngazmana() throws IOException {
-        List <EvidencijaAngazmana> evidencije=new ArrayList<>();
+    public List<EvidencijaAngazmana> vratiSveEvidencijaAngazmana() throws Exception {
+        List <EvidencijaAngazmana> evidencije;
         KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.VRATI_LISTU_SVI_EVIDENCIJA_ANGAZMANA, null);
         posiljalac.posalji(zahtev);
         
         ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
+        if (odg.getException()!=null){
+            throw odg.getException();
+        }
         evidencije=(List<EvidencijaAngazmana>) odg.getOdgovor();
         return evidencije;
     }
 
-    public List<EvidencijaAngazmana> pretraziEvidencijaAngazmana(EvidencijaAngazmana uslovEA) throws IOException {
-        List <EvidencijaAngazmana> evidencije=new ArrayList<>();
+    public List<EvidencijaAngazmana> pretraziEvidencijaAngazmana(EvidencijaAngazmana uslovEA) throws Exception {
+        List <EvidencijaAngazmana> evidencije;
         KlijentskiZahtev zahtev=new KlijentskiZahtev(Operacija.PRETRAZI_EVIDENCIJA_ANGAZMANA, uslovEA);
         posiljalac.posalji(zahtev);
         
         ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
+        if (odg.getException()!=null){
+            throw odg.getException();
+        }
         evidencije=(List<EvidencijaAngazmana>) odg.getOdgovor();
         return evidencije;
     }
 
 
-    public void kreirajEvidencijuAngazmana(EvidencijaAngazmana ea) throws Exception {
+    public void kreirajEvidencijaAngazmana(EvidencijaAngazmana ea) throws Exception {
         KlijentskiZahtev kz=new KlijentskiZahtev(Operacija.KREIRAJ_EVIDENCIJA_ANGAZMANA, ea);
         posiljalac.posalji(kz);
         
         ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
-        if (so.getOdgovor()!=null){
-            ((Exception)so.getOdgovor()).printStackTrace();
-            throw new Exception("Greška u kreiranju evidencije angažmana.");
+        if (so.getException()!=null){
+            throw so.getException();
         }
     }
 
@@ -280,10 +289,31 @@ public class Komunikacija {
         posiljalac.posalji(kz);
         
         ServerskiOdgovor so=(ServerskiOdgovor) primalac.primi();
-        if (so.getOdgovor()!=null){
-            ((Exception)so.getOdgovor()).printStackTrace();
-            throw new Exception("Greška u promeni evidencije angažmana.");
+        if (so.getException()!=null){
+            throw so.getException();
         }
+    }
+
+    public EvidencijaAngazmana ucitajEvidencijaAngazmana(EvidencijaAngazmana ea) throws Exception {
+        KlijentskiZahtev kz=new KlijentskiZahtev(Operacija.UCITAJ_EVIDENCIJA_ANGAZMANA, ea);
+        posiljalac.posalji(kz);
+        
+        ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
+        if (odg.getException()!=null){
+            throw odg.getException();
+        }
+        return (EvidencijaAngazmana)odg.getOdgovor();
+    }
+    
+    public MarketingMenadzer ucitajMarketingMenadzer(MarketingMenadzer mm) throws Exception {
+        KlijentskiZahtev kz=new KlijentskiZahtev(Operacija.UCITAJ_MARKETING_MENADZER, mm);
+        posiljalac.posalji(kz);
+        
+        ServerskiOdgovor odg=(ServerskiOdgovor) primalac.primi();
+        if (odg.getException()!=null){
+            throw odg.getException();
+        }
+        return (MarketingMenadzer)odg.getOdgovor();
     }
 
     

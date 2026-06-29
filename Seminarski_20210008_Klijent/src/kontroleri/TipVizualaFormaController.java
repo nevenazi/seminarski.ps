@@ -9,10 +9,10 @@ import forme.TipVizualaForma;
 import forme.model.ModelTabeleTipVizuala;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import komunikacija.Komunikacija;
 import model.TipVizuala;
 
@@ -55,10 +55,9 @@ public class TipVizualaFormaController {
         
         List<TipVizuala> tipovivizuala=new ArrayList<>();
         try {
-            tipovivizuala = Komunikacija.getInstance().ucitajVizuale();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(tvf, "Sistem ne može da nađe tipove vizuala.","Greška", JOptionPane.ERROR_MESSAGE);
-            return;
+            tipovivizuala = Komunikacija.getInstance().vratiSveTipVizuala();
+        } catch (Exception ex) {
+            Logger.getLogger(TipVizualaFormaController.class.getName()).log(Level.SEVERE, null, ex);
         }
         ModelTabeleTipVizuala mttv=new ModelTabeleTipVizuala(tipovivizuala);
         tvf.getjTableTipVizuala().setModel(mttv);

@@ -9,9 +9,10 @@ import forme.VrstaForme;
 import static forme.VrstaForme.PROMENI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import komunikacija.Komunikacija;
 import model.Kompanija;
@@ -78,6 +79,7 @@ public class KreirajMMenadzerFormaController {
                     Koordinator.getInstance().getMmenadzerFormaController().pripremiFormu();
                     kmmf.dispose();
                 } catch (Exception ex) {
+                    Logger.getLogger(KreirajMMenadzerFormaController.class.getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(kmmf, "Sistem ne može da zapamti marketing menadžera.", "Greška", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -96,6 +98,7 @@ public class KreirajMMenadzerFormaController {
                     Koordinator.getInstance().getMmenadzerFormaController().pripremiFormu();
                     kmmf.dispose();
                 } catch (Exception ex) {
+                    Logger.getLogger(KreirajMMenadzerFormaController.class.getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(kmmf, "Sistem ne može da zapamti marketing menadžera.", "Greška", JOptionPane.ERROR_MESSAGE);
                 }
                 
@@ -146,9 +149,10 @@ public class KreirajMMenadzerFormaController {
     private void popuniComboBoxKompanija() {
         List<Kompanija> kompanije=new ArrayList<>();
         try {
-            kompanije=Komunikacija.getInstance().ucitajKompanije();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(kmmf, "Sistem ne može da nađe kompanije.","Greška", JOptionPane.ERROR_MESSAGE);
+            kompanije=Komunikacija.getInstance().vratiSveKompanija();
+        } catch (Exception ex) {
+            Logger.getLogger(KreirajMMenadzerFormaController.class.getName())
+                    .log(Level.SEVERE,"Neispunjeni preduslovi. Sistem ne može da nađe kompanije.", ex);
             Koordinator.getInstance().otvoriMarketingMenadzerFormu();
             kmmf.dispose();
         }

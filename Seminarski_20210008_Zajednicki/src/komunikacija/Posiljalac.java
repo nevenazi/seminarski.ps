@@ -22,11 +22,15 @@ public class Posiljalac {
         this.socket = socket;
     }
     
-    public void posalji(Object object) throws IOException{
+    public void posalji(Object object){
         
-            ObjectOutputStream out=new ObjectOutputStream(socket.getOutputStream());
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             out.writeObject(object);
             out.flush();
+        } catch (IOException iOException) {
+            iOException.printStackTrace();
+        } 
         
     }
 }

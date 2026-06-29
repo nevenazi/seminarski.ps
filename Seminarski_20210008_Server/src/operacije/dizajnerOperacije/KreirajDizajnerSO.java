@@ -16,7 +16,7 @@ public class KreirajDizajnerSO extends ApstraktnaGenerickaOperacija {
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param==null || !(param instanceof Dizajner)){
-            throw new Exception("Sistem ne može da zapamti dizajnera.");
+            throw new Exception("Prosleđeni parametar nije dizajner.");
         }
         
         Dizajner d=(Dizajner)param;

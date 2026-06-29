@@ -12,13 +12,14 @@ import operacije.ApstraktnaGenerickaOperacija;
  *
  * @author N
  */
-public class PretraziMarketingMenadzerSO extends ApstraktnaGenerickaOperacija {
+public class UcitajMarketingMenadzerSO extends ApstraktnaGenerickaOperacija {
 
-    List<MarketingMenadzer> menadzeri;
+    MarketingMenadzer mMenadzer;
 
-    public List<MarketingMenadzer> getMenadzeri() {
-        return menadzeri;
+    public MarketingMenadzer getmMenadzer() {
+        return mMenadzer;
     }
+
     
     
     @Override
@@ -30,7 +31,11 @@ public class PretraziMarketingMenadzerSO extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
-            menadzeri=broker.getAll(param,kljuc);
-        }
+        List<MarketingMenadzer> lista=broker.getAll(param, "WHERE "+((MarketingMenadzer)param).vratiPrimatniKljuc());
+        if (lista.isEmpty())
+            throw new Exception("Sistem ne može da nađe marketing menadžera.");
+        mMenadzer=lista.get(0);
+        
+    }
     
 }

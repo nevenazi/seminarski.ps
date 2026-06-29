@@ -6,20 +6,13 @@ package kontroleri;
 
 import forme.EvidencijaAngazmanaForma;
 import forme.model.ModelTabeleEvidencijaAngazmana;
-import forme.model.ModelTabeleMarketingMenadzer;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import komunikacija.Komunikacija;
 import model.Dizajner;
 import model.EvidencijaAngazmana;
@@ -61,9 +54,18 @@ public class EvidencijaAngazmanaFormaController {
                 }
                 ModelTabeleEvidencijaAngazmana mtea= (ModelTabeleEvidencijaAngazmana) eaf.getjTableEvidencijaAngazmana().getModel();
                 EvidencijaAngazmana ea=mtea.getLista().get(red);
+                //ucitavanje evidencije iz baze koja je izabrana
+                EvidencijaAngazmana ucitanaEvidencija;
+                try {
+                    ucitanaEvidencija=Komunikacija.getInstance().ucitajEvidencijaAngazmana(ea);
+                } catch (Exception ex) {
+                    Logger.getLogger(EvidencijaAngazmanaFormaController.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(eaf, "Sistem ne može da nađe evidenciju angažmana.", "Greška", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 JOptionPane.showMessageDialog(eaf, "Sistem je našao evidenciju angažmana.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                 
-                Koordinator.getInstance().dodajParametar("evidencija angažmana", ea);
+                Koordinator.getInstance().dodajParametar("evidencija angažmana", ucitanaEvidencija);
                 Koordinator.getInstance().otvoriPromeniEvidencijaAngazmanaFormu();
             }
         });
@@ -78,9 +80,18 @@ public class EvidencijaAngazmanaFormaController {
                 }
                 ModelTabeleEvidencijaAngazmana mtea= (ModelTabeleEvidencijaAngazmana) eaf.getjTableEvidencijaAngazmana().getModel();
                 EvidencijaAngazmana ea=mtea.getLista().get(red);
+                //ucitavanje evidencije iz baze koja je izabrana
+                EvidencijaAngazmana ucitanaEvidencija;
+                try {
+                    ucitanaEvidencija=Komunikacija.getInstance().ucitajEvidencijaAngazmana(ea);
+                } catch (Exception ex) {
+                    Logger.getLogger(EvidencijaAngazmanaFormaController.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(eaf, "Sistem ne može da nađe evidenciju angažmana.", "Greška", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 JOptionPane.showMessageDialog(eaf, "Sistem je našao evidenciju angažmana.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                 
-                Koordinator.getInstance().dodajParametar("evidencija angažmana", ea);
+                Koordinator.getInstance().dodajParametar("evidencija angažmana", ucitanaEvidencija);
                 Koordinator.getInstance().otvoriPrikaziEvidencijaAngazmanaFormu();
             }
         });
@@ -142,9 +153,9 @@ public class EvidencijaAngazmanaFormaController {
         //kompanije
         List<Kompanija> kompanije=new ArrayList<>();
         try {
-            kompanije=Komunikacija.getInstance().ucitajKompanije();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(eaf, "Sistem ne može da nađe kompanije.","Greška", JOptionPane.ERROR_MESSAGE);
+            kompanije=Komunikacija.getInstance().vratiSveKompanija();
+        } catch (Exception ex) {
+            Logger.getLogger(EvidencijaAngazmanaFormaController.class.getName()).log(Level.SEVERE, null, ex);
         }
         eaf.getjComboBoxKompanija().removeAllItems();
         eaf.getjComboBoxKompanija().addItem(null);
@@ -155,11 +166,9 @@ public class EvidencijaAngazmanaFormaController {
         //menadzeri
         List<MarketingMenadzer> menadzeri=new ArrayList<>();
         try {
-            menadzeri = Komunikacija.getInstance().ucitajMarketingMenadzere();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(eaf, "Sistem ne može da nađe marketing menadžere.","Greška", JOptionPane.ERROR_MESSAGE);
+            menadzeri = Komunikacija.getInstance().vratiSveMarketingMenadzer();
+        } catch (Exception ex) {
             Logger.getLogger(EvidencijaAngazmanaFormaController.class.getName()).log(Level.SEVERE, null, ex);
-            return;
         }
         eaf.getjComboBoxMarketingMenadzer().removeAllItems();
         eaf.getjComboBoxMarketingMenadzer().addItem(null);
@@ -170,11 +179,9 @@ public class EvidencijaAngazmanaFormaController {
         //dizajneri
         List<Dizajner> dizajneri=new ArrayList<>();
         try {
-            dizajneri = Komunikacija.getInstance().ucitajDizajnere();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(eaf, "Sistem ne može da nađe dizajnere.","Greška", JOptionPane.ERROR_MESSAGE);
+            dizajneri = Komunikacija.getInstance().vratiSveDizajner();
+        } catch (Exception ex) {
             Logger.getLogger(EvidencijaAngazmanaFormaController.class.getName()).log(Level.SEVERE, null, ex);
-            return;
         }
         eaf.getjComboBoxDizajner().removeAllItems();
         eaf.getjComboBoxDizajner().addItem(null);
@@ -185,11 +192,9 @@ public class EvidencijaAngazmanaFormaController {
         //evidencije tabela
         List<EvidencijaAngazmana> evidencije=new ArrayList<>();
         try {
-            evidencije = Komunikacija.getInstance().ucitajEvidencijeAngazmana();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(eaf, "Sistem ne može da nađe evidencije angažmana.","Greška", JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(MMenadzerFormaController.class.getName()).log(Level.SEVERE, null, ex);
-            return;
+            evidencije = Komunikacija.getInstance().vratiSveEvidencijaAngazmana();
+        } catch (Exception ex) {
+            Logger.getLogger(EvidencijaAngazmanaFormaController.class.getName()).log(Level.SEVERE, null, ex);
         }
         ModelTabeleEvidencijaAngazmana mtea=new ModelTabeleEvidencijaAngazmana(evidencije);
         eaf.getjTableEvidencijaAngazmana().setModel(mtea);

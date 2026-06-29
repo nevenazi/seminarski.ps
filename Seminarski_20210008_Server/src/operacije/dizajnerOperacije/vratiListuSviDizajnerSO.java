@@ -23,7 +23,7 @@ public class VratiListuSviDizajnerSO extends ApstraktnaGenerickaOperacija {
     @Override
     protected void preduslovi(Object param) throws Exception {
         if (param==null || !(param instanceof Dizajner)){
-            throw new Exception("Sistem ne može da nađe dizajnere po zadatim kriterijumima");
+            throw new Exception("Prosleđeni parametar nije dizajner.");
         }
     }
 

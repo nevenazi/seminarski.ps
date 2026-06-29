@@ -7,6 +7,8 @@ package kontroleri;
 import forme.UbaciSertifikatForma;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import komunikacija.Komunikacija;
 import model.Sertifikat;
@@ -54,6 +56,7 @@ public class UbaciSertifikatFormaController {
                     usf.dispose();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(usf, "Sistem ne može da zapamti sertifikat.", "Greška", JOptionPane.ERROR_MESSAGE);
+                    Logger.getLogger(UbaciSertifikatFormaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
             }

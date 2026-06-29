@@ -24,13 +24,13 @@ public class VratiListuSviEvidencijaAngazmanaSO extends ApstraktnaGenerickaOpera
     @Override
     protected void preduslovi(Object param) throws Exception {
         if (param==null || !(param instanceof EvidencijaAngazmana)){
-            throw new Exception("Sistem ne može da nađe evidencije angažmana po zadatim kriterijumima");
+            throw new Exception("Prosleđeni parametar nije evidencija angažmana.");
         }
     }
 
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
-        evidencije=broker.getAll(param," ORDER BY evidencijaAngazmana.idEvidencijaAngazmana ASC , stavkaangazmana.rb ASC");
+            evidencije=broker.getAll(param," ORDER BY evidencijaAngazmana.idEvidencijaAngazmana ASC , stavkaangazmana.rb ASC");
         
     }
     

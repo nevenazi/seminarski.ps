@@ -17,7 +17,7 @@ public class ObrisiKompanijaSO extends ApstraktnaGenerickaOperacija {
     protected void preduslovi(Object param) throws Exception {
         
         if(param==null || !(param instanceof Kompanija) || ((Kompanija) param).getIdKompanija()<=0){
-            throw new Exception("Sistem ne može da obriše kompaniju");
+            throw new Exception("Prosleđeni parametar nije kompanija.");
         }
     }
 

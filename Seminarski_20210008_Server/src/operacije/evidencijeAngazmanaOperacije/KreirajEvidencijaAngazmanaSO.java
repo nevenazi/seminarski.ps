@@ -22,13 +22,13 @@ public class KreirajEvidencijaAngazmanaSO extends ApstraktnaGenerickaOperacija {
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param==null || !(param instanceof EvidencijaAngazmana)){
-            throw new Exception("Sistem ne može da zapamti evidenciju angažmana.");
+            throw new Exception("Prosleđeni parametar nije evidencija angažmana.");
         }
         EvidencijaAngazmana ea= (EvidencijaAngazmana) param;
         if(ea.getDizajner()==null || !(ea.getDizajner() instanceof Dizajner) || ea.getMarketingMenadzer()==null 
                 || !(ea.getMarketingMenadzer() instanceof MarketingMenadzer) || ea.getRok()==null 
                 || ea.getStavkeAngazmana()==null || ea.getStavkeAngazmana().isEmpty()|| ea.getUkupanIznos()<0){
-            throw new Exception("Greška u unosu podataka o evidenciji angažmana.");
+            throw new Exception("Greška u unosu podataka evidencije angažmana.");
         }
         
         
@@ -36,22 +36,19 @@ public class KreirajEvidencijaAngazmanaSO extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
-        try {
-            EvidencijaAngazmana ea = (EvidencijaAngazmana) param;
-            PreparedStatement ps = broker.add(ea);
-            ResultSet keys = ps.getGeneratedKeys();
-            keys.next();
-            int id = keys.getInt(1);
-            ea.setIdEvidencijaAngazmana(id);
+        
+        EvidencijaAngazmana ea = (EvidencijaAngazmana) param;
+        PreparedStatement ps = broker.add(ea);
+        ResultSet keys = ps.getGeneratedKeys();
+        keys.next();
+        int id = keys.getInt(1);
+        ea.setIdEvidencijaAngazmana(id);
 
-            for (StavkaAngazmana stavka : ea.getStavkeAngazmana()) {
-                stavka.setEvidencijaAngazmana(ea);
-                broker.add(stavka);
-            }
-        } catch (Exception e) {
-            System.err.println("Greška u dodavanju evidencije sa stavkama: " + e.getMessage());
-            throw e;
+        for (StavkaAngazmana stavka : ea.getStavkeAngazmana()) {
+            stavka.setEvidencijaAngazmana(ea);
+            broker.add(stavka);
         }
+        
     }
     
 }

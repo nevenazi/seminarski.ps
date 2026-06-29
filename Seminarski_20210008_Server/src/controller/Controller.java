@@ -19,6 +19,7 @@ import operacije.dizajnerOperacije.VratiListuSviDizajnerSO;
 import operacije.evidencijeAngazmanaOperacije.KreirajEvidencijaAngazmanaSO;
 import operacije.evidencijeAngazmanaOperacije.PretraziEvidencijaAngazmanaSO;
 import operacije.evidencijeAngazmanaOperacije.PromeniEvidencijaAngazmanaSO;
+import operacije.evidencijeAngazmanaOperacije.UcitajEvidencijaAngazmanaSO;
 import operacije.evidencijeAngazmanaOperacije.VratiListuSviEvidencijaAngazmanaSO;
 import operacije.kompanijaOperacije.KreirajKompanijaSO;
 import operacije.kompanijaOperacije.ObrisiKompanijaSO;
@@ -28,6 +29,7 @@ import operacije.marketingMenadzerOperacije.KreirajMarketingMenadzerSO;
 import operacije.marketingMenadzerOperacije.ObrisiMarketingMenadzerSO;
 import operacije.marketingMenadzerOperacije.PretraziMarketingMenadzerSO;
 import operacije.marketingMenadzerOperacije.PromeniMarketingMenadzerSO;
+import operacije.marketingMenadzerOperacije.UcitajMarketingMenadzerSO;
 import operacije.marketingMenadzerOperacije.VratiListuSviMarketingMenadzerSO;
 import operacije.sertifikatOperacije.UbaciSertifikatSO;
 import operacije.sertifikatOperacije.VratiListuSviSertifikatSO;
@@ -80,7 +82,7 @@ public class Controller {
         o.izvrsi(d, null);
     }
 
-    public List<Kompanija> vratiListuSviKompanije() throws Exception {
+    public List<Kompanija> vratiListuSviKompanija() throws Exception {
         VratiListuSviKompanijaSO o=new VratiListuSviKompanijaSO();
         o.izvrsi(new Kompanija(), null);
         return o.getKompanije();
@@ -169,5 +171,16 @@ public class Controller {
         o.izvrsi(evidencija, null);
     }
     
+    public EvidencijaAngazmana ucitajEvidencijaAngazmana(EvidencijaAngazmana evidencija) throws Exception {
+        UcitajEvidencijaAngazmanaSO o=new UcitajEvidencijaAngazmanaSO();
+        o.izvrsi(evidencija, null);
+        return o.getEvidencija();
+    }
+    
+    public MarketingMenadzer ucitajMarketingMenadzer(MarketingMenadzer mm) throws Exception {
+        UcitajMarketingMenadzerSO o=new UcitajMarketingMenadzerSO();
+        o.izvrsi(mm, null);
+        return o.getmMenadzer();
+    }
     
 }

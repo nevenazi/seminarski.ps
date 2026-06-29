@@ -16,19 +16,17 @@ public class PromeniDizajnerSO extends ApstraktnaGenerickaOperacija {
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param==null || !(param instanceof Dizajner)||((Dizajner)param).getIdDizajner()<=0){
-            throw new Exception("Sistem ne može da zapamti dizajnera.");
+            throw new Exception("Prosleđeni parametar nije dizajner.");
         }
         Dizajner d=(Dizajner)param;
         if (d.getIme()==null || d.getIme().isEmpty() || d.getPrezime()==null || d.getPrezime().isEmpty() || d.getKorisnickoIme()==null || d.getKorisnickoIme().isEmpty()
                 || d.getSifra()==null || d.getSifra().isEmpty()|| d.getSifra().length()<6){
             throw new Exception("Greška u unosu podataka dizajnera.");
-        }  
-        System.out.println(param.toString()+"SOpredusl222");
+        }
     }
 
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
-        System.out.println(param.toString()+"SO");
         broker.edit((Dizajner)param);
     }
     

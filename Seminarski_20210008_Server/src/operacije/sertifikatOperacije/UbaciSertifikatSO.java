@@ -17,7 +17,7 @@ public class UbaciSertifikatSO extends ApstraktnaGenerickaOperacija {
     protected void preduslovi(Object param) throws Exception {
         
         if(param==null || !(param instanceof Sertifikat)){
-            throw new Exception("Sistem ne može da zapamti sertifikat.");
+            throw new Exception("Prosleđeni parametar nije sertifikat.");
         }
         
         Sertifikat s=(Sertifikat) param;

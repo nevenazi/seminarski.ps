@@ -49,7 +49,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         jMenu7.setText("jMenu7");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Softverski sistem za evidenciju angažmana dizajnera");
+        setTitle("Softverski sistem za evidenciju angažmana grafičkog dizajnera");
 
         jLabel1.setText("Ulogovani ste kao:");
 

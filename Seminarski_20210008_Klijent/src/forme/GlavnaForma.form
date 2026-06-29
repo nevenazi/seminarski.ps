@@ -104,7 +104,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="Softverski sistem za evidenciju anga&#x17e;mana dizajnera"/>
+    <Property name="title" type="java.lang.String" value="Softverski sistem za evidenciju anga&#x17e;mana grafi&#x10d;kog dizajnera"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>

@@ -17,7 +17,7 @@ public class KreirajKompanijaSO extends ApstraktnaGenerickaOperacija {
     protected void preduslovi(Object param) throws Exception {
         
         if(param==null || !(param instanceof Kompanija)){
-            throw new Exception("Sistem ne može da zapamti kompaniju.");
+            throw new Exception("Prosleđeni parametar nije kompanija.");
         }
         
         Kompanija k=(Kompanija) param;

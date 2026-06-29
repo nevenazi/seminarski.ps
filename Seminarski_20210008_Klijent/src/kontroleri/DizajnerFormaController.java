@@ -8,7 +8,6 @@ import forme.DizajnerForma;
 import forme.model.ModelTabeleDizajner;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -32,7 +31,6 @@ public class DizajnerFormaController {
     
     public void otvoriFormu(){
         pripremiFormu();
-        //df.setVisible(true);
     }
 
     private void addActionListeners() {
@@ -41,7 +39,7 @@ public class DizajnerFormaController {
             public void actionPerformed(ActionEvent e) {
                 int red=df.getjTableDizajner().getSelectedRow();
                 if (red==-1) {
-                    JOptionPane.showMessageDialog(df, "Sistem ne može da nađe dizajnera.", "Greška", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(df, "Sistem ne može da nađe dizajnera.", "Greška", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 ModelTabeleDizajner mtd= (ModelTabeleDizajner) df.getjTableDizajner().getModel();
@@ -54,10 +52,13 @@ public class DizajnerFormaController {
                 int potvrda=JOptionPane.showOptionDialog(df, poruka, "Potvrda", 1, JOptionPane.WARNING_MESSAGE,null,opcije,opcije[1]);
                 if (potvrda==0){
                     try {
-                        Komunikacija.getInstance().obrisiDizajnera(d);
+                        if (d.equals(Koordinator.getInstance().getUlogovaniKorisnik()))
+                            throw new Exception("Korisnik ne može da obriše samog sebe.");
+                        Komunikacija.getInstance().obrisiDizajner(d);
                         JOptionPane.showMessageDialog(df, "Sistem je obrisao dizajnera.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                         pripremiFormu();
                     } catch (Exception ex) {
+                        Logger.getLogger(DizajnerFormaController.class.getName()).log(Level.SEVERE, null, ex);
                         JOptionPane.showMessageDialog(df, "Sistem ne može da obriše dizajnera.", "Greška", JOptionPane.WARNING_MESSAGE);
                     }
                 }
@@ -75,7 +76,7 @@ public class DizajnerFormaController {
             public void actionPerformed(ActionEvent e) {
                 int red=df.getjTableDizajner().getSelectedRow();
                 if (red==-1) {
-                    JOptionPane.showMessageDialog(df, "Sistem ne može da nađe dizajnera.", "Greška", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(df, "Sistem ne može da nađe dizajnera.", "Greška", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 ModelTabeleDizajner mtd= (ModelTabeleDizajner) df.getjTableDizajner().getModel();
@@ -97,8 +98,8 @@ public class DizajnerFormaController {
                 List<Dizajner> dizajneri=new ArrayList<>();
                         
                 try {
-                    dizajneri=filtriraj(Komunikacija.getInstance().ucitajDizajnere(),ime,prezime,korisnickoIme);
-                } catch (IOException ex) {
+                    dizajneri=filtriraj(Komunikacija.getInstance().vratiSveDizajner(),ime,prezime,korisnickoIme);
+                } catch (Exception ex) {
                     JOptionPane.showMessageDialog(df, "Sistem ne može da nađe dizajnere po zadatim kriterijumima","Greška", JOptionPane.ERROR_MESSAGE);
                     Logger.getLogger(DizajnerFormaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -129,7 +130,7 @@ public class DizajnerFormaController {
             public void actionPerformed(ActionEvent e) {
                 int red=df.getjTableDizajner().getSelectedRow();
                 if (red==-1) {
-                    JOptionPane.showMessageDialog(df, "Sistem ne može da nađe dizajnera.", "Greška", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(df, "Sistem ne može da nađe dizajnera.", "Greška", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 ModelTabeleDizajner mtd= (ModelTabeleDizajner) df.getjTableDizajner().getModel();
@@ -143,11 +144,11 @@ public class DizajnerFormaController {
     
     public List<Dizajner> filtriraj(List<Dizajner> dizajneri, String ime, String prezime, String korisnickoIme){
         
-    List<Dizajner> filtriranaLista = dizajneri.stream()
-    .filter(d -> (ime == null || ime.isEmpty() || d.getIme().toLowerCase().contains(ime.toLowerCase())))
-    .filter(d -> (prezime == null || prezime.isEmpty() || d.getPrezime().toLowerCase().contains(prezime.toLowerCase())))
-    .filter(d -> (korisnickoIme == null || korisnickoIme.isEmpty() || d.getKorisnickoIme().toLowerCase().contains(korisnickoIme.toLowerCase())))
-    .collect(Collectors.toList());
+        List<Dizajner> filtriranaLista = dizajneri.stream()
+        .filter(d -> (ime == null || ime.isEmpty() || d.getIme().toLowerCase().contains(ime.toLowerCase())))
+        .filter(d -> (prezime == null || prezime.isEmpty() || d.getPrezime().toLowerCase().contains(prezime.toLowerCase())))
+        .filter(d -> (korisnickoIme == null || korisnickoIme.isEmpty() || d.getKorisnickoIme().toLowerCase().contains(korisnickoIme.toLowerCase())))
+        .collect(Collectors.toList());
     
     return filtriranaLista;
 
@@ -160,11 +161,9 @@ public class DizajnerFormaController {
         df.getjTextFieldKorisnickoIme().setText("");
         List<Dizajner> dizajneri=new ArrayList<>();
         try {
-            dizajneri = Komunikacija.getInstance().ucitajDizajnere();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(df, "Sistem ne može da nađe dizajnere.","Greška", JOptionPane.ERROR_MESSAGE);
+            dizajneri = Komunikacija.getInstance().vratiSveDizajner();
+        } catch (Exception ex) {
             Logger.getLogger(DizajnerFormaController.class.getName()).log(Level.SEVERE, null, ex);
-            return;
         }
         ModelTabeleDizajner mtd=new ModelTabeleDizajner(dizajneri);
         df.getjTableDizajner().setModel(mtd);

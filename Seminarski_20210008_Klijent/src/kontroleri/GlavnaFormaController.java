@@ -5,7 +5,6 @@
 package kontroleri;
 
 import forme.GlavnaForma;
-import javax.swing.JLabel;
 
 /**
  *
@@ -17,7 +16,6 @@ public class GlavnaFormaController {
 
     public GlavnaFormaController(GlavnaForma gf) {
         this.gf = gf;
-        addActionListeners();
     }
     
     
@@ -27,9 +25,7 @@ public class GlavnaFormaController {
         gf.getjLabelUlogovan().setText(ulogovani);
     }
 
-    private void addActionListeners() {
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 
     void zatvoriFormu() {
         gf.dispose();

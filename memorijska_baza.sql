@@ -9,10 +9,10 @@ CREATE TABLE dizajner (
 );
 
 INSERT INTO dizajner (idDizajner, ime, prezime, korisnickoIme, sifra) VALUES 
-(1,'Ana','Petrović','anapet','anapet'),
-(2,'Marko','Jović','markojov','markojov'),
-(3,'Una','Milić','unamil','unamil'),
-(4,'Filip','Kostić','filipkos','filipkos');
+(1,'Ana','Petrovic','anapet','anapet'),
+(2,'Marko','Jovic','markojov','markojov'),
+(3,'Una','Milic','unamil','unamil'),
+(4,'Filip','Kostic','filipkos','filipkos');
 
 
 DROP TABLE sertifikat IF EXISTS;
@@ -29,7 +29,7 @@ INSERT INTO sertifikat VALUES
 (3,'Google UX Design','Google'),
 (4,'Photoshop masterclass','Adobe'),
 (5,'Fundamentals of graphic design','Califormia Institute of Arts'),
-(6,'Kurs grafičkog dizajna','Fakultet primenjenih umetnosti'),
+(6,'Kurs grafickog dizajna','Fakultet primenjenih umetnosti'),
 (7,'Photoshop begginers course','Canva');
 
 
@@ -45,7 +45,7 @@ INSERT INTO kompanija VALUES
 (1,'Yettel','https://www.yettel.rs'),
 (2,'Decathlon','https://www.decathlon.rs/'),
 (3,'Polovni automobili','https://www.polovniautomobili.com/'),
-(4,'Tašnolinaa','https://tasnolinatorbice.rs/'),
+(4,'Tasnolinaa','https://tasnolinatorbice.rs/'),
 (7,'Univer Export','https://www.univerexport.rs/');
 
 
@@ -62,10 +62,10 @@ CREATE TABLE marketingmenadzer (
 );
 
 INSERT INTO marketingmenadzer VALUES 
-(1,'Jana','Tošić','+38162222222','anatosic@gmail.com',2),
-(2,'Mihajlo','Mitrović','+381633333333','mihajlomit@gmail.com',4),
-(3,'Luka','Ranđelović','+381611115555','lukaluka@yettel.com',1),
-(5,'Petra','Filipović','+381611231234','petrafilipovic@gmail.com',7);
+(1,'Jana','Tosic','+38162222222','anatosic@gmail.com',2),
+(2,'Mihajlo','Mitrovic','+381633333333','mihajlomit@gmail.com',4),
+(3,'Luka','Randjelovic','+381611115555','lukaluka@yettel.com',1),
+(5,'Petra','Filipovic','+381611231234','petrafilipovic@gmail.com',7);
 
 
 DROP TABLE dizajnersertifikat IF EXISTS;

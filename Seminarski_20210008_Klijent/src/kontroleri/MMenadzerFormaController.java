@@ -8,7 +8,6 @@ import forme.MarketingMenadzerForma;
 import forme.model.ModelTabeleMarketingMenadzer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -33,7 +32,6 @@ public class MMenadzerFormaController {
     
     public void otvoriFormu(){
         pripremiFormu();
-        //df.setVisible(true);
     }
 
     private void addActionListeners() {
@@ -47,18 +45,28 @@ public class MMenadzerFormaController {
                 }
                 ModelTabeleMarketingMenadzer mtmm= (ModelTabeleMarketingMenadzer) mmf.getjTableMarketingMenadzer().getModel();
                 MarketingMenadzer mm=mtmm.getLista().get(red);
-                String poruka="Sistem je našao marketing menažera:\n Ime: "+mm.getIme()+"\n Prezime: "+mm.getPrezime()
-                        +"\n Email: "+mm.getEmail()+"\n Telefon: "+mm.getTelefon()+"\n\nDa li ste sigurni da želite da izvršite brisanje?\n\n";
+                //ucitavanje izabranog menadzera iz baze
+                MarketingMenadzer ucitaniMM;
+                try {
+                    ucitaniMM=Komunikacija.getInstance().ucitajMarketingMenadzer(mm);
+                } catch (Exception ex) {
+                    Logger.getLogger(MMenadzerFormaController.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(mmf, "Sistem ne može da nađe marketing menažera.", "Greška", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                String poruka="Sistem je našao marketing menažera:\n Ime: "+ucitaniMM.getIme()+"\n Prezime: "+ucitaniMM.getPrezime()
+                        +"\n Email: "+ucitaniMM.getEmail()+"\n Telefon: "+ucitaniMM.getTelefon()+"\n\nDa li ste sigurni da želite da izvršite brisanje?\n\n";
                 String[] opcije=new String[2];
                 opcije[0]="Obriši";
                 opcije[1]="Odustani";
                 int potvrda=JOptionPane.showOptionDialog(mmf, poruka, "Potvrda", 1, JOptionPane.WARNING_MESSAGE,null,opcije,opcije[1]);
                 if (potvrda==0){
                     try {
-                      Komunikacija.getInstance().obrisiMarketingMenadzera(mm);
+                      Komunikacija.getInstance().obrisiMarketingMenadzer(mm);
                       JOptionPane.showMessageDialog(mmf, "Sistem je obrisao marketing menažera.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                       pripremiFormu();
                   } catch (Exception ex) {
+                      Logger.getLogger(MMenadzerFormaController.class.getName()).log(Level.SEVERE, null, ex);
                       JOptionPane.showMessageDialog(mmf, "Sistem ne može da obriše marketing menažera.", "Greška", JOptionPane.ERROR_MESSAGE);
                   }  
                 }
@@ -82,9 +90,18 @@ public class MMenadzerFormaController {
                 }
                 ModelTabeleMarketingMenadzer mtmm= (ModelTabeleMarketingMenadzer) mmf.getjTableMarketingMenadzer().getModel();
                 MarketingMenadzer mm=mtmm.getLista().get(red);
+                //ucitavanje izabranog menadzera iz baze
+                MarketingMenadzer ucitaniMM;
+                try {
+                    ucitaniMM=Komunikacija.getInstance().ucitajMarketingMenadzer(mm);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(mmf, "Sistem ne može da nađe marketing menažera.", "Greška", JOptionPane.ERROR_MESSAGE);
+                    Logger.getLogger(MMenadzerFormaController.class.getName()).log(Level.SEVERE, null, ex);
+                    return;
+                }
                 JOptionPane.showMessageDialog(mmf, "Sistem je našao marketing menažera.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                 
-                Koordinator.getInstance().dodajParametar("marketing menadžer", mm);
+                Koordinator.getInstance().dodajParametar("marketing menadžer", ucitaniMM);
                 Koordinator.getInstance().otvoriPromeniMarketingMenadzerFormu();
             }
         });
@@ -105,11 +122,10 @@ public class MMenadzerFormaController {
                 try {
                     menadzeri=filtriraj(Komunikacija.getInstance().pretraziMarketingMenadzer(uslovMM),ime,prezime);
                     
-                } catch (IOException ex) {
+                } catch (Exception ex) {
                     JOptionPane.showMessageDialog(mmf, "Sistem ne može da nađe marketing menadžere po zadatim kriterijumima","Greška", JOptionPane.ERROR_MESSAGE);
                     Logger.getLogger(MMenadzerFormaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
                 ModelTabeleMarketingMenadzer mtmm=new ModelTabeleMarketingMenadzer(menadzeri);
                 mmf.getjTableMarketingMenadzer().setModel(mtmm);
                 JOptionPane.showMessageDialog(mmf, "Sistem je našao marketing menadžere po zadatim kriterijumima","Uspeh", JOptionPane.INFORMATION_MESSAGE);
@@ -141,9 +157,18 @@ public class MMenadzerFormaController {
                 }
                 ModelTabeleMarketingMenadzer mtmm= (ModelTabeleMarketingMenadzer) mmf.getjTableMarketingMenadzer().getModel();
                 MarketingMenadzer mm=mtmm.getLista().get(red);
+                //ucitavanje izabranog menadzera iz baze
+                MarketingMenadzer ucitaniMM;
+                try {
+                    ucitaniMM=Komunikacija.getInstance().ucitajMarketingMenadzer(mm);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(mmf, "Sistem ne može da nađe marketing menadžera.", "Greška", JOptionPane.ERROR_MESSAGE);
+                    Logger.getLogger(MMenadzerFormaController.class.getName()).log(Level.SEVERE, null, ex);
+                    return;
+                }
                 JOptionPane.showMessageDialog(mmf, "Sistem je našao marketing menažera.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                 
-                Koordinator.getInstance().dodajParametar("marketing menadžer", mm);
+                Koordinator.getInstance().dodajParametar("marketing menadžer", ucitaniMM);
                 Koordinator.getInstance().otvoriPrikaziMarketingMenadzerFormu();
             }
         });
@@ -167,9 +192,9 @@ public class MMenadzerFormaController {
         List<Kompanija> kompanije=new ArrayList<>();
         
         try {
-            kompanije=Komunikacija.getInstance().ucitajKompanije();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(mmf, "Sistem ne može da nađe kompanije.","Greška", JOptionPane.ERROR_MESSAGE);
+            kompanije=Komunikacija.getInstance().vratiSveKompanija();
+        } catch (Exception ex) {
+            Logger.getLogger(MMenadzerFormaController.class.getName()).log(Level.SEVERE, null, ex);
         }
         mmf.getjComboBox1().removeAllItems();
         mmf.getjComboBox1().addItem(null);
@@ -178,11 +203,9 @@ public class MMenadzerFormaController {
         }
         List<MarketingMenadzer> menadzeri=new ArrayList<>();
         try {
-            menadzeri = Komunikacija.getInstance().ucitajMarketingMenadzere();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(mmf, "Sistem ne može da nađe marketing menadžere.","Greška", JOptionPane.ERROR_MESSAGE);
+            menadzeri = Komunikacija.getInstance().vratiSveMarketingMenadzer();
+        } catch (Exception ex) {
             Logger.getLogger(MMenadzerFormaController.class.getName()).log(Level.SEVERE, null, ex);
-            return;
         }
         ModelTabeleMarketingMenadzer mtmm=new ModelTabeleMarketingMenadzer(menadzeri);
         mmf.getjTableMarketingMenadzer().setModel(mtmm);

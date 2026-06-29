@@ -8,10 +8,10 @@ import forme.SertifikatForma;
 import forme.model.ModelTabeleSertifikat;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import komunikacija.Komunikacija;
 import model.Sertifikat;
 
@@ -60,10 +60,9 @@ public class SertifikatFormaController {
         
         List<Sertifikat> sertifikati=new ArrayList<>();
         try {
-            sertifikati = Komunikacija.getInstance().ucitajSertifikate();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(sf, "Sistem ne može da nađe sertifikate.","Greška", JOptionPane.ERROR_MESSAGE);
-            return;
+            sertifikati = Komunikacija.getInstance().vratiSveSertifikat();
+        } catch (Exception ex) {
+            Logger.getLogger(SertifikatFormaController.class.getName()).log(Level.SEVERE, null, ex);
         }
         ModelTabeleSertifikat mts=new ModelTabeleSertifikat(sertifikati);
         sf.getjTableSertifikat().setModel(mts);
