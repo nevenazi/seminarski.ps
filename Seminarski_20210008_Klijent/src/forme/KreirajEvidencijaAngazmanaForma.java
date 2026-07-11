@@ -122,8 +122,6 @@ public class KreirajEvidencijaAngazmanaForma extends javax.swing.JFrame {
 
         jLabel9.setText("rok (dd.MM.yyyy.):");
 
-        jTextFieldRok.setText("11.03.2027.");
-
         jLabel10.setText("STAVKA EVIDENCIJE ANGAŽMANA");
 
         jLabel11.setText("količina:");

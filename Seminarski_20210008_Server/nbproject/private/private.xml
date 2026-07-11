@@ -21,9 +21,11 @@
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/dizajnerOperacije/KreirajDizajnerSO.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/test/operacije/dizajnerOperacije/PrijaviDizajnerSOTest.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/evidencijeAngazmanaOperacije/PromeniEvidencijaAngazmanaSO.java</file>
+            <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/marketingMenadzerOperacije/UcitajMarketingMenadzerSO.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/konfiguracija/Konfiguracija.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/ApstraktnaGenerickaOperacija.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/main/Main.java</file>
+            <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/server/PokreniServer.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/forme/ServerskaForma.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/test/operacije/marketingMenadzerOperacije/ObrisiMarketingMenadzerSOTest.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/kompanijaOperacije/VratiListuSviKompanijaSO.java</file>
@@ -36,6 +38,7 @@
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/sertifikatOperacije/VratiListuSviSertifikatSO.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/evidencijeAngazmanaOperacije/VratiListuSviEvidencijaAngazmanaSO.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/evidencijeAngazmanaOperacije/PretraziEvidencijaAngazmanaSO.java</file>
+            <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/evidencijeAngazmanaOperacije/UcitajEvidencijaAngazmanaSO.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/repository/db/impl/DbRepositoryGeneric.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/tipVizualaOperacije/VratiListuSviTipVizualaSO.java</file>
             <file>file:/C:/Users/N/Documents/NetBeansProjects/Seminarski%20Projektovanje%20softvera/Seminarski_20210008_Server/src/operacije/dizajnerOperacije/VratiListuSviDizajnerSO.java</file>

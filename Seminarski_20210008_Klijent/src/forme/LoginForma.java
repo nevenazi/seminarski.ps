@@ -35,7 +35,7 @@ public class LoginForma extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextFieldUsername = new javax.swing.JTextField();
         jPasswordField = new javax.swing.JPasswordField();
-        jButtonUslogujSe = new javax.swing.JButton();
+        jButtonPrijaviSe = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Prijava dizajnera");
@@ -44,11 +44,13 @@ public class LoginForma extends javax.swing.JFrame {
 
         jLabel2.setText("password:");
 
-        jTextFieldUsername.setText("anapet");
+        jTextFieldUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldUsernameActionPerformed(evt);
+            }
+        });
 
-        jPasswordField.setText("anapet");
-
-        jButtonUslogujSe.setText("Uloguj se");
+        jButtonPrijaviSe.setText("Prijavi se");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -57,7 +59,7 @@ public class LoginForma extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(77, 77, 77)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonUslogujSe)
+                    .addComponent(jButtonPrijaviSe)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -80,7 +82,7 @@ public class LoginForma extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
-                .addComponent(jButtonUslogujSe)
+                .addComponent(jButtonPrijaviSe)
                 .addContainerGap(84, Short.MAX_VALUE))
         );
 
@@ -88,10 +90,14 @@ public class LoginForma extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextFieldUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldUsernameActionPerformed
+
     
 
-    public JButton getjButtonUslogujSe() {
-        return jButtonUslogujSe;
+    public JButton getjButtonPrijaviSe() {
+        return jButtonPrijaviSe;
     }
 
     public JPasswordField getjPasswordField() {
@@ -103,8 +109,8 @@ public class LoginForma extends javax.swing.JFrame {
         return jTextFieldUsername;
     }
 
-    public void setjButtonUslogujSe(JButton jButtonUslogujSe) {
-        this.jButtonUslogujSe = jButtonUslogujSe;
+    public void setjButtonPrijaviSe(JButton jButtonPrijaviSe) {
+        this.jButtonPrijaviSe = jButtonPrijaviSe;
     }
 
     public void setjPasswordField(JPasswordField jPasswordField) {
@@ -117,7 +123,7 @@ public class LoginForma extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonUslogujSe;
+    private javax.swing.JButton jButtonPrijaviSe;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField jPasswordField;
@@ -125,6 +131,6 @@ public class LoginForma extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void loginAddActionListener(ActionListener actionListener) {
-        jButtonUslogujSe.addActionListener(actionListener);
+        jButtonPrijaviSe.addActionListener(actionListener);
     }
 }

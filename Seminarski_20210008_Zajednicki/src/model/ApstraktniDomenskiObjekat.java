@@ -6,27 +6,27 @@ package model;
 
 import java.io.Serializable;
 import java.util.List;
-import java.sql.ResultSet; 
+import java.sql.ResultSet;
 
 /**
  *
  * @author N
  */
 public interface ApstraktniDomenskiObjekat extends Serializable {
-    
+
     public String vratiNazivTabele();
-    
+
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception;
-    
+
     public String vratiKoloneZaUbacivanje();
-    
+
     public String vratiVrednostZaUbacivanje();
-    
+
     public String vratiPrimatniKljuc();
-    
+
     public String vratiVrednostZaIzmenu();
-    
+
     public String join();
-    
+
     public String uslov();
 }

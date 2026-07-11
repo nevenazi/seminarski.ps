@@ -36,7 +36,7 @@ public class KreirajEvidencijaAngazmanaFormaController {
     
     public final KreirajEvidencijaAngazmanaForma keaf;
     private EvidencijaAngazmana evidencijaForme;
-    private final SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd.MM.yyyy");
+    private final SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd.MM.yyyy.");
 
     public KreirajEvidencijaAngazmanaFormaController(KreirajEvidencijaAngazmanaForma keaf) {
         this.keaf = keaf;
@@ -141,6 +141,7 @@ public class KreirajEvidencijaAngazmanaFormaController {
                     ModelTabeleStavkaAngazmana msa=new ModelTabeleStavkaAngazmana(stavke);
                     keaf.getjTableStavkeAngazmana().setModel(msa);
                     keaf.getjTextFieldUkupanIznos().setText(zbir+"");
+                    ocistiPoljaStavke();
                 }
             }
         });
@@ -165,6 +166,7 @@ public class KreirajEvidencijaAngazmanaFormaController {
                 
                 ModelTabeleStavkaAngazmana msa=new ModelTabeleStavkaAngazmana(stavke);
                 keaf.getjTableStavkeAngazmana().setModel(msa);
+                ocistiPoljaStavke();
             }
         });
         
@@ -268,6 +270,16 @@ public class KreirajEvidencijaAngazmanaFormaController {
             }
         });
         
+    }
+    
+    private void ocistiPoljaStavke(){
+        keaf.getjTextAreaOpis().setText("");
+        keaf.getjTextFieldCena().setText("");
+        keaf.getjTextFieldKolicina().setText("");
+        keaf.getjTextFieldKorekcijaIznosa().setText("");
+        keaf.getjTextFieldKorigovaniIznos().setText("");
+        keaf.getjTextFieldNekorigovaniIznos().setText("");
+        keaf.getjCheckBoxZavrsena().setSelected(false);
     }
     
     private void onemoguciFormu(){

@@ -56,12 +56,6 @@ public class KreirajMarketingMenadzerForma extends javax.swing.JFrame {
 
         jLabel4.setText("telefon:");
 
-        jTextFieldIme.setText("Petar");
-
-        jTextFieldPrezime.setText("Filipović");
-
-        jTextFieldEmail.setText("petarfilipovic@gmail.com");
-
         jButtonSacuvaj.setText("Sačuvaj");
         jButtonSacuvaj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,8 +71,6 @@ public class KreirajMarketingMenadzerForma extends javax.swing.JFrame {
         });
 
         JButtonZatvori.setText("Zatvori");
-
-        jTextFieldTelefon.setText("+381611231234");
 
         jLabel5.setText("kompanija");
 

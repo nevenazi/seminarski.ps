@@ -121,19 +121,10 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldIme">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Petar"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldPrezime">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Filipovi&#x107;"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldEmail">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="petarfilipovic@gmail.com"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonSacuvaj">
       <Properties>
@@ -157,9 +148,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldTelefon">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="+381611231234"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
